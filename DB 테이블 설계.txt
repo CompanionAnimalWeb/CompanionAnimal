@@ -1,0 +1,33 @@
+User 테이블
+  - id : 사용자의 id(기본키)
+ - password : 사용자의 비밀번호
+ - name : 사용자 이름
+ - phone : 사용자 전화번호
+
+Board 테이블
+ - board_idx : 게시글 고유번호(기본키)
+ - title : 게시글 제목
+ - content : 게시글 내용
+ - regdate : 게시글 작성 날짜
+ - id : 게시글 작성자의 아이디(외래키)
+
+Comment
+ -comment_idx : 댓글 고유번호(기본키)
+ - board_idx : 게시글 고유번호(외래키)
+ - id : 댓글 작성자
+ - content : 댓글 내용
+ - regdate : 댓글 작성 날짜
+
+Reply 테이블
+ - reply_idx : 답글 고유번호(기본키)
+ - comment_idx : 댓글 고유 번호(외래키)
+ - id : 답글 작성자
+ - content : 답글 내용
+ - regdate : 답글 작성 날짜
+
+Image 테이블
+ - image_idx : 이미지 파일 고유번호(기본키)
+ - board_idx : 게시글 고유번호(외래키)
+ - image_url : 이미지 주소
+
+ * 이미지 파일은 파일 시스템에 저장 
