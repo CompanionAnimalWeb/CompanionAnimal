@@ -16,14 +16,14 @@ Board 테이블
 Comment
  -comment_idx : 댓글 고유번호(기본키)
  - board_idx : 게시글 고유번호(외래키)
- - id : 댓글 작성자
+ - id : 댓글 작성자(외래키)
  - content : 댓글 내용
  - regdate : 댓글 작성 날짜
 
 Reply 테이블
  - reply_idx : 답글 고유번호(기본키)
  - comment_idx : 댓글 고유 번호(외래키)
- - id : 답글 작성자
+ - id : 답글 작성자(외래키)
  - content : 답글 내용
  - regdate : 답글 작성 날짜
 
