@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Board {
@@ -7,7 +8,7 @@ public class Board {
 	private int borderIdx;
 	private String title;
 	private String content;
-	private Date regDate;
+	private LocalDateTime regDate;
 	private String id;
 	
 	public int getBorderIdx() {
@@ -28,10 +29,10 @@ public class Board {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegDate() {
+	public LocalDateTime getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
+	public void setRegDate(LocalDateTime regDate) {
 		this.regDate = regDate;
 	}
 	public String getId() {

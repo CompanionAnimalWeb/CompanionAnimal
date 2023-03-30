@@ -30,6 +30,7 @@ public class UserRepositoryImpl implements UserRepository{
    //데이터 저장을 위한 insert
    @Override
    public void insert(MemberJoinController mjc) {
+	   System.out.println("insert 메서드 실행");
 	   String sql = "insert into User values(?,?,?,?)";
 	   int result = jdbcTemplate.update(sql,mjc.getInputId(),mjc.getInputPW(),mjc.getInputName(),mjc.getInputPhone());
 	   System.out.println(result + "개 행 삽입성공");
@@ -37,7 +38,7 @@ public class UserRepositoryImpl implements UserRepository{
 
    //User 정보를 매핑하는 RowMapper
    private RowMapper<User> userRowMapper() {
-	   System.out.println("RowMapper 실행");
+	   System.out.println("userRowMapper 메서드 실행");
 	    return (rs, rowNum) -> {
 	    	User user = new User();
 	    	user.setId(rs.getString("id"));
