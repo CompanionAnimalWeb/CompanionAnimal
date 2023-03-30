@@ -30,12 +30,34 @@ public class BoardController {
 		model.addAttribute("name",users.get(0).getName().toString());
 		model.addAttribute("phone",users.get(0).getPhone().toString());
 		model.addAttribute("test", "게시판 메인 페이지");
-        return "board";
+        return "board/community/main";
 	}
 	
-	@RequestMapping(value = "/write")
-	public static String write(Model model) {
-		model.addAttribute("test", "게시글 작성 페이지");
-        return "write";
+	// 커뮤니티 메인 페이지
+	@RequestMapping(value = "/community/main")
+	public static String communityMain(Model model) {
+		model.addAttribute("test", "게시판 메인 페이지");
+		return "board/community/main";
 	}
+	
+	// 커뮤니티 글 작성 
+    @RequestMapping(value="/community/write")
+    public String communityWrite() throws Exception {
+        return "/board/community/write";
+    }
+
+    
+	// 동물병원 메인 페이지
+	@RequestMapping(value = "/hospital/main")
+	public static String hospitalMain(Model model) {
+		model.addAttribute("test", "게시글 작성 페이지");
+        return "board/hospital/main";
+	}
+
+	// 동물 서비스 메인 페이지
+	@RequestMapping(value = "/service/main")
+	public static String serviceMain() {
+        return "board/service/main";
+	}
+
 }
