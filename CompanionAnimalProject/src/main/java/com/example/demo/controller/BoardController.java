@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.model.User;
+import com.example.demo.service.PlaceService;
 import com.example.demo.service.UserService;
 
 @Controller
@@ -15,6 +16,7 @@ import com.example.demo.service.UserService;
 public class BoardController {
 
 	private static UserService userService;
+	private static PlaceService placeService;
 
 
     @Autowired
@@ -55,9 +57,10 @@ public class BoardController {
 	}
 
 	// 동물 서비스 메인 페이지
-	@RequestMapping(value = "/service/main")
-	public static String serviceMain() {
-        return "board/service/main";
+	@RequestMapping(value = "/palce/main")
+	public static String placeMain(Model model) {
+		
+        return "board/place/main";
 	}
 
 }

@@ -1,3 +1,8 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -30,7 +35,6 @@
 </head>
 
 <body id="section_1">
-
 	<!-- header -->
 	<%@include file="../../fragments/header.jsp" %>
 	
@@ -38,6 +42,41 @@
 	<%@include file="../../fragments/nav.jsp" %>
 	
 	<main>		
+		<%
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try{
+				String jdbcDriver = "jdbc:mysql://localhost:3306/companionanimaldb";
+				String dbUser = "root";
+				String dbPwd = "mybatis";
+				
+				conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPwd);
+				
+				pstmt = conn.prepareStatement("select * from Service");
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()){
+					String name = rs.getString("name");
+					double latitude = rs.getDouble("latitude");
+					double longitude = rs.getDouble("longitude");
+					out.println("<script>");
+					out.println("var coffeePositions = []");
+					out.println("coffeePositions.push(new kakao.maps.LatLng("+latitude+"," +longitude+"));");
+					out.println("alert('coffeePositions[0]');");
+					out.println("</script>");
+				}
+			}catch(SQLException se){
+				se.printStackTrace();
+			}finally{
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}
+		%>
 		<section class="text-left" style="margin: auto; padding: 5% 0;">
 			<div class="container">
                 <div class="row">
@@ -80,9 +119,10 @@
 						var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 						
 						// 커피숍 마커가 표시될 좌표 배열입니다
-						var coffeePositions = [ 
-						    new kakao.maps.LatLng(35.1704, 128.1307)               
-						];
+						/* var coffeePositions = [ 
+						    new kakao.maps.LatLng(35.1704, 128.1307),
+						    new kakao.maps.LatLng(35.1743, 128.0445)               
+						]; */
 
 						// 편의점 마커가 표시될 좌표 배열입니다
 						var storePositions = [
