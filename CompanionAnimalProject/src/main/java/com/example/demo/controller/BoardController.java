@@ -4,15 +4,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.demo.model.User;
+import com.example.demo.model.Board;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.UserService;
 
@@ -75,19 +75,33 @@ public class BoardController {
 	@RequestMapping
 	public static String mainBoard(Model model) {
 		
-		List<User> users = userService.findUsers();
-		model.addAttribute("id",users.get(0).getId().toString());
-		model.addAttribute("name",users.get(0).getName().toString());
-		model.addAttribute("phone",users.get(0).getPhone().toString());
-		model.addAttribute("test", "게시판 메인 페이지");
+//		List<User> users = userService.findUsers();
+//		model.addAttribute("id",users.get(0).getId().toString());
+//		model.addAttribute("name",users.get(0).getName().toString());
+//		model.addAttribute("phone",users.get(0).getPhone().toString());
+//		model.addAttribute("test", "게시판 메인 페이지");
         return "board/community/main";
 	}
 	
 	// 커뮤니티 메인 페이지
 	@RequestMapping(value = "/community/main")
-	public static String communityMain(Model model) {
-		model.addAttribute("test", "게시판 메인 페이지");
-		return "board/community/main";
+	public String communityMain(Model model) {
+		
+		List<Board> board = boardService.findAllBoard();
+		System.out.println(board.get(0).getTitle());
+		model.addAttribute("boardList",board);
+        return "board/community/main";
+	}
+	
+	//게시물 상세 페이지
+	@RequestMapping(value = "/community/main/post/{no}")
+	public String communityPost(@PathVariable int no,Model model) {
+		
+		List<Board> board = boardService.findPost(no);
+		System.out.println(board.get(0).getTitle());
+		model.addAttribute("post",board);
+		
+		return "board/community/post";
 	}
 	
 	// 커뮤니티 글 작성 
