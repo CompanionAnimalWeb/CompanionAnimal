@@ -9,7 +9,10 @@ import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.model.Board;
@@ -84,21 +87,46 @@ public class BoardController {
 	}
 	
 	// 커뮤니티 메인 페이지
-	@RequestMapping(value = "/community/main")
+	@GetMapping(value = "/community/main")
 	public String communityMain(Model model) {
 		
-		List<Board> board = boardService.findAllBoard();
-		System.out.println(board.get(0).getTitle());
-		model.addAttribute("boardList",board);
+		//List<Board> board = boardService.findAllBoard();
+		//System.out.println(board.get(0).getTitle());
+		//model.addAttribute("boardList",board);
         return "board/community/main";
 	}
+
+
+	//게시물 작성 코드
+	@PostMapping(value="/community/main")
+	public static String communityWrite(HttpServletRequest httpServletRequest, Model model) {
+		
+		System.out.println("글쓰기 컨트롤러 실행");
+		System.out.println(httpServletRequest.getParameter("inputTitle"));
+		System.out.println(httpServletRequest.getParameter("inputContent"));
+		//현재 날짜
+		LocalDateTime now = LocalDateTime.now();
+		
+		 // 전 페이지에서 받은 값 해당 클래스에 주입
+		 BoardController boardController = new BoardController();
+		 boardController.setInputTitle(httpServletRequest.getParameter("inputTitle"));
+		 boardController.setInputContent(httpServletRequest.getParameter("inputContent"));
+		 boardController.setLegDate(now);
+	     //System.out.println(memberJoinController.getInputId());
+		boardService.inset(boardController);
+		model.addAttribute("chek","성공");
+		
+		return "redirect:/board/community/main";
+		
+	}
+	
 	
 	//게시물 상세 페이지
 	@RequestMapping(value = "/community/main/post/{no}")
 	public String communityPost(@PathVariable int no,Model model) {
 		
 		List<Board> board = boardService.findPost(no);
-		System.out.println(board.get(0).getTitle());
+		//System.out.println(board.get(0).getTitle());
 		model.addAttribute("post",board);
 		
 		return "board/community/post";
@@ -122,29 +150,6 @@ public class BoardController {
 	@RequestMapping(value = "/service/main")
 	public static String serviceMain() {
         return "board/service/main";
-	}
-
-	//게신물 작성 코드
-	@RequestMapping(value="/community/main/test")
-	public static String communityWrite(HttpServletRequest httpServletRequest, Model model) {
-		
-		System.out.println("글쓰기 컨트롤러 실행");
-		System.out.println(httpServletRequest.getParameter("inputTitle"));
-		System.out.println(httpServletRequest.getParameter("inputContent"));
-		//현재 날짜
-		LocalDateTime now = LocalDateTime.now();
-		
-		 // 전 페이지에서 받은 값 해당 클래스에 주입
-		 BoardController boardController = new BoardController();
-		 boardController.setInputTitle(httpServletRequest.getParameter("inputTitle"));
-		 boardController.setInputContent(httpServletRequest.getParameter("inputContent"));
-		 boardController.setLegDate(now);
-	     //System.out.println(memberJoinController.getInputId());
-		boardService.inset(boardController);
-		model.addAttribute("chek","성공");
-		
-		return "redirect:/board/community/main";
-		
 	}
 
 }

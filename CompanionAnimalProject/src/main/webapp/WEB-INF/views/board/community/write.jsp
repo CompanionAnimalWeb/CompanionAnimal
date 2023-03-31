@@ -45,7 +45,7 @@
 				</div>
 				<br><br>
 					
-				<form action="community/main/test" method="post">
+				<form action="../community/main" method="post">
 					<div class="mb-3 row">
 						<label class="col-sm-1 col-form-label">제목</label>
 						<div class="col-sm-5">
@@ -54,12 +54,9 @@
 					</div>
 					
 				    <textarea class="form-control" name="inputContent" id="exampleTextarea" rows="15"></textarea>
-			   </form>
 					
 					<br>
 					
-
-				
 				    <div class="form-group mb-3 row">
 				    	<label class="col-sm-1 col-form-label"><small>첨부파일1</small></label>
 						<div class="col-sm-5">
@@ -73,14 +70,15 @@
 						</div>
 				    </div>	
 				    
-    			<br>
-    			
-    			<div class="d-grid gap-2 d-md-flex justify-content-md-end">	
-	    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
-	    			<a href="<c:url value="/board/community/main/test"/>" type="submit" class="btn btn-outline-dark btn-sm">등록</a>
-	    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm">취소</a>
-		    	</div>
-    		</div>         
+	    			<br>
+	    			
+	    			<div class="d-grid gap-2 d-md-flex justify-content-md-end">	
+		    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
+		    			<input class="btn btn-dark btn-sm" type="submit" value="등록">
+		    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm">취소</a>		    			
+			    	</div>
+    			</div>
+				</form>         
 		</section>
 	</main>
 	
