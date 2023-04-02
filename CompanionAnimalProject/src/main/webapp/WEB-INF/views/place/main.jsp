@@ -30,16 +30,16 @@
 	</style>
     
 	<!-- css script -->
-	<%@include file="../../fragments/common-css.jsp" %>
+	<%@include file="../fragments/common-css.jsp" %>
 	
 </head>
 
 <body id="section_1">
 	<!-- header -->
-	<%@include file="../../fragments/header.jsp" %>
+	<%@include file="../fragments/header.jsp" %>
 	
 	<!-- nav -->
-	<%@include file="../../fragments/nav.jsp" %>
+	<%@include file="../fragments/nav.jsp" %>
 	
 	<main>		
 		<%
@@ -346,10 +346,10 @@
 	</main>
 
 	<!-- footer -->
-	<%@include file="../../fragments/footer.jsp" %>
+	<%@include file="../fragments/footer.jsp" %>
 
 	<!-- js -->
-	<%@include file="../../fragments/common-js.jsp" %>
+	<%@include file="../fragments/common-js.jsp" %>
 	
 </body>
 </html>

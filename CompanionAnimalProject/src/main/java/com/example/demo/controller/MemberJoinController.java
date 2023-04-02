@@ -91,7 +91,7 @@ public class MemberJoinController {
 	     model.addAttribute("inputPhone", memberJoinController.getInputPhone());
 	     
 	     //데이터 베이스로 해당 정보 insert
-	     userService.inset(memberJoinController);
+	     userService.insert(memberJoinController);
 	     
 	     return "successMemberJoin";
 	   }

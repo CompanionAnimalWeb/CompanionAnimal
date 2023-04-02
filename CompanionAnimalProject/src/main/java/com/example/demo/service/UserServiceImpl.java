@@ -11,10 +11,22 @@ import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 
 @Service
-public interface UserService {
+public class UserServiceImpl implements UserService {
+	
+	private final UserRepository userRepository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     // 전체 회원의 id, name, phone 정보를 리턴
-    public List<User> findUsers();
+    public List<User> findUsers(){
+        return userRepository.findAll();
+    }
     
     //회원 데이터 입력을 위한 메서드
-    public void insert(MemberJoinController mjc);
+    public void insert(MemberJoinController mjc) {
+    	userRepository.insert(mjc);
+    }
 }

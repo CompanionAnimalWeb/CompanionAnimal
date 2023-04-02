@@ -11,7 +11,17 @@ import com.example.demo.model.Place;
 import com.example.demo.repository.PlaceRepository;
 
 @Service
-public interface PlaceService {
+public class PlaceServiceImpl implements PlaceService{
+	
+	private final PlaceRepository placeRepository;
+
+    @Autowired
+    public PlaceServiceImpl(PlaceRepository serviceRepository) {
+        this.placeRepository = serviceRepository;
+    }
+
     // 전체 장소의 category, name, latitude, longitude 정보를 리턴
-    public List<Place> findPlaces();
+    public List<Place> findPlaces(){
+        return placeRepository.findAll();
+    }
 }

@@ -16,13 +16,13 @@ import com.example.demo.service.UserService;
 public class BoardController {
 
 	private static UserService userService;
-	private static PlaceService placeService;
 
 
     @Autowired
     public BoardController(UserService userService) {
         this.userService = userService;
     }
+   
 
 	@RequestMapping
 	public static String mainBoard(Model model) {
@@ -54,13 +54,6 @@ public class BoardController {
 	public static String hospitalMain(Model model) {
 		model.addAttribute("test", "게시글 작성 페이지");
         return "board/hospital/main";
-	}
-
-	// 동물 서비스 메인 페이지
-	@RequestMapping(value = "/palce/main")
-	public static String placeMain(Model model) {
-		
-        return "board/place/main";
 	}
 
 }
