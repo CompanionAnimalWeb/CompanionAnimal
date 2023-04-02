@@ -1,10 +1,6 @@
-<%@page import="java.sql.SQLException"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +16,7 @@
     <style>
 	#mapwrap{position:relative;overflow:hidden;}
 	.category, .category *{margin:0;padding:0;color:#000;}   
-	.category {position:absolute;overflow:hidden;top:10px;left:10px;width:150px;height:50px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
+	.category {position:absolute;overflow:hidden;top:10px;left:10px;width:150px;height:60px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
 	.category .menu_selected {background:#FF5F4A;color:#fff;border-left:1px solid #915B2F;border-right:1px solid #915B2F;margin:0 -1px;} 
 	.category li{list-style:none;float:left;width:50px;height:45px;padding-top:5px;cursor:pointer;} 
 	.category .ico_comm {display:block;margin:0 auto 2px;width:22px;height:26px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png') no-repeat;} 
@@ -35,6 +31,7 @@
 </head>
 
 <body id="section_1">
+
 	<!-- header -->
 	<%@include file="../fragments/header.jsp" %>
 	
@@ -42,41 +39,7 @@
 	<%@include file="../fragments/nav.jsp" %>
 	
 	<main>		
-		<%
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			
-			try{
-				String jdbcDriver = "jdbc:mysql://localhost:3306/companionanimaldb";
-				String dbUser = "root";
-				String dbPwd = "mybatis";
-				
-				conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPwd);
-				
-				pstmt = conn.prepareStatement("select * from Service");
-				
-				rs = pstmt.executeQuery();
-				
-				while(rs.next()){
-					String name = rs.getString("name");
-					double latitude = rs.getDouble("latitude");
-					double longitude = rs.getDouble("longitude");
-					out.println("<script>");
-					out.println("var coffeePositions = []");
-					out.println("coffeePositions.push(new kakao.maps.LatLng("+latitude+"," +longitude+"));");
-					out.println("alert('coffeePositions[0]');");
-					out.println("</script>");
-				}
-			}catch(SQLException se){
-				se.printStackTrace();
-			}finally{
-				if(rs != null) rs.close();
-				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
-			}
-		%>
+	
 		<section class="text-left" style="margin: auto; padding: 5% 0;">
 			<div class="container">
                 <div class="row">
@@ -98,18 +61,51 @@
 					            </li>
 					            <li id="storeMenu" onclick="changeMarker('store')">
 					                <span class="ico_comm ico_store"></span>
-					                편의점
+					                마트
 					            </li>
 					            <li id="parkMenu" onclick="changeMarker('park')">
 					                <span class="ico_comm ico_park"></span>
-					                애견파크
+					                공원
 					            </li>
 					        </ul>
 					    </div>
 					</div>
-	
 						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cfa528c2d7f45ee55449b267e67ffb19"></script>
 						<script>
+						coffeePositions = [];
+						storePositions = [];
+						parkPositions = [];
+						</script>
+						
+						<c:forEach items="${coffeeList}" var="coffee">
+						<script>
+						// 커피숍 마커가 표시될 좌표 배열입니다
+						coffeePositions.push(
+						    new kakao.maps.LatLng(${coffee.latitude}, ${coffee.longitude})              
+						);
+						</script>
+						</c:forEach>
+
+						<c:forEach items="${storeList}" var="store">
+						<script>
+						//마트 마커가 표시될 좌표 배열입니다
+						storePositions.push(
+						    new kakao.maps.LatLng(${store.latitude}, ${store.longitude})              
+						);
+						</script>
+						</c:forEach>
+						
+						<c:forEach items="${parkList}" var="park">
+						<script>
+						// 공원 마커가 표시될 좌표 배열입니다
+						parkPositions.push(
+						    new kakao.maps.LatLng(${park.latitude}, ${park.longitude})              
+						);
+						</script>
+						</c:forEach>
+						
+						<script>
+						 
 						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 						    mapOption = { 
 						        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -118,32 +114,17 @@
 						
 						var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 						
-						// 커피숍 마커가 표시될 좌표 배열입니다
-						/* var coffeePositions = [ 
-						    new kakao.maps.LatLng(35.1704, 128.1307),
-						    new kakao.maps.LatLng(35.1743, 128.0445)               
-						]; */
-
-						// 편의점 마커가 표시될 좌표 배열입니다
-						var storePositions = [
-						    new kakao.maps.LatLng(37.497535461505684, 127.02948149502778)
-						];
-
-						// 애견파크 마커가 표시될 좌표 배열입니다
-						var parkPositions = [
-						    new kakao.maps.LatLng(35.1704, 128.1307)                       
-						];    
+						
 
 						var markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
 						    coffeeMarkers = [], // 커피숍 마커 객체를 가지고 있을 배열입니다
 						    storeMarkers = [], // 편의점 마커 객체를 가지고 있을 배열입니다
 						    parkMarkers = []; // 애견파크 마커 객체를 가지고 있을 배열입니다
 
-						    
 						createCoffeeMarkers(); // 커피숍 마커를 생성하고 커피숍 마커 배열에 추가합니다
 						createStoreMarkers(); // 편의점 마커를 생성하고 편의점 마커 배열에 추가합니다
 						createParkMarkers(); // 애견파크 마커를 생성하고 애견파크 마커 배열에 추가합니다
-
+						
 						changeMarker('coffee'); // 지도에 커피숍 마커가 보이도록 설정합니다    
 						
 						// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
@@ -201,15 +182,14 @@
 						   
 						// 커피숍 마커를 생성하고 커피숍 마커 배열에 추가하는 함수입니다
 						function createCoffeeMarkers() {
-						    
 						    for (var i = 0; i < coffeePositions.length; i++) {  
-						        
+
 						        var imageSize = new kakao.maps.Size(22, 26),
 						            imageOptions = {  
 						                spriteOrigin: new kakao.maps.Point(10, 0),    
 						                spriteSize: new kakao.maps.Size(36, 98)  
 						            };     
-						        
+
 						        // 마커이미지와 마커를 생성합니다
 						        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
 						            marker = createMarker(coffeePositions[i], markerImage);  
@@ -326,7 +306,6 @@
 						    }    
 						} 
 						</script>
-				
 					</div>
 				
 				<div class="d-flex flex-row-reverse">
