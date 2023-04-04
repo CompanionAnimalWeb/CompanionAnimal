@@ -8,7 +8,7 @@ public class Reply {
 	private int commentIdx;
 	private String id;
 	private String content;
-	private Date regDate;
+	private String regDate;
 	
 	public int getReplyIdx() {
 		return replyIdx;
@@ -34,10 +34,10 @@ public class Reply {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 	

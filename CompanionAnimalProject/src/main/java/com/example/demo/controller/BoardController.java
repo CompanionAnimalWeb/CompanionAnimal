@@ -4,17 +4,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.model.Board;
-import com.example.demo.service.BoardService;
-import com.example.demo.service.UserService;
+import com.example.demo.model.Comment;
+import com.example.demo.service.BoardServiceImpl;
+import com.example.demo.service.CommentServiceImpl;
+import com.example.demo.service.UserServiceImpl;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -58,13 +60,13 @@ public class BoardController {
 		this.id = id;
 	}
 
-	private static UserService userService;
-	private static BoardService boardService;
+	private static BoardServiceImpl boardService;
+	private static CommentServiceImpl commentService;
 
 
     @Autowired
-    public BoardController(UserService userService, BoardService boardService) {
-        this.userService = userService;
+    public BoardController(CommentServiceImpl commentService, BoardServiceImpl boardService) {
+        this.commentService = commentService;
         this.boardService = boardService;
     }
 
@@ -97,9 +99,12 @@ public class BoardController {
 	@RequestMapping(value = "/community/main/post/{no}")
 	public String communityPost(@PathVariable int no,Model model) {
 		
-		List<Board> board = boardService.findPost(no);
-		System.out.println(board.get(0).getTitle());
+		Board board = boardService.findPost(no);
+		List<Comment> comment = commentService.findComment(no);
+		System.out.println(comment.get(0).getContent());
+		System.out.println(board.getTitle());
 		model.addAttribute("post",board);
+		model.addAttribute("comment",comment);
 		
 		return "board/community/post";
 	}
@@ -109,28 +114,28 @@ public class BoardController {
     public String communityWrite() throws Exception {
         return "/board/community/write";
     }
-
-    
-	// 동물병원 메인 페이지
-	@RequestMapping(value = "/hospital/main")
-	public static String hospitalMain(Model model) {
-		model.addAttribute("test", "게시글 작성 페이지");
-        return "board/hospital/main";
-	}
 	
 	// 동물 서비스 메인 페이지
 	@RequestMapping(value = "/service/main")
 	public static String serviceMain() {
         return "board/service/main";
 	}
+	
+	// 동물병원 메인 페이지
+	@RequestMapping(value = "/hospital/main")
+	public static String hospitalMain(Model model) {
+		model.addAttribute("test", "게시글 작성 페이지");
+        return "board/hospital/main";
+	}
 
 	//게신물 작성 코드
-	@RequestMapping(value="/community/main/test")
+	@PostMapping(value="/community/main")
 	public static String communityWrite(HttpServletRequest httpServletRequest, Model model) {
 		
-		System.out.println("글쓰기 컨트롤러 실행");
-		System.out.println(httpServletRequest.getParameter("inputTitle"));
-		System.out.println(httpServletRequest.getParameter("inputContent"));
+//		System.out.println("글쓰기 컨트롤러 실행");
+//		System.out.println(httpServletRequest.getParameter("inputTitle"));
+//		System.out.println(httpServletRequest.getParameter("inputContent"));
+	
 		//현재 날짜
 		LocalDateTime now = LocalDateTime.now();
 		

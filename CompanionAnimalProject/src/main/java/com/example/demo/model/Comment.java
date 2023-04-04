@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import java.util.Date;
 
 public class Comment {
 	
@@ -8,7 +7,7 @@ public class Comment {
 	private int boardIdx;
 	private String id;
 	private String content;
-	private Date regDate;
+	private String regDate;
 	
 	public int getCommentIdx() {
 		return commentIdx;
@@ -34,10 +33,10 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 

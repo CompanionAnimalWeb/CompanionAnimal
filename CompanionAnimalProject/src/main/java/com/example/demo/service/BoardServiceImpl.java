@@ -10,26 +10,29 @@ import com.example.demo.model.Board;
 import com.example.demo.repository.BoardRepository;
 
 @Service
-public class BoardService {
+public class BoardServiceImpl implements BoardService{
 	
 	private final BoardRepository boardRepository;
 
     @Autowired
-    public BoardService(BoardRepository boardRepository) {
+    public BoardServiceImpl(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
     }
 
     // 전체 회원의 id, name, phone 정보를 리턴
+    @Override
     public List<Board> findAllBoard(){
         return boardRepository.findAll();
     }
     
     // 특정 게시물 정보를 가져오는 메서드
-    public List<Board> findPost(int no){
+    @Override
+    public Board findPost(int no){
         return boardRepository.findPost(no);
     }
     
     //회원 데이터 입력을 위한 메서드
+    @Override
     public void inset(BoardController BC) {
     	boardRepository.insert(BC);
     }

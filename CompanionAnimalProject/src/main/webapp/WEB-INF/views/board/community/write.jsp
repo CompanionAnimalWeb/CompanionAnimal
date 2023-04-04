@@ -12,93 +12,91 @@
 
     <title>신비한 동물사전</title>
     
-	<!-- css, js script -->
-	<%@include file="../../fragments/common-css.jsp" %>
-	
+   <!-- css, js script -->
+   <%@include file="../../fragments/common-css.jsp" %>
+   
 
-	
+   
 </head>
 
 <body>
 
-	<!-- header -->
-	<%@include file="../../fragments/header.jsp" %>
-	
-	<!-- nav -->
-	<%@include file="../../fragments/nav.jsp" %>
+   <!-- header -->
+   <%@include file="../../fragments/header.jsp" %>
+   
+   <!-- nav -->
+   <%@include file="../../fragments/nav.jsp" %>
 
-	<!-- include summernote css/js -->
-  	<script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
-  	<script src="${pageContext.request.contextPath}/resources/summernote/summernote-ko-KR.min.js"></script>
-  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
+   <!-- include summernote css/js -->
+     <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
+     <script src="${pageContext.request.contextPath}/resources/summernote/summernote-ko-KR.min.js"></script>
+     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
   
 
-	<main>
-	<section class="text-left" style="margin: auto; padding: 5% 0;">
-			<div class="container">
-               	<div class="col-8">
-					<h3 class="." style="color: var(--primary-color)">자유롭게 작성해주세요 😊</h3><br>
-					<span>
-						<small class="small-font text-secondary">※ 누구든지 정보통신망을 통해 사람을 비방할 목적으로 공공연하게 사실이나 거짓의 사실을 드러내어 
-						<br> 타인의 명예를 훼손하는 내용의 정보를 유통해서는 안 됩니다.</small>
-					</span>
-				</div>
-				<br><br>
-					
-				<form action="community/main/test" method="post">
-					<div class="mb-3 row">
-						<label class="col-sm-1 col-form-label">제목</label>
-						<div class="col-sm-5">
-							<input type="text" name="inputTitle" class="form-control">
-						</div>
-					</div>
-					
-				    <textarea class="form-control" name="inputContent" id="exampleTextarea" rows="15"></textarea>
-			   </form>
-					
-					<br>
-					
+   <main>
+   <section class="text-left" style="margin: auto; padding: 5% 0;">
+         <div class="container">
+                  <div class="col-8">
+               <h3 class="." style="color: var(--primary-color)">자유롭게 작성해주세요 😊</h3><br>
+               <span>
+                  <small class="small-font text-secondary">※ 누구든지 정보통신망을 통해 사람을 비방할 목적으로 공공연하게 사실이나 거짓의 사실을 드러내어 
+                  <br> 타인의 명예를 훼손하는 내용의 정보를 유통해서는 안 됩니다.</small>
+               </span>
+            </div>
+            <br><br>
+               
+            <form action="../community/main" method="post">
+               <div class="mb-3 row">
+                  <label class="col-sm-1 col-form-label">제목</label>
+                  <div class="col-sm-5">
+                     <input type="text" name="inputTitle" class="form-control">
+                  </div>
+               </div>
+               
+                <textarea class="form-control" name="inputContent" id="exampleTextarea" rows="15"></textarea>
+               
+               <br>
+               
+                <div class="form-group mb-3 row">
+                   <label class="col-sm-1 col-form-label"><small>첨부파일1</small></label>
+                  <div class="col-sm-5">
+                     <input class="form-control" type="file" id="formFile">
+                  </div>
+                </div>   
+                <div class="form-group mb-3 row">
+                   <label class="col-sm-1 col-form-label"><small>첨부파일2</small></label>
+                  <div class="col-sm-5">
+                     <input class="form-control" type="file" id="formFile">
+                  </div>
+                </div>   
+                
+                <br>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">   
+                   <a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
+                   <input class="btn btn-dark btn-sm" type="submit" value="등록">
+                   <a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm">취소</a>                   
+                </div>
+             </div>
+            </form>         
+      </section>
+   </main>
+   
+   
+   
+   <script>
+   $(document).ready(function() {
+        $('.summernote').summernote({
+                height: 500,                 // set editor height
+                focus: true                  // set focus to editable area after initializing summernote
+        });
+   });
+   </script>
+   
 
-				
-				    <div class="form-group mb-3 row">
-				    	<label class="col-sm-1 col-form-label"><small>첨부파일1</small></label>
-						<div class="col-sm-5">
-							<input class="form-control" type="file" id="formFile">
-						</div>
-				    </div>	
-				    <div class="form-group mb-3 row">
-				    	<label class="col-sm-1 col-form-label"><small>첨부파일2</small></label>
-						<div class="col-sm-5">
-							<input class="form-control" type="file" id="formFile">
-						</div>
-				    </div>	
-				    
-    			<br>
-    			
-    			<div class="d-grid gap-2 d-md-flex justify-content-md-end">	
-	    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
-	    			<a href="<c:url value="/board/community/main/test"/>" type="submit" class="btn btn-outline-dark btn-sm">등록</a>
-	    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm">취소</a>
-		    	</div>
-    		</div>         
-		</section>
-	</main>
-	
-	
-	
-	<script>
-	$(document).ready(function() {
-	     $('.summernote').summernote({
-	             height: 500,                 // set editor height
-	             focus: true                  // set focus to editable area after initializing summernote
-	     });
-	});
-	</script>
-	
+   <!-- footer -->
+   <%@include file="../../fragments/footer.jsp" %>
 
-	<!-- footer -->
-	<%@include file="../../fragments/footer.jsp" %>
-
-	<%@include file="../../fragments/common-js.jsp" %>
+   <%@include file="../../fragments/common-js.jsp" %>
 </body>
 </html>

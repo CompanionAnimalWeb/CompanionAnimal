@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.service.UserService;
+import com.example.demo.service.UserServiceImpl;
 
 @Controller
 public class MemberJoinController {
@@ -18,10 +18,10 @@ public class MemberJoinController {
 	private String inputPhone;
 	
 	//의존 주입
-	private static UserService userService;
+	private static UserServiceImpl userService;
 
     @Autowired
-    public MemberJoinController(UserService userService) {
+    public MemberJoinController(UserServiceImpl userService) {
         this.userService = userService;
     }
     
