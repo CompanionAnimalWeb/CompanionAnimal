@@ -6,4 +6,7 @@ import com.example.demo.model.Place;
 
 public interface PlaceRepository {
     List<Place> findAll();
+    List<Place> findCoffee();
+    List<Place> findStore();
+    List<Place> findPark();
 }

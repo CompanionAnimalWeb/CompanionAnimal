@@ -24,11 +24,14 @@ public class PlaceController {
 	// 동물 서비스 메인 페이지
 	@RequestMapping(value = "/place/main")
 	public static String placeMain(Model model) {
-		List<Place> places = placeService.findPlaces();
-		model.addAttribute("name",places.get(0).getName().toString());
-		model.addAttribute("category",places.get(0).getCategory().toString());
-		model.addAttribute("latitude",places.get(0).getLatitude());
-		model.addAttribute("longitude",places.get(0).getLatitude());
+		//List<Place> places = placeService.findPlaces();
+		List<Place> coffees = placeService.findCoffees();
+		List<Place> stores = placeService.findStores();
+		List<Place> parks = placeService.findParks();
+		//model.addAttribute("placeList", places);
+		model.addAttribute("coffeeList", coffees);
+		model.addAttribute("storeList", stores);
+		model.addAttribute("parkList", parks);
         return "place/main";
 	}
 }
