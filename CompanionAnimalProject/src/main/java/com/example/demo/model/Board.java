@@ -1,20 +1,19 @@
 package com.example.demo.model;
 
-import java.util.Date;
 
 public class Board {
 	
-	private int borderIdx;
+	private int boardIdx;
 	private String title;
 	private String content;
-	private Date regDate;
+	private String regDate;
 	private String id;
 	
-	public int getBorderIdx() {
-		return borderIdx;
+	public int getBoardIdx() {
+		return boardIdx;
 	}
-	public void setBorderIdx(int borderIdx) {
-		this.borderIdx = borderIdx;
+	public void setBoardIdx(int borderIdx) {
+		this.boardIdx = borderIdx;
 	}
 	public String getTitle() {
 		return title;
@@ -28,10 +27,10 @@ public class Board {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 	public String getId() {

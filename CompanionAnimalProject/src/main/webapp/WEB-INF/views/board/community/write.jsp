@@ -45,17 +45,16 @@
 				</div>
 				<br><br>
 					
-				<form action="insert" method="post">
+				<form action="community/main/test" method="post">
 					<div class="mb-3 row">
 						<label class="col-sm-1 col-form-label">제목</label>
 						<div class="col-sm-5">
-							<input type="password" class="form-control" id="inputPassword">
+							<input type="text" name="inputTitle" class="form-control">
 						</div>
 					</div>
-							
-				    <textarea class="form-control" id="exampleTextarea" rows="15">여기에 에디터 넣을 거임.
-				    </textarea>
-					</form>
+					
+				    <textarea class="form-control" name="inputContent" id="exampleTextarea" rows="15"></textarea>
+			   </form>
 					
 					<br>
 					
@@ -78,7 +77,7 @@
     			
     			<div class="d-grid gap-2 d-md-flex justify-content-md-end">	
 	    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
-	    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-dark btn-sm">등록</a>
+	    			<a href="<c:url value="/board/community/main/test"/>" type="submit" class="btn btn-outline-dark btn-sm">등록</a>
 	    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm">취소</a>
 		    	</div>
     		</div>         

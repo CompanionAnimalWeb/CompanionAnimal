@@ -17,6 +17,8 @@
 	
 </head>
 
+
+
 <body id="section_1">
 
 	<!-- header -->
@@ -61,76 +63,15 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>@mdo</td>
-				      <td></td>
+				  	<c:forEach items="${boardList}" var="board">
+				    <tr onclick="location.href='main/post/${board.boardIdx}'">
+				      <th>${board.boardIdx}</th>
+				      <td>${board.title}</td>
+				      <td>${board.id}</td>
+				      <td>조회수는 나중에 만들자...</td>
+				      <td>${board.regDate}</td>
 				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				      <td></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				      <td></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">4</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				      <td></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">5</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				      <td></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">6</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				      <td></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">7</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				      <td></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">8</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				      <td></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">9</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				      <td></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">10</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				      <td></td>
-				    </tr>	    					    					    					    
+				    </c:forEach>     					    					    					    
 				  </tbody>
 				</table>
 				
