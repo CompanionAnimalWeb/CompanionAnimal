@@ -39,9 +39,9 @@ public class BoardRepositoryImpl implements BoardRepository{
    
    //특정 게시물 정보를 가져오는 메서드
    @Override
-   public List<Board> findPost(int no){
+   public Board findPost(int no){
 	   int boardIdx = no;
-	   return jdbcTemplate.query("select * from Board where board_idx = ?",boardRowMapper(), boardIdx);
+	   return jdbcTemplate.queryForObject("select * from Board where board_idx = ?",boardRowMapper(), boardIdx);
    }
 
    //Board 정보를 매핑하는 RowMapper

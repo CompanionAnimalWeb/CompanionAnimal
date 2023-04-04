@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,10 +34,10 @@
                 <div class="row">
                 	<div class="col-8">
 						<h3 class="." style="color: var(--primary-color)">Community
-							<img src="${pageContext.request.contextPath}/resources/images/animal_house3.png" style="width:50px; height:50px;">
+							<img src="${pageContext.request.contextPath}/resources/images/animal_house3.png" style="width:50px; height:50px;"/>
 						</h3>
 						<span>
-							<small class="small-font text-secondary">반려동물과 관련하여 다양한 이야기를 나눌 수 있는 커뮤니티 공간</small>
+							<small class="small-font text-secondary">펫과 관련하여 다양한 이야기를 나눌 수 있는 커뮤니티 공간</small>
 						</span>
 					</div>
 			
@@ -53,26 +54,38 @@
                 </div>
                 
 				<table class="table table-bordered table-hover" style="font-size:small; text-align:center">
-				  <thead>
-				    <tr class="table-light table-striped">
-				      <th scope="col">번호</th>
-				      <th scope="col">제목</th>
-				      <th scope="col">작성자</th>
-				      <th scope="col">조회수</th>
-				      <th scope="col">작성일</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<c:forEach items="${boardList}" var="board">
-				    <tr onclick="location.href='main/post/${board.boardIdx}'">
-				      <th>${board.boardIdx}</th>
-				      <td>${board.title}</td>
-				      <td>${board.id}</td>
-				      <td>조회수는 나중에 만들자...</td>
-				      <td>${board.regDate}</td>
-				    </tr>
-				    </c:forEach>     					    					    					    
-				  </tbody>
+					<thead>
+						<tr class="table-light table-striped">
+					    	<th scope="col">번호</th>
+					    	<th scope="col">제목</th>
+					    	<th scope="col">작성자</th>
+					    	<th scope="col">조회수</th>
+					    	<th scope="col">작성일</th>
+					    </tr>
+					</thead>
+				  	<c:choose>
+					  	<c:when test="${boardList != null and fn:length(boardList) > 0}">
+							<tbody>
+								<c:forEach items="${boardList}" var="board">
+									<tr onclick="location.href='main/post/${board.boardIdx}'">
+								     	<th>${board.boardIdx}</th>
+								      	<td>${board.title}</td>
+								      	<td>${board.id}</td>
+								      	<td>조회수는 나중에 만들자...</td>
+							      		<td>${board.regDate}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+					    </c:when>
+						<c:otherwise>
+						  	<!-- 등록된 게시물이 없는 경우 -->
+						  	<tbody>
+								<tr style="height: 30px;">
+									<td colspan="5" style="text-align: center;">등록된 게시물이 없습니다.</td>
+								</tr>
+							</tbody>
+						</c:otherwise>
+					</c:choose>
 				</table>
 				
 			

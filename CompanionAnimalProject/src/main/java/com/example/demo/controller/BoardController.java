@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.model.Board;
+import com.example.demo.repository.BoardRepository;
+import com.example.demo.repository.BoardRepositoryImpl;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.UserService;
 
@@ -86,18 +89,26 @@ public class BoardController {
         return "board/community/main";
 	}
 	
-	// 커뮤니티 메인 페이지
+	
+	// 메인 페이지
 	@GetMapping(value = "/community/main")
 	public String communityMain(Model model) {
 		
-		//List<Board> board = boardService.findAllBoard();
-		//System.out.println(board.get(0).getTitle());
-		//model.addAttribute("boardList",board);
+		List<Board> board = boardService.findAllBoard();
+		model.addAttribute("boardList", board);
         return "board/community/main";
 	}
 
 
-	//게시물 작성 코드
+	// 게시물 작성 페이지
+    @GetMapping(value="/community/write")
+    public String communityWrite() throws Exception {
+    	
+        return "/board/community/write";
+    }
+    
+    
+	// 게시물 등록 버튼 클릭 시 
 	@PostMapping(value="/community/main")
 	public static String communityWrite(HttpServletRequest httpServletRequest, Model model) {
 		
@@ -112,7 +123,8 @@ public class BoardController {
 		 boardController.setInputTitle(httpServletRequest.getParameter("inputTitle"));
 		 boardController.setInputContent(httpServletRequest.getParameter("inputContent"));
 		 boardController.setLegDate(now);
-	     //System.out.println(memberJoinController.getInputId());
+		 
+		 //System.out.println(memberJoinController.getInputId());
 		boardService.inset(boardController);
 		model.addAttribute("chek","성공");
 		
@@ -121,23 +133,20 @@ public class BoardController {
 	}
 	
 	
-	//게시물 상세 페이지
-	@RequestMapping(value = "/community/main/post/{no}")
-	public String communityPost(@PathVariable int no,Model model) {
+	// 게시물 상세 페이지
+	@GetMapping(value = "/community/main/post/{no}")
+	public String communityPost(@PathVariable int no, Model model) {
 		
-		List<Board> board = boardService.findPost(no);
-		//System.out.println(board.get(0).getTitle());
-		model.addAttribute("post",board);
+		//List<Board> board = boardService.findPost(no);
+		Board board = boardService.findPost(no);
+		System.out.println(board);
+		model.addAttribute("post", board);
 		
-		return "board/community/post";
+		return "board/community/detail";
 	}
 	
-	// 커뮤니티 글 작성 
-    @RequestMapping(value="/community/write")
-    public String communityWrite() throws Exception {
-        return "/board/community/write";
-    }
 
+    
     
 	// 동물병원 메인 페이지
 	@RequestMapping(value = "/hospital/main")

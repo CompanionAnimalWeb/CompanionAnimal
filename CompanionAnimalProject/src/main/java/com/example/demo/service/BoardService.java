@@ -25,7 +25,7 @@ public class BoardService {
     }
     
     // 특정 게시물 정보를 가져오는 메서드
-    public List<Board> findPost(int no){
+    public Board findPost(int no){
         return boardRepository.findPost(no);
     }
     

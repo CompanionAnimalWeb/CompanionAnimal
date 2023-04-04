@@ -49,7 +49,7 @@
 					<div class="mb-3 row">
 						<label class="col-sm-1 col-form-label">제목</label>
 						<div class="col-sm-5">
-							<input type="text" name="inputTitle" class="form-control">
+							<input type="text" name="inputTitle" class="form-control" placeholder="제목을 입력해주세요">
 						</div>
 					</div>
 					
