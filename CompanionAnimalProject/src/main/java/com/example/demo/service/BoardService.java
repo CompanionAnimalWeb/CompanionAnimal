@@ -2,35 +2,22 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.demo.controller.BoardController;
 import com.example.demo.model.Board;
-import com.example.demo.repository.BoardRepository;
 
-@Service
-public class BoardService {
-	
-	private final BoardRepository boardRepository;
+/**
+ * 
+ * @author Juhyeon Yeo
+ * @since 2023. 4. 10. 오후 9:06:37
+ *
+ */
+public interface BoardService {
 
-    @Autowired
-    public BoardService(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
-    }
-
-    // 전체 회원의 id, name, phone 정보를 리턴
-    public List<Board> findAllBoard(){
-        return boardRepository.findAll();
-    }
-    
-    // 특정 게시물 정보를 가져오는 메서드
-    public Board findPost(int no){
-        return boardRepository.findPost(no);
-    }
-    
-    //회원 데이터 입력을 위한 메서드
-    public void inset(BoardController BC) {
-    	boardRepository.insert(BC);
-    }
+	public List<Board> findAllBoard() throws Exception;	// 게시물 목록	
+	public Board findPost(int no) throws Exception;		// 특정 게시글 가져오기
+	public List<Board> findPost(String content, String title);	// 게시물 검색
+	public void insert(Board board) throws Exception;	// 게시글 삽입
+	public void modify(Board board) throws Exception;	// 게시글 수정
+	public void delete(int bno) throws Exception;		// 게시글 삭제	
+	public int count() throws Exception;				// 게시글 총 갯수
 }

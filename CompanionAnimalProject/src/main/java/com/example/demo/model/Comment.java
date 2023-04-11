@@ -1,14 +1,15 @@
 package com.example.demo.model;
 
-import java.util.Date;
 
+// 댓글 DAO
 public class Comment {
 	
 	private int commentIdx;
 	private int boardIdx;
-	private String id;
+	private String writer;
 	private String content;
-	private Date regDate;
+	private String regDate;
+	
 	
 	public int getCommentIdx() {
 		return commentIdx;
@@ -22,11 +23,11 @@ public class Comment {
 	public void setBoardIdx(int boardIdx) {
 		this.boardIdx = boardIdx;
 	}
-	public String getId() {
-		return id;
+	public String getWriter() {
+		return writer;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 	public String getContent() {
 		return content;
@@ -34,13 +35,20 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegDate(String nowDate) {
+ 		this.regDate = nowDate;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Comment [commentIdx=" + commentIdx + ", boardIdx=" + boardIdx + ", writer=" + writer + ", content="
+				+ content + ", regDate=" + regDate + "]";
+	}
+	
+	
 	
 	
 }

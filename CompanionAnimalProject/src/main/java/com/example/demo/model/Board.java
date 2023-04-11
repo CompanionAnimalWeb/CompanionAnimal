@@ -9,6 +9,17 @@ public class Board {
 	private String regDate;
 	private String id;
 	
+	/* 검색 필터 */
+	public String keyword;
+	
+	
+	
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	public int getBoardIdx() {
 		return boardIdx;
 	}
