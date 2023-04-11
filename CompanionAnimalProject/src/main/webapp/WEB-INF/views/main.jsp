@@ -33,18 +33,18 @@
                         <div id="hero-slide" class="carousel carousel-fade slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="../../images/slide/image_main_pet2.png"
-                                        class="carousel-image img-fluid" alt="...">
+                                    <img src="${pageContext.request.contextPath}/resources/images/main/main_6.png"
+                                        " alt="..." height="700" width="2000">
                                 </div>
 
                                 <div class="carousel-item">
-                                    <img src="../../images/slide/image_main_pet3.png"
-                                        class="carousel-image img-fluid" alt="...">
+                                    <img src="${pageContext.request.contextPath}/resources/images/main/main_5.png"
+                                        " alt="..." height="700" width="2000">
                                 </div>
 
                                 <div class="carousel-item">
-                                    <img src="../images/slide/image_main_pet4.jpg"
-                                        class="carousel-image img-fluid" alt="...">
+                                    <img src="${pageContext.request.contextPath}/resources/images/main/main_3.jpg"
+                                        " alt="..." height="700" width="2000">
                                 </div>
                             </div>
 
