@@ -5,7 +5,7 @@
     <nav class="navbar navbar-expand-lg bg-light shadow-lg">
         <div class="container">
             <a class="navbar-brand" href="<c:url value="/main"/>">
-                <img src="${pageContext.request.contextPath}/resources/images/Logo.png" class="logo img-fluid" alt="Kind Heart Charity">
+                <img src="${pageContext.request.contextPath}/resources/images/logo/Logo.png" class="logo img-fluid" alt="Kind Heart Charity">
                 <span>
                     Companion Animal Community
                     <small>신비한 동물사전</small>
@@ -24,7 +24,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/board/community/main"/>">견사무소</a>
+                        <a class="nav-link" href="<c:url value="/board/list"/>">견사무소</a>
                     </li>
 
                     <li class="nav-item">
