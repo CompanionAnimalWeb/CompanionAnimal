@@ -13,13 +13,10 @@ import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 
 @Controller
+@RequestMapping("/member")
 public class MemberJoinController {
 	
-	private String inputId;
-	private String inputPW;
-	private String inputName;
-	private String inputPhone;
-	
+
 	//의존 주입
 	private static UserService userService;
 
@@ -28,80 +25,27 @@ public class MemberJoinController {
         this.userService = userService;
     }
     
-    //값 주입을 위한 기본 생성자
-    public MemberJoinController() {
-    	
-    }
-
-	public String getInputId() {
-		return inputId;
-	}
-
-	public void setInputId(String inputId) {
-		this.inputId = inputId;
-	}
-
-	public String getInputPW() {
-		return inputPW;
-	}
-
-	public void setInputPW(String inputPW) {
-		this.inputPW = inputPW;
-	}
-
-	public String getInputName() {
-		return inputName;
-	}
-
-	public void setInputName(String inputName) {
-		this.inputName = inputName;
-	}
-
-	public String getInputPhone() {
-		return inputPhone;
-	}
-
-	public void setInputPhone(String inputPhone) {
-		this.inputPhone = inputPhone;
-	}
-
-	// 회원가입 페이지
-	@RequestMapping("/member/register")
-	public String memberRegister() {
-		return "member/register";
+    
+	// 회원가입
+	@PostMapping("/join")
+	public String memberJoinPost() {
+		return "member/Join";
 	}
 	
-	// 로그인 페이지
-	@RequestMapping("/member/signin")
-	public String signin() {
-		return "member/signin";
-	}
-	
+//	// 로그인 페이지
+//	@RequestMapping("/login")
+//	public String signin() {
+//		return "member/signin";
+//	}
+//	
+
 	// 회원가입 성공시
 	@PostMapping(value = "/member/successMemberJoin")
-	   public static String successMemberJoin(HttpServletRequest httpServletRequest, Model model) {
+	   public static String successMemberJoin(User user, Model model) {
 		
 		System.out.println("successMemberJoin 컨트롤러 실행");
-		
-		 // 전 페이지에서 받은 값 해당 클래스에 주입
-		 MemberJoinController memberJoinController = new MemberJoinController();
-		 memberJoinController.setInputId(httpServletRequest.getParameter("inputId"));
-		 memberJoinController.setInputPW(httpServletRequest.getParameter("inputPW"));
-		 memberJoinController.setInputName(httpServletRequest.getParameter("inputName"));
-		 memberJoinController.setInputPhone(httpServletRequest.getParameter("inputPhone"));
-	     //System.out.println(memberJoinController.getInputId());
-	     
-		 
-		 // 모델에 값 주입
-//	     model.addAttribute("test", "회원 가입 성공 페이지");
-//	     
-//	     model.addAttribute("inputId", memberJoinController.getInputId());
-//	     model.addAttribute("inputPW", memberJoinController.getInputPW());
-//	     model.addAttribute("inputName", memberJoinController.getInputName());
-//	     model.addAttribute("inputPhone", memberJoinController.getInputPhone());
-//	     
-	     //데이터 베이스로 해당 정보 insert
-	     userService.insert(memberJoinController);
+
+	    userService.insert(user);
 	     
 	     return "member/successMemberJoin";
 	   }
