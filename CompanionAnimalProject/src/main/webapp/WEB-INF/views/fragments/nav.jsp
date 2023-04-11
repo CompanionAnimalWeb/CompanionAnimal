@@ -28,7 +28,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/board/service/main"/>">우리동네</a>
+                        <a class="nav-link" href="<c:url value="/place/main"/>">우리동네</a>
                     </li>
 
                     <li class="nav-item">

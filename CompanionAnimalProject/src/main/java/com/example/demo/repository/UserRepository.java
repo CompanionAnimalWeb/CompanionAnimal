@@ -7,4 +7,5 @@ import com.example.demo.model.User;
 public interface UserRepository {
     List<User> findAll();
     void insert(MemberJoinController memberJoinController);
+    public User selectUser(User user) throws Exception;
 }

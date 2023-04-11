@@ -11,8 +11,8 @@ import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService{
-	
+public class UserServiceImpl implements UserService {
+
 	private final UserRepository userRepository;
 
     @Autowired
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
     
     //회원 데이터 입력을 위한 메서드
     @Override
-    public void inset(MemberJoinController mjc) {
+    public void insert(MemberJoinController mjc) {
     	userRepository.insert(mjc);
     }
 }
