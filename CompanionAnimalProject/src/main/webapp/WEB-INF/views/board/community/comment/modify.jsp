@@ -14,7 +14,7 @@
 	<title>신비한 동물사전</title>
 	
 	<!-- css, js script -->
-	<%@include file="../../fragments/common-css.jsp"%>
+	<%@include file="../../../fragments/common-css.jsp"%>
 	
 
 </head>
@@ -22,10 +22,10 @@
 <body>
 
 	<!-- header -->
-	<%@include file="../../fragments/header.jsp"%>
+	<%@include file="../../../fragments/header.jsp"%>
 
 	<!-- nav -->
-	<%@include file="../../fragments/nav.jsp"%>
+	<%@include file="../../../fragments/nav.jsp"%>
 
 
 	<main>
@@ -76,56 +76,44 @@
 							<button class="accordion-button collapsed" type="button"
 								data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
 								aria-expanded="false" aria-controls="flush-collapseOne">
-								<b>Comment 💬</b>
+							<b>Comment 💬</b>
 							</button>
 						</h2>
 						
 						
-						<div id="flush-collapseOne" class="accordion-collapse collapse"
-							aria-labelledby="flush-headingOne"
-							data-bs-parent="#accordionFlushExample">
+						<div id="flush-collapseOne" class="accordion-collapse collapse show"
+							aria-labelledby="flush-headingOne">
 							<div class="accordion-body">
-
-								<!--  댓글 목록 -->
+								<!--  comment list form -->
 								<c:choose>
 									<c:when test="${commentList != null and fn:length(commentList) > 0}">
-											<c:forEach items="${commentList}" var="comment">
-												<div>
-													<p><b>${comment.writer}</b> <small>${comment.regDate}</small></p>
-													<p>${comment.content}</p>
-												</div>
-												<div>
-													<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/modify?bno=${board.boardIdx}&cno=${comment.commentIdx}'" type="submit" value="수정" />
-													<input type="hidden" name="boardIdx" value="${comment.boardIdx}"/>
-													<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/>
-													<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/delete?bno=${board.boardIdx}&cno=${comment.commentIdx}'" type="submit" value="삭제" />
-													<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/reply?bno=${board.boardIdx}&cno=${comment.commentIdx}'" type="submit" value="답글" />
-												</div>
-												<hr>
-											</c:forEach>
+										<c:forEach items="${commentList}" var="comment">
+											<c:choose>
+												<c:when test="${comment.commentIdx == cno}">
+													  <form action="../comment/modify" method="post">
+															<p>${comment.writer}</p>
+															<textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px">${comment.content}</textarea>
+															<input type="hidden" name="boardIdx" value="${board.boardIdx}"/>
+															<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/><br>
+															<input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="완료"/>
+														  	<hr>
+													  </form>
+												</c:when>
+												<c:otherwise>
+													<div>
+														<p><b>${comment.writer}</b> <small>${comment.regDate}</small></p>
+														<p>${comment.content}</p>
+													</div>
+													<hr>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
 									</c:when>
-									
 									<c:otherwise>
-									<!-- 등록된 댓글이 없을 경우 -->
-										<div>
-											<p><h5>첫 댓글을 작성해주세요!</h5></p>
-										</div>
-									</c:otherwise>	
-								</c:choose>
-								
-								<!-- 댓글 작성 폼 -->	
-								<form action="../board/comment/write" method="post">
-									<div class="form-floating">
-									  <p><input type="text" name="writer" placeholder="작성자"/></p>
-									  <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px" placeholder="답글을 입력해주세요"></textarea>
-									  <input type="hidden" name="boardIdx" value="${board.boardIdx}"/><br>
-									  <input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="등록"/>
-									</div>	
-								</form>
-								<hr>					
+									</c:otherwise>
+								</c:choose>				
 							</div>
 						</div>
-
 					</div>
 				</div>
 
@@ -136,8 +124,8 @@
 
 
 	<!-- footer -->
-	<%@include file="../../fragments/footer.jsp"%>
+	<%@include file="../../../fragments/footer.jsp"%>
 
-	<%@include file="../../fragments/common-js.jsp"%>
+	<%@include file="../../../fragments/common-js.jsp"%>
 </body>
 </html>

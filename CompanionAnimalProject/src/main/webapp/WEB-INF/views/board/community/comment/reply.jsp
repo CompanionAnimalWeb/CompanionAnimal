@@ -14,7 +14,7 @@
 	<title>신비한 동물사전</title>
 	
 	<!-- css, js script -->
-	<%@include file="../../fragments/common-css.jsp"%>
+	<%@include file="../../../fragments/common-css.jsp"%>
 	
 
 </head>
@@ -22,10 +22,10 @@
 <body>
 
 	<!-- header -->
-	<%@include file="../../fragments/header.jsp"%>
+	<%@include file="../../../fragments/header.jsp"%>
 
 	<!-- nav -->
-	<%@include file="../../fragments/nav.jsp"%>
+	<%@include file="../../../fragments/nav.jsp"%>
 
 
 	<main>
@@ -81,11 +81,10 @@
 						</h2>
 						
 						
-						<div id="flush-collapseOne" class="accordion-collapse collapse"
-							aria-labelledby="flush-headingOne"
-							data-bs-parent="#accordionFlushExample">
+						<div id="flush-collapseOne" class="accordion-collapse show"
+							aria-labelledby="flush-headingOne">
 							<div class="accordion-body">
-
+							
 								<!--  댓글 목록 -->
 								<c:choose>
 									<c:when test="${commentList != null and fn:length(commentList) > 0}">
@@ -94,17 +93,43 @@
 													<p><b>${comment.writer}</b> <small>${comment.regDate}</small></p>
 													<p>${comment.content}</p>
 												</div>
-												<div>
-													<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/modify?bno=${board.boardIdx}&cno=${comment.commentIdx}'" type="submit" value="수정" />
-													<input type="hidden" name="boardIdx" value="${comment.boardIdx}"/>
-													<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/>
-													<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/delete?bno=${board.boardIdx}&cno=${comment.commentIdx}'" type="submit" value="삭제" />
-													<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/reply?bno=${board.boardIdx}&cno=${comment.commentIdx}'" type="submit" value="답글" />
-												</div>
 												<hr>
+																								
+												<!-- 댓글 작성 폼 -->	
+												<form action="../comment/reply/write" method="post">
+													<c:choose>
+														<c:when test="${comment.commentIdx == cno}">
+															<div class="form-floating">
+															  <p><input type="text" name="writer" placeholder="작성자"/></p>
+															  <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px" placeholder="답글을 입력해주세요"></textarea>
+															  <input type="hidden" name="boardIdx" value="${board.boardIdx}"/><br>
+															  <input type="hidden" name="commentIdx" value="${comment.commentIdx}"/>
+															  <input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="등록"/>
+															</div>	
+														</c:when>
+													</c:choose>
+												</form>
+												<hr>	
+												
+												<c:choose>
+													<c:when test="${replyList != null and fn:length(replyList) > 0}">
+														<c:forEach items="${replyList}" var="reply">
+															<div>
+																<p><b>${reply.writer}</b> <small>${reply.regDate}</small></p>
+																<p>${reply.content}</p>
+																<div>
+																	<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/reply/modify?bno=${board.boardIdx}&cno=${comment.commentIdx}&rno=${reply.commentIdx}'" type="submit" value="수정" />
+																	<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/reply/delete?bno=${board.boardIdx}&cno=${comment.commentIdx}&rno=${reply.commentIdx}'" type="submit" value="삭제" />
+																	<input type="hidden" name="boardIdx" value="${comment.boardIdx}"/>
+																	<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/>
+																	<input type="hidden" name="replyIdx" value="${replyIdx.replyIdx}"/>
+																</div>
+															</div>
+														</c:forEach>
+													</c:when>
+												</c:choose>
 											</c:forEach>
 									</c:when>
-									
 									<c:otherwise>
 									<!-- 등록된 댓글이 없을 경우 -->
 										<div>
@@ -112,17 +137,18 @@
 										</div>
 									</c:otherwise>	
 								</c:choose>
-								
-								<!-- 댓글 작성 폼 -->	
+
+								<br>
+														
+								<!-- comment insert form -->
 								<form action="../board/comment/write" method="post">
 									<div class="form-floating">
 									  <p><input type="text" name="writer" placeholder="작성자"/></p>
-									  <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px" placeholder="답글을 입력해주세요"></textarea>
+									  <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px" placeholder="댓글을 입력해주세요"></textarea>
 									  <input type="hidden" name="boardIdx" value="${board.boardIdx}"/><br>
 									  <input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="등록"/>
 									</div>	
-								</form>
-								<hr>					
+								</form>						
 							</div>
 						</div>
 
@@ -136,8 +162,8 @@
 
 
 	<!-- footer -->
-	<%@include file="../../fragments/footer.jsp"%>
+	<%@include file="../../../fragments/footer.jsp"%>
 
-	<%@include file="../../fragments/common-js.jsp"%>
+	<%@include file="../../../fragments/common-js.jsp"%>
 </body>
 </html>
