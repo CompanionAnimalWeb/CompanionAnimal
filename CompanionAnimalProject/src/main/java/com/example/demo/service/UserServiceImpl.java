@@ -28,7 +28,12 @@ public class UserServiceImpl implements UserService {
     
     //회원 데이터 입력을 위한 메서드
     @Override
-    public void insert(MemberJoinController mjc) {
-    	userRepository.insert(mjc);
+    public void insert(User user) {
+    	userRepository.insert(user);
     }
+
+	@Override
+	public User selectUser(User user) throws Exception {
+		return userRepository.selectUser(user);
+	}
 }

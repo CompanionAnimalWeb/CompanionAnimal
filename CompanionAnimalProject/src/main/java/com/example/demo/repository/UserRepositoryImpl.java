@@ -32,7 +32,7 @@ public class UserRepositoryImpl implements UserRepository {
    @Override
    public void insert(User user) {
 	   String sql = "insert into User values(?,?,?,?)";
-	   int result = jdbcTemplate.update(sql, user.getId(), user.getPassword(), mjc.getInputName(), mjc.getInputPhone());
+	   int result = jdbcTemplate.update(sql, user.getId(), user.getPassword(), user.getName(), user.getPhone());
 	   System.out.println(result + "개 행 삽입성공");
    }
 

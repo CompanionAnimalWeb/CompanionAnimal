@@ -33,7 +33,7 @@
                 <div class="row">
 
                     <div class="col-lg-6 col-12 mx-auto">
-                        <form class="custom-form donate-form" action="#" method="get" role="form">
+                        <form class="custom-form donate-form" action="successMemberJoin" method="post" role="form">
                             <h3 class="mb-4">JOIN US</h3>
 
                             <div class="row">

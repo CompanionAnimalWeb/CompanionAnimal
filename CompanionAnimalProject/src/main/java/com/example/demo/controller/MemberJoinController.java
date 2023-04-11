@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,8 +39,8 @@ public class MemberJoinController {
 //	
 
 	// 회원가입 성공시
-	@PostMapping(value = "/member/successMemberJoin")
-	   public static String successMemberJoin(User user, Model model) {
+	@PostMapping(value = "/successMemberJoin")
+	   public static String successMemberJoin(User user, Model model) throws Exception {
 		
 		System.out.println("successMemberJoin 컨트롤러 실행");
 
@@ -51,7 +50,7 @@ public class MemberJoinController {
 	   }
 	
 
-	@PostMapping(value = "/member/signinCheck")
+	@PostMapping(value = "/signinCheck")
 	public ModelAndView signinCheck(@ModelAttribute("test") User user) {
 		
 		ModelAndView mv = new ModelAndView();
