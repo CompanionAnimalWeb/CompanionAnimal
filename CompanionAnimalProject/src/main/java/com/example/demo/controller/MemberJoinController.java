@@ -42,11 +42,12 @@ public class MemberJoinController {
 	@PostMapping(value = "/successMemberJoin")
 	   public static String successMemberJoin(User user, Model model) throws Exception {
 		
+		// 회원가입이 완료되었습니다 알림창 출력 추가예정
 		System.out.println("successMemberJoin 컨트롤러 실행");
 
 	    userService.insert(user);
 	     
-	     return "member/successMemberJoin";
+	     return "member/login";
 	   }
 	
 
