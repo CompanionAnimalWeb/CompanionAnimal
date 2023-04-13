@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +14,13 @@ public interface UserService {
     // 전체 회원의 id, name, phone 정보를 리턴
     public List<User> findUsers();
     
-    //회원 데이터 입력을 위한 메서드
-    public void insert(MemberJoinController mjc);
+    // 회원 데이터 입력을 위한 메소드
+    public void insert(MemberJoinController mjc) {
+    	userRepository.insert(mjc);
+    }
+    
+	public User selectUser(User user) throws Exception {
+		return userRepository.selectUser(user);
+	}
+
 }

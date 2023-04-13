@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import java.sql.ResultSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,33 +11,33 @@ import com.example.demo.controller.MemberJoinController;
 import com.example.demo.model.User;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
 	
    private final JdbcTemplate jdbcTemplate;
-	
+   
    @Autowired
    public UserRepositoryImpl(JdbcTemplate jdbcTemplate) {
        this.jdbcTemplate = jdbcTemplate;
    }
 
-   //User의 id, name, phone 정보를 가져오기 위한 메서드
-   //RowMapper를 사용해서 매핑
+   // User의 id, name, phone 정보를 가져오기 위한 메서드
+   // RowMapper를 사용해서 매핑
    @Override
    public List<User> findAll() {
 	   System.out.println("findAll 메서드 실행");
        return jdbcTemplate.query("select id, name, phone from User", userRowMapper());
    }
    
-   //데이터 저장을 위한 insert
+   // 데이터 저장을 위한 insert
    @Override
    public void insert(MemberJoinController mjc) {
 	   System.out.println("insert 메서드 실행");
 	   String sql = "insert into User values(?,?,?,?)";
-	   int result = jdbcTemplate.update(sql,mjc.getInputId(),mjc.getInputPW(),mjc.getInputName(),mjc.getInputPhone());
+	   int result = jdbcTemplate.update(sql, mjc.getInputId(), mjc.getInputPW(), mjc.getInputName(), mjc.getInputPhone());
 	   System.out.println(result + "개 행 삽입성공");
    }
 
-   //User 정보를 매핑하는 RowMapper
+   // User 정보를 매핑하는 RowMapper
    private RowMapper<User> userRowMapper() {
 	   System.out.println("userRowMapper 메서드 실행");
 	    return (rs, rowNum) -> {
@@ -48,4 +49,21 @@ public class UserRepositoryImpl implements UserRepository{
 	        return user;
 	    };
 	}
+   
+	// id, pw에 맞는 사용자가 있는지 
+	public User selectUser(User user) throws Exception {
+		System.out.println("selectUser");
+		String sql = "select * from User where id=? and password=?";
+		
+		User result = jdbcTemplate.queryForObject(sql, (ResultSet rs, int rowNum) -> {
+			User userInfo = new User();
+			userInfo.setId(rs.getString("id"));
+			userInfo.setPassword(rs.getString("password"));
+			userInfo.setName(rs.getString("name"));
+			userInfo.setPhone(rs.getString("phone"));
+			return userInfo; }, user.getId(), user.getPassword());
+		
+		return result;
+	}
+   
 }
