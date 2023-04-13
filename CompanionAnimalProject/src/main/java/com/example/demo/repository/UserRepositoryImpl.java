@@ -20,6 +20,13 @@ public class UserRepositoryImpl implements UserRepository {
        this.jdbcTemplate = jdbcTemplate;
    }
 
+	public int insertUser(User user) {
+		System.out.println("insertUser");
+		String sql="insert into User values(?,?,?,?)";
+		int result=jdbcTemplate.update(sql, user.getId(),user.getPassword(),user.getName(),user.getPhone());
+		return result;
+	}
+	
    // User의 id, name, phone 정보를 가져오기 위한 메서드
    // RowMapper를 사용해서 매핑
    @Override
@@ -66,4 +73,26 @@ public class UserRepositoryImpl implements UserRepository {
 		return result;
 	}
    
+	public User selectUserById(String id) {
+		      String sql = "SELECT * FROM User WHERE id = ?";
+		      
+		      try {
+		    	  
+		         User result = jdbcTemplate.queryForObject(sql,
+		               (ResultSet rs, int rowNum)->{
+		                  User userInfo=new User();
+		                  userInfo.setId(rs.getString("id"));
+		                  userInfo.setPassword(rs.getString("password"));
+		                  userInfo.setName(rs.getString("name"));
+		                  userInfo.setPhone(rs.getString("phone"));
+		                  System.out.println(userInfo.getId());
+		                  return userInfo;
+		               }, id);
+		         
+		         return result;
+		               
+		      } catch (NullPointerException e) {
+		         return null;
+		      }
+		   }
 }

@@ -33,4 +33,14 @@ public class UserService {
 		return userRepository.selectUser(user);
 	}
 	
+	public User selectUserById(String id) {
+		System.out.println("select ");
+		return userRepository.selectUserById(id);
+	}
+	
+	public int insertUser(User user) {
+		System.out.println("서비스 메서드");
+		return userRepository.insertUser(user);
+	}
+	
 }

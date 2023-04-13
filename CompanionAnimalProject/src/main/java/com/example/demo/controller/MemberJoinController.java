@@ -1,12 +1,18 @@
 package com.example.demo.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.User;
@@ -65,18 +71,36 @@ public class MemberJoinController {
 		this.inputPhone = inputPhone;
 	}
 
-	// 회원가입 페이지
+	//회원가입 페이지
 	@RequestMapping("/member/register")
 	public String memberRegister() {
 		return "member/register";
 	}
 	
+	@RequestMapping("/member/successMemberJoin")
+	public ModelAndView idCheck(@ModelAttribute("registerData") User user) {
+		
+		ModelAndView mv = new ModelAndView();
+		System.out.println(user.getId());
+		userService.selectUserById(user.getId());
+		userService.insertUser(user);
+		return mv;
+		/*
+		 * if(userService.selectUserById(user.getId()) == null) {
+		 * System.out.println("유저조회성공"); userService.insertUser(user);
+		 * mv.setViewName("member/successMemberJoin"); return mv; } else {
+		 * mv.addObject("user", user); mv.addObject("error", "아이디가 이미 존재합니다.");
+		 * mv.setViewName("member/register"); return mv; }
+		 */
+	}
+	
+
 	// 로그인 페이지
 	@RequestMapping("/member/signin")
 	public String signin() {
 		return "member/signin";
 	}
-	
+	/*
 	// 회원가입 성공시
 	@PostMapping(value = "/member/successMemberJoin")
 	   public static String successMemberJoin(HttpServletRequest httpServletRequest, Model model) {
@@ -104,11 +128,11 @@ public class MemberJoinController {
 	     userService.insert(memberJoinController);
 	     
 	     return "member/successMemberJoin";
-	   }
+	   }*/
 	
 
 	@PostMapping(value = "/member/signinCheck")
-	public ModelAndView signinCheck(@ModelAttribute("test") User user) {
+	public ModelAndView signinCheck(@Valid @ModelAttribute("signinData") User user) {
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -120,7 +144,7 @@ public class MemberJoinController {
 			
 		// 아이디나 비밀번호가 달라 예외가 발생한 경우 다시 로그인 페이지로 리다이렉트
 		} catch(Exception e) {
-			mv.setViewName("redirect:/signin");
+			mv.setViewName("/member/signin");
 			return mv;
 		}
 	}

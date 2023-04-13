@@ -5,10 +5,10 @@
 
 <html>
 <head>
-	<title>Home</title>
+	<title> 로그인 페이지 </title>
 </head>
 <body>
-	<form:form modelAttribute="test" action="signinCheck" method="post">
+	<form:form modelAttribute="signinData" action="signinCheck" method="post">
 
 	<label>ID : <input type="text" name="id" value="${user.id}"/></label>
 	<br>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title> 로그인 정보 확인 </title>
 </head>
 <body>
 

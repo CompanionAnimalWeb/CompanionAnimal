@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시글 작성 페이지</title>
+<title> 회원가입 완료 </title>
 </head>
 <body>
 
