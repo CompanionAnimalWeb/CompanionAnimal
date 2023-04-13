@@ -20,10 +20,10 @@ create table Board(
 create table Comment(
 	comment_idx int not null auto_increment primary key,
     board_idx int,
-    id varchar(20),
+    writer varchar(20),
     content text not null,
     redate datetime,
-    foreign key (id) references User(id) on update cascade,
+    foreign key (writer) references User(id) on update cascade,
     foreign key (board_idx) references Board(board_idx) on update cascade
 );
 

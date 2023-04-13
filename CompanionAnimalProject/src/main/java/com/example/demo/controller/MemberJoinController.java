@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
+<<<<<<< HEAD
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+=======
+>>>>>>> 2b1f7cad724818c438835eba728376abd0557814
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +22,10 @@ import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 
 @Controller
+@RequestMapping("/member")
 public class MemberJoinController {
 	
-	private String inputId;
-	private String inputPW;
-	private String inputName;
-	private String inputPhone;
-	
+
 	//의존 주입
 	private static UserService userService;
 
@@ -34,6 +34,7 @@ public class MemberJoinController {
         this.userService = userService;
     }
     
+<<<<<<< HEAD
     //값 주입을 위한 기본 생성자
     public MemberJoinController() {
     	
@@ -101,20 +102,32 @@ public class MemberJoinController {
 		return "member/signin";
 	}
 	/*
+=======
+    
+	// 회원가입
+	@PostMapping("/join")
+	public String memberJoinPost() {
+		return "member/Join";
+	}
+	
+//	// 로그인 페이지
+//	@RequestMapping("/login")
+//	public String signin() {
+//		return "member/signin";
+//	}
+//	
+
+>>>>>>> 2b1f7cad724818c438835eba728376abd0557814
 	// 회원가입 성공시
-	@PostMapping(value = "/member/successMemberJoin")
-	   public static String successMemberJoin(HttpServletRequest httpServletRequest, Model model) {
+	@PostMapping(value = "/successMemberJoin")
+	   public static String successMemberJoin(User user, Model model) throws Exception {
 		
+		// 회원가입이 완료되었습니다 알림창 출력 추가예정
 		System.out.println("successMemberJoin 컨트롤러 실행");
-		
-		 // 전 페이지에서 받은 값 해당 클래스에 주입
-		 MemberJoinController memberJoinController = new MemberJoinController();
-		 memberJoinController.setInputId(httpServletRequest.getParameter("inputId"));
-		 memberJoinController.setInputPW(httpServletRequest.getParameter("inputPW"));
-		 memberJoinController.setInputName(httpServletRequest.getParameter("inputName"));
-		 memberJoinController.setInputPhone(httpServletRequest.getParameter("inputPhone"));
-	     //System.out.println(memberJoinController.getInputId());
+
+	    userService.insert(user);
 	     
+<<<<<<< HEAD
 		 
 		 // 모델에 값 주입
 //	     model.addAttribute("test", "회원 가입 성공 페이지");
@@ -133,6 +146,14 @@ public class MemberJoinController {
 
 	@PostMapping(value = "/member/signinCheck")
 	public ModelAndView signinCheck(@Valid @ModelAttribute("signinData") User user) {
+=======
+	     return "member/login";
+	   }
+	
+
+	@PostMapping(value = "/signinCheck")
+	public ModelAndView signinCheck(@ModelAttribute("test") User user) {
+>>>>>>> 2b1f7cad724818c438835eba728376abd0557814
 		
 		ModelAndView mv = new ModelAndView();
 		

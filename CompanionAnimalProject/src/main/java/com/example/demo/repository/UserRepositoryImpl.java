@@ -37,10 +37,9 @@ public class UserRepositoryImpl implements UserRepository {
    
    // 데이터 저장을 위한 insert
    @Override
-   public void insert(MemberJoinController mjc) {
-	   System.out.println("insert 메서드 실행");
+   public void insert(User user) {
 	   String sql = "insert into User values(?,?,?,?)";
-	   int result = jdbcTemplate.update(sql, mjc.getInputId(), mjc.getInputPW(), mjc.getInputName(), mjc.getInputPhone());
+	   int result = jdbcTemplate.update(sql, user.getId(), user.getPassword(), user.getName(), user.getPhone());
 	   System.out.println(result + "개 행 삽입성공");
    }
 

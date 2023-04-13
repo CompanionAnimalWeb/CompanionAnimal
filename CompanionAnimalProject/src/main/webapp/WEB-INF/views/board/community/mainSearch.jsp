@@ -43,13 +43,11 @@
 			
 				</div>
 				
-				<form action="../board/listSearch">
+				<form action="../board/listSearch" method="post">
 					<div class="d-flex flex-row-reverse">
 			            <div class="d-flex justify-content-lg-end">
-						 
-						    <input class="form-control border-gray border-1 rounded-pill" type="search" name="keyword"
-						    	placeholder="찾으시는 글이 있으신가요?" aria-label="Search" aria-describedby="search-heart" style="font-size:small" size=40>
-	                		<button class="btn my-2 my-sm-0" type="submit" onclick="location.href='../board/mainSearch?keyword=${keyword}'"><i class="bi-search"></i></button>
+						    <input class="form-control border-gray border-1 rounded-pill" type="search" name="keyword" placeholder="찾으시는 글이 있으신가요?" aria-label="Search" aria-describedby="search-heart" style="font-size:small" size=40/>
+	                		<button class="btn my-2 my-sm-0" type="submit"><i class="bi-search"></i></button>
 	                	</div>	
 					</div>
 				</form>

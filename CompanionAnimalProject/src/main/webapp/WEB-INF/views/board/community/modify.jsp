@@ -45,15 +45,15 @@
 				</div>
 				<br><br>
 					
-				<form action="../board/write" method="post">
+				<form action="../board/modify" method="post">
 					<div class="mb-3 row">
 						<label class="col-sm-1 col-form-label">제목</label>
 						<div class="col-sm-5">
-							<input type="text" name="title" class="form-control" placeholder="제목을 입력해주세요">
+							<input type="text" name="title" class="form-control" value=${board.title}>
 						</div>
 					</div>
 					
-				    <textarea class="form-control" name="content" id="exampleTextarea" rows="15"></textarea>
+				    <textarea class="form-control" name="content" id="exampleTextarea" rows="15">${board.content}</textarea>
 					
 					<br>
 					
@@ -73,6 +73,7 @@
 	    			<br>
 	    			
 	    			<div class="d-grid gap-2 d-md-flex justify-content-md-end">	
+		    			<input type="hidden" name="boardIdx" value="${board.boardIdx}"/>
 		    			<input class="btn btn-dark btn-sm" type="submit" value="등록">
 		    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm">취소</a>		    			
 			    	</div>
