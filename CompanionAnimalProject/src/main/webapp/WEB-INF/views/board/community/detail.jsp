@@ -91,7 +91,7 @@
 									<c:when test="${commentList != null and fn:length(commentList) > 0}">
 											<c:forEach items="${commentList}" var="comment">
 												<div>
-													<p><b>${comment.writer}</b> <small>${comment.regDate}</small></p>
+													<p><b>${comment.id}</b> <small>${comment.regDate}</small></p>
 													<p>${comment.content}</p>
 												</div>
 												<div>

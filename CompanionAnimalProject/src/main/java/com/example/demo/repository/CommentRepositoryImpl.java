@@ -42,7 +42,7 @@ public class CommentRepositoryImpl implements CommentRepository{
 		    return (rs, rowNum) -> {
 		    	Comment comment = new Comment();
 		    	comment.setCommentIdx(rs.getInt("comment_idx"));
-		    	comment.setWriter(rs.getString("writer"));
+		    	comment.setId(rs.getString("id"));
 		    	comment.setContent(rs.getString("content"));
 		    	comment.setRegDate(rs.getString("regDate"));   
 		    	//위에 날짜 db에 칼럼명 오류나서 나중에 수정하겠움 기능은 이상없음
@@ -54,8 +54,8 @@ public class CommentRepositoryImpl implements CommentRepository{
 	   /* 댓글 작성 */ 
 	   @Override
 	   public void insert(Comment comment) throws Exception {
-		   String sql = "insert into comment(comment_idx, board_idx, writer, content, regDate) value(?,?,?,?,?)";
-		   jdbcTemplate.update(sql, comment.getCommentIdx(), comment.getBoardIdx(), comment.getWriter(), comment.getContent(), comment.getRegDate());
+		   String sql = "insert into comment(comment_idx, board_idx, id, content, regDate) value(?,?,?,?,?)";
+		   jdbcTemplate.update(sql, comment.getCommentIdx(), comment.getBoardIdx(), comment.getId(), comment.getContent(), comment.getRegDate());
 	   }
 	   
 	   /* 댓글 삭제 */ 

@@ -25,7 +25,7 @@ public class UserRepositoryImpl implements UserRepository {
    @Override
    public List<User> findAll() {
 	   System.out.println("findAll 메서드 실행");
-       return jdbcTemplate.query("select id, name, phone from User", userRowMapper());
+       return jdbcTemplate.query("select id, name, phone from User", userRowMapperPart());
    }
    
    // 데이터 저장을 위한 insert
@@ -37,7 +37,7 @@ public class UserRepositoryImpl implements UserRepository {
    }
 
    // User 정보를 매핑하는 RowMapper
-   private RowMapper<User> userRowMapper() {
+   private RowMapper<User> userRowMapperPart() {
 	   System.out.println("userRowMapper 메서드 실행");
 	    return (rs, rowNum) -> {
 	    	User user = new User();
@@ -49,19 +49,24 @@ public class UserRepositoryImpl implements UserRepository {
 	    };
 	}
    
+   private RowMapper<User> userRowMapperAll() {
+	   System.out.println("userRowMapper 메서드 실행");
+	    return (rs, rowNum) -> {
+	    	User user = new User();
+	    	user.setId(rs.getString("id"));
+	    	user.setPassword(rs.getString("password"));
+	    	user.setName(rs.getString("name"));
+	    	user.setPhone(rs.getString("phone"));
+	        return user;
+	    };
+	}
+   
 	// id, pw에 맞는 사용자가 있는지 
 	public User selectUser(User user) throws Exception {
 		System.out.println("selectUser");
 		String sql = "select * from User where id=? and password=?";
 		
-		User result = jdbcTemplate.queryForObject(sql, (ResultSet rs, int rowNum) -> {
-			User userInfo = new User();
-			userInfo.setId(rs.getString("id"));
-			userInfo.setPassword(rs.getString("password"));
-			userInfo.setName(rs.getString("name"));
-			userInfo.setPhone(rs.getString("phone"));
-			return userInfo; }, user.getId(), user.getPassword());
-		
+		User result = jdbcTemplate.queryForObject(sql, userRowMapperAll(), user.getId(), user.getPassword());
 		return result;
 	}
    
