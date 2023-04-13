@@ -15,12 +15,18 @@ public interface PlaceService {
     // 전체 장소의 category, name, latitude, longitude 정보를 리턴
     public List<Place> findPlaces();
 
-    // 전체 장소의 category, name, latitude, longitude 정보를 리턴
+    // 카페의 category, name, latitude, longitude 정보를 리턴
     public List<Place> findCoffees();
 
-    // 전체 장소의 category, name, latitude, longitude 정보를 리턴
+    // 가게의 category, name, latitude, longitude 정보를 리턴
     public List<Place> findStores();
 
-    // 전체 장소의 category, name, latitude, longitude 정보를 리턴
+    // 공원의 category, name, latitude, longitude 정보를 리턴
     public List<Place> findParks();
+    
+    // 식당의 category, name, latitude, longitude 정보를 리턴
+    public List<Place> findRestaurants();
+    
+    // 호텔의 category, name, latitude, longitude 정보를 리턴
+    public List<Place> findHotels();
 }

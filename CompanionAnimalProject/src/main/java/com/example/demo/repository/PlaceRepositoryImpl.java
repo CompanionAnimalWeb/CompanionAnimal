@@ -32,15 +32,29 @@ public class PlaceRepositoryImpl implements PlaceRepository{
 	   System.out.println("findCoffee 메서드 실행");
        return jdbcTemplate.query("select category, name, latitude, longitude from Service where category='카페'", placeRowMapper());
    }
+   
    @Override
    public List<Place> findStore() {
 	   System.out.println("findStore 메서드 실행");
        return jdbcTemplate.query("select category, name, latitude, longitude from Service where category='마트'", placeRowMapper());
    }
+   
    @Override
    public List<Place> findPark() {
 	   System.out.println("findPark 메서드 실행");
        return jdbcTemplate.query("select category, name, latitude, longitude from Service where category='공원'", placeRowMapper());
+   }
+   
+   @Override
+   public List<Place> findRestaurant() {
+	   System.out.println("findRestaurant 메서드 실행");
+       return jdbcTemplate.query("select category, name, latitude, longitude from Service where category='식당'", placeRowMapper());
+   }
+
+   @Override
+   public List<Place> findHotel() {
+	   System.out.println("findHotel 메서드 실행");
+       return jdbcTemplate.query("select category, name, latitude, longitude from Service where category='호텔'", placeRowMapper());
    }
    
    //Place 정보를 매핑하는 RowMapper

@@ -25,18 +25,28 @@ public class PlaceServiceImpl implements PlaceService{
         return placeRepository.findAll();
     }
     
-    // 전체 장소의 category, name, latitude, longitude 정보를 리턴
+    // 카페의 category, name, latitude, longitude 정보를 리턴
     public List<Place> findCoffees(){
         return placeRepository.findCoffee();
     }
     
-    // 전체 장소의 category, name, latitude, longitude 정보를 리턴
+    // 가게의 category, name, latitude, longitude 정보를 리턴
     public List<Place> findStores(){
         return placeRepository.findStore();
     }
     
-    // 전체 장소의 category, name, latitude, longitude 정보를 리턴
+    // 공원의 category, name, latitude, longitude 정보를 리턴
     public List<Place> findParks(){
         return placeRepository.findPark();
+    }
+    
+    // 식당의 category, name, latitude, longitude 정보를 리턴
+    public List<Place> findRestaurants(){
+        return placeRepository.findRestaurant();
+    }
+    
+    // 호텔의 category, name, latitude, longitude 정보를 리턴
+    public List<Place> findHotels(){
+        return placeRepository.findHotel();
     }
 }

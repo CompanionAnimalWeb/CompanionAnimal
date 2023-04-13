@@ -28,10 +28,14 @@ public class PlaceController {
 		List<Place> coffees = placeService.findCoffees();
 		List<Place> stores = placeService.findStores();
 		List<Place> parks = placeService.findParks();
+		List<Place> restaurants = placeService.findRestaurants();
+		List<Place> hotels = placeService.findHotels();
 		//model.addAttribute("placeList", places);
 		model.addAttribute("coffeeList", coffees);
 		model.addAttribute("storeList", stores);
 		model.addAttribute("parkList", parks);
+		model.addAttribute("restaurantList", restaurants);
+		model.addAttribute("hotelList", hotels);
         return "place/main";
 	}
 }
