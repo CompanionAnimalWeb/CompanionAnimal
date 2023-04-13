@@ -10,6 +10,6 @@ public interface UserService {
     public List<User> findUsers();
     void insert(User user) throws Exception;
     public User selectUser(User user) throws Exception;
-    public int insertUser(User user) throws Exception;
+	public User selectByUserId(String id) throws Exception;
 
 }

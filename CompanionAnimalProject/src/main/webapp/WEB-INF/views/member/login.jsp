@@ -33,7 +33,7 @@
                 <div class="row">
 
                     <div class="col-lg-6 col-12 mx-auto">
-                        <form class="custom-form donate-form" action="login" method="post">
+                        <form class="custom-form donate-form" action="signinCheck" method="post">
                             <h3 class="mb-4">LOGIN</h3>
 				
                             <div class="row">
@@ -43,6 +43,7 @@
 									<br>
 									<h5 class="mb-1">Password</h5>
 									<input type="password" name="password" class="form-control" id="exampleFormControlInput1" placeholder=""/>								 
+									<b>${message}</b>
 								</div>
 								
 								<button type="submit" class="form-control mt-4">로그인</button>

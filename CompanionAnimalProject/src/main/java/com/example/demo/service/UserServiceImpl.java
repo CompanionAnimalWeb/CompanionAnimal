@@ -1,12 +1,10 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.controller.MemberJoinController;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 
@@ -38,8 +36,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int insertUser(User user) throws Exception {
-		System.out.println("서비스 메서드");
-		return userRepository.insertUser(user);
+	public User selectByUserId(String id) throws Exception {
+		return userRepository.selectByUserId(id);
 	}
 }
