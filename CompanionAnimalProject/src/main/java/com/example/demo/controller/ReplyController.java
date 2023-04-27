@@ -67,7 +67,7 @@ public class ReplyController {
     	return "board/community/comment/reply";
     }
     
-	
+	//답글 입력
 	@PostMapping(value = "/comment/reply/write")
 	public String insertReply(Reply reply) throws Exception {
 		
@@ -80,6 +80,39 @@ public class ReplyController {
 		return "redirect:/board/detail?bno=" + reply.getBoardIdx();	
 	}
 	
+	//답글 삭제
+	@GetMapping(value = "/comment/reply/delete")
+	public String deleteReply(@RequestParam("bno") int bno,@RequestParam("cno") int cno, @RequestParam("rno") int rno) throws Exception {
+		System.out.println(rno);
+		
+		replyService.delete(cno, rno);
+		
+		return "redirect:/board/detail?bno=" + bno + "&cno=" + cno ;
+	}
 	
-
+	//답글 수정
+	@GetMapping(value = "/comment/reply/modify")
+	public String modifyGet(@RequestParam("bno") int bno, @RequestParam("cno") int cno,@RequestParam("rno") int rno, Model model) throws Exception {
+		
+		//Board board = boardService.findPost(bno);
+		List<Comment> commentLst = commentService.findComment(bno);
+		List<Reply> replyList = replyService.findReply(rno);
+		//model.addAttribute("board", board);
+		//model.addAttribute("commentList", commentLst);
+		model.addAttribute("cno", cno);
+		model.addAttribute("replyList",replyList);
+		model.addAttribute(rno);
+		
+		return "board/community/comment/modify";
+	}	
+	
+	
+	//답글 수정
+	@PostMapping(value = "/comment/reply/modify")
+	public String modifyPost(Reply reply) throws Exception {
+		
+		replyService.modify(reply);
+		
+		return "redirect:/board/detail?bno=" + reply.getBoardIdx();
+	}
 }
