@@ -4,20 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Board;
 import com.example.demo.model.Comment;
-import com.example.demo.model.Reply;
+import com.example.demo.model.Criteria;
+import com.example.demo.model.PageMaker;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.ReplyService;
@@ -25,14 +23,6 @@ import com.example.demo.service.ReplyService;
 @Controller
 @RequestMapping(value = "/board")
 public class BoardController {
-
-	/*
-	 * private int boardIdx; 
-	 * private String title; 
-	 * private String content; 
-	 * private String regDate; 
-	 * private String id;
-	 */
 
 	private static BoardService boardService;
 	private static CommentService commentService;
@@ -45,16 +35,18 @@ public class BoardController {
         this.boardService = boardService;
         this.replyService = replyService;
     }
-    
-    
 	
 	// 게시물 목록 
 	@GetMapping(value = "/list")
-	public String boardList(Model model) throws Exception  {
+	public String boardList(@RequestParam("page") int page,Model model,Criteria criteria) throws Exception  {
 		
-		List<Board> board = boardService.findAllBoard();
-		model.addAttribute("boardList", board);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		pageMaker.setTotalCount(boardService.count());
+		//List<Board> board = boardService.findAllBoard();
 		
+		model.addAttribute("boardList", boardService.listCriteria(criteria));
+		model.addAttribute("pageMaker", pageMaker);
         return "board/community/main";
 	}
 	

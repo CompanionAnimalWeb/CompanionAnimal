@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.controller.BoardController;
 import com.example.demo.model.Board;
+import com.example.demo.model.Criteria;
 import com.example.demo.repository.BoardRepository;
 
 /**
@@ -61,12 +62,22 @@ public class BoardServiceImpl implements BoardService{
 	/* 게시물 총 갯수 */
 	@Override
 	public int count() throws Exception {
-		return boardRepository.count();
+		return boardRepository.countBoard();
 	}
 
 	/* 게시물 검색 */
 	@Override
 	public List<Board> findPost(String content, String title) {
 		return boardRepository.findPost(content, title);
+	}
+	
+//	@Override
+//	public List<Board> listPaging(int page) throws Exception {
+//		return boardRepository.listPaging(page);
+//	}
+	
+	@Override
+	public List<Board> listCriteria(Criteria criteria) throws Exception {
+		return boardRepository.listCriteria(criteria);
 	}
 }

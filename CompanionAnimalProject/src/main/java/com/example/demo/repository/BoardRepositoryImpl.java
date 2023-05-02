@@ -1,6 +1,5 @@
 package com.example.demo.repository;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.controller.BoardController;
 import com.example.demo.model.Board;
+import com.example.demo.model.Criteria;
 
 @Repository
 public class BoardRepositoryImpl implements BoardRepository{
@@ -87,12 +86,7 @@ public class BoardRepositoryImpl implements BoardRepository{
 		jdbcTemplate.update(sql, bno);
 	}
 
-	/* 게시글 총 갯수 */
-	@Override
-	public int count() throws Exception {
-		String sql = "select count(*) from Board";
-		return jdbcTemplate.queryForObject(sql, Integer.class);
-	}
+
 
 	
 	/* 게시물 페이징 처리 */
@@ -104,4 +98,31 @@ public class BoardRepositoryImpl implements BoardRepository{
 //	}
 	
 	
+	//페이징 처리
+	//게시물 총 갯수 
+	@Override
+	public int countBoard() throws Exception {
+		String sql = "select count(*) from Board";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	
+//	@Override
+//		public List<Board> listPaging(int page) throws Exception {
+//			if (page <= 0) {
+//				page=1;
+//			}
+//			
+//			page = (page - 1) * 10;
+//			
+//			String sql = "select * from Board where board_idx > 0 limit ?,10";
+//			
+//			return jdbcTemplate.query(sql, boardRowMapper(), page);
+//		}
+	
+	@Override
+		public List<Board> listCriteria(Criteria criteria) throws Exception {
+			
+			String sql = "select * from Board limit ?,?";
+			return jdbcTemplate.query(sql, boardRowMapper(), criteria.getPageStart(), criteria.getPerPageNum());
+		}
 }

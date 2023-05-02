@@ -83,11 +83,11 @@ public class ReplyController {
 	//답글 삭제
 	@GetMapping(value = "/comment/reply/delete")
 	public String deleteReply(@RequestParam("bno") int bno,@RequestParam("cno") int cno, @RequestParam("rno") int rno) throws Exception {
-		System.out.println(rno);
 		
+		System.out.println(cno);
 		replyService.delete(cno, rno);
 		
-		return "redirect:/board/detail?bno=" + bno + "&cno=" + cno ;
+		return "redirect:/board/detail?bno=" + bno;
 	}
 	
 	//답글 수정
@@ -98,7 +98,7 @@ public class ReplyController {
 		List<Comment> commentLst = commentService.findComment(bno);
 		List<Reply> replyList = replyService.findReply(rno);
 		//model.addAttribute("board", board);
-		//model.addAttribute("commentList", commentLst);
+		model.addAttribute("commentList", commentLst);
 		model.addAttribute("cno", cno);
 		model.addAttribute("replyList",replyList);
 		model.addAttribute(rno);
