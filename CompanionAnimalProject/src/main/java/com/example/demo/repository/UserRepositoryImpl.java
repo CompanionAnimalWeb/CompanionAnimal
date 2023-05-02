@@ -1,13 +1,13 @@
 package com.example.demo.repository;
 
-import java.sql.ResultSet;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.controller.MemberJoinController;
 import com.example.demo.model.User;
 
 @Repository
@@ -35,6 +35,30 @@ public class UserRepositoryImpl implements UserRepository {
 	   int result = jdbcTemplate.update(sql, user.getId(), user.getPassword(), user.getName(), user.getPhone());
 	   System.out.println(result + "개 행 삽입성공");
    }
+   
+	// id, pw에 맞는 사용자가 있는지 
+   @Override
+	public User selectUser(User user) throws Exception {
+		System.out.println("selectUser");
+		String sql = "select * from User where id=? and password=?";
+		
+		User result = jdbcTemplate.queryForObject(sql, userRowMapperAll(), user.getId(), user.getPassword());
+		return result;
+	}
+	
+	@Override
+	public User selectByUserId(String id) throws Exception{
+		String sql = "select id from User where id = ?";
+		User result;
+		try{
+			result  = jdbcTemplate.queryForObject(sql, selectByUserIdMapper(),id);
+			return result;
+		}
+		catch (Exception e) {
+			return null;
+		}
+		
+	}
 
    // User 정보를 매핑하는 RowMapper
    private RowMapper<User> userRowMapperPart() {
@@ -61,13 +85,15 @@ public class UserRepositoryImpl implements UserRepository {
 	    };
 	}
    
-	// id, pw에 맞는 사용자가 있는지 
-	public User selectUser(User user) throws Exception {
-		System.out.println("selectUser");
-		String sql = "select * from User where id=? and password=?";
-		
-		User result = jdbcTemplate.queryForObject(sql, userRowMapperAll(), user.getId(), user.getPassword());
-		return result;
+   private RowMapper<User> selectByUserIdMapper() {
+	    return (rs, rowNum) -> {
+	    	User user = new User();
+	    	user.setId(rs.getString("id"));
+	    	System.out.println(user.getId());
+	        return user;
+	    };
 	}
+   
+
    
 }

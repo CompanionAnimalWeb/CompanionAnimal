@@ -111,7 +111,7 @@
 									</c:when>
 									<c:otherwise>
 									</c:otherwise>
-								</c:choose>				
+								</c:choose>	
 							</div>
 						</div>
 					</div>

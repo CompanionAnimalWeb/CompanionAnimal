@@ -90,7 +90,7 @@
 									<c:when test="${commentList != null and fn:length(commentList) > 0}">
 											<c:forEach items="${commentList}" var="comment">
 												<div>
-													<p><b>${comment.writer}</b> <small>${comment.regDate}</small></p>
+													<p><b>${comment.id}</b> <small>${comment.regDate}</small></p>
 													<p>${comment.content}</p>
 												</div>
 												<hr>
@@ -115,11 +115,11 @@
 													<c:when test="${replyList != null and fn:length(replyList) > 0}">
 														<c:forEach items="${replyList}" var="reply">
 															<div>
-																<p><b>${reply.writer}</b> <small>${reply.regDate}</small></p>
+																<p><b>${reply.id}</b> <small>${reply.regDate}</small></p>
 																<p>${reply.content}</p>
 																<div>
-																	<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/reply/modify?bno=${board.boardIdx}&cno=${comment.commentIdx}&rno=${reply.commentIdx}'" type="submit" value="수정" />
-																	<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/reply/delete?bno=${board.boardIdx}&cno=${comment.commentIdx}&rno=${reply.commentIdx}'" type="submit" value="삭제" />
+																	<input class="btn btn-outline-dark btn-sm" onclick="location.href='../comment/reply/modify?bno=${board.boardIdx}&cno=${comment.commentIdx}&rno=${reply.replyIdx}'" type="submit" value="수정" />
+																	<input class="btn btn-outline-dark btn-sm" onclick="location.href='../comment/reply/delete?bno=${board.boardIdx}&cno=${comment.commentIdx}&rno=${reply.replyIdx}'" type="submit" value="삭제" />
 																	<input type="hidden" name="boardIdx" value="${comment.boardIdx}"/>
 																	<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/>
 																	<input type="hidden" name="replyIdx" value="${replyIdx.replyIdx}"/>

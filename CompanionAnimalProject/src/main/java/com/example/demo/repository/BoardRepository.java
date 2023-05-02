@@ -1,10 +1,9 @@
 package com.example.demo.repository;
 
-import java.util.HashMap;
 import java.util.List;
 
-import com.example.demo.controller.BoardController;
 import com.example.demo.model.Board;
+import com.example.demo.model.Criteria;
 
 public interface BoardRepository {
 	
@@ -14,7 +13,8 @@ public interface BoardRepository {
 	public void insert(Board board) throws Exception;			// 게시물 삽입
 	public void modify(Board board) throws Exception;			// 게시물 수정
 	public void delete(int bno) throws Exception;				// 게시물 삭제
-	public int count() throws Exception;						// 게시물 총 갯수
-	
-	//	public HashMap<String, Integer> lsitPage(Board board) throws Exception;	// 게시글 목록 + 페이징
+	public int countBoard() throws Exception;					// 게시물 총 갯수
+	//public List<Board> selectBoard() throws Exception;
+	//public List<Board> listPaging(int page) throws Exception;
+	public List<Board> listCriteria(Criteria criteria) throws Exception;
 }

@@ -24,7 +24,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/board/list"/>">견사무소</a>
+                        <a class="nav-link" href="<c:url value="/board/list?page=1"/>">견사무소</a>
                     </li>
 
                     <li class="nav-item">

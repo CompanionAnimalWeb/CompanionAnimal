@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
 	public User selectUser(User user) throws Exception {
 		return userRepository.selectUser(user);
 	}
+	@Override
+	public User selectByUserId(String id) throws Exception{
+		return userRepository.selectByUserId(id);
+	}
+	
 }
