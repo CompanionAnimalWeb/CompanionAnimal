@@ -5,9 +5,8 @@ public class PageMaker {
 	private int totalCount;
 	private int startPage;
 	private int endPage;
-	private boolean prev;
-	private boolean next;
-	
+
+
 	private int displayPageNum = 10;
 
 
@@ -31,9 +30,6 @@ public class PageMaker {
 		if (endPage > tempEndPage) {
 			endPage = tempEndPage;
 		}
-		
-		prev = startPage == 1 ? false : true;
-		next = endPage * criteria.getPerPageNum() >= totalCount ? false : true;
 	}
 	
 	public int getStartPage() {
