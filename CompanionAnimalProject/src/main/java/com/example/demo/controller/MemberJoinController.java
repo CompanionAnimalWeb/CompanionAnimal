@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +28,10 @@ public class MemberJoinController {
         MemberJoinController.userService = userService;
     }
     
-	// 회원가입 성공시
+    // 회원가입 성공시
     @ResponseBody
 	@PostMapping(value = "/successMemberJoin")
-	public static String successMemberJoin(User user, Model model) throws Exception {
+	public static String successMemberJoin(@Valid User user, Model model) throws Exception {
 		
 		// 회원가입이 완료되었습니다 알림창 출력 추가예정
 		if(userService.selectByUserId(user.getId()) == null) {
@@ -44,16 +47,18 @@ public class MemberJoinController {
 		}
 	}
 	
+	
 	// 로그인
 	@PostMapping(value = "/signinCheck")
-	public ModelAndView signinCheck(@ModelAttribute("test") User user) {
+	public ModelAndView signinCheck(@ModelAttribute("test") User user, HttpSession session) {
 		
 		ModelAndView mv = new ModelAndView();
 			
 		// db에 사용자가 입력한 로그인 정보 확인
 		try {
-			User result = userService.selectUser(user);	
-			mv.addObject("userInfo", result);
+			User userInfo = userService.selectUser(user);
+			session.setAttribute("userInfo", userInfo);
+			mv.addObject("userInfo", userInfo);
 			mv.setViewName("/main");
 			return mv;
 			
