@@ -49,4 +49,14 @@ public class PlaceServiceImpl implements PlaceService{
     public List<Place> findHotels(){
         return placeRepository.findHotel();
     }
+    
+    // 병원의 category, name, latitude, longitude 정보를 리턴
+    public List<Place> findHospitals(){
+    	return placeRepository.findHospital();
+    }
+    
+    // 미용실의 category, name, latitude, longitude 정보를 리턴
+    public List<Place> findSalons(){
+    	return placeRepository.findSalon();
+    }
 }

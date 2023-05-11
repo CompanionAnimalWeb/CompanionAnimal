@@ -11,4 +11,6 @@ public interface PlaceRepository {
     List<Place> findPark();
     List<Place> findRestaurant();
     List<Place> findHotel();
+    List<Place> findHospital();
+    List<Place> findSalon();
 }

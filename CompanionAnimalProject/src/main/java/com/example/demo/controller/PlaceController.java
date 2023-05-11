@@ -30,12 +30,16 @@ public class PlaceController {
 		List<Place> parks = placeService.findParks();
 		List<Place> restaurants = placeService.findRestaurants();
 		List<Place> hotels = placeService.findHotels();
+		List<Place> hospitals = placeService.findHospitals();
+		List<Place> salons = placeService.findSalons();
 		//model.addAttribute("placeList", places);
 		model.addAttribute("coffeeList", coffees);
 		model.addAttribute("storeList", stores);
 		model.addAttribute("parkList", parks);
 		model.addAttribute("restaurantList", restaurants);
 		model.addAttribute("hotelList", hotels);
+		model.addAttribute("hospitalList", hospitals);
+		model.addAttribute("salonList", salons);
         return "place/main";
 	}
 }

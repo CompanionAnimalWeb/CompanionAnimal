@@ -29,4 +29,10 @@ public interface PlaceService {
     
     // 호텔의 category, name, latitude, longitude 정보를 리턴
     public List<Place> findHotels();
+    
+    // 병원의 category, name, latitude, longitude 정보를 리턴
+    public List<Place> findHospitals();
+    
+    // 미용실의 category, name, latitude, longitude 정보를 리턴
+    public List<Place> findSalons();
 }

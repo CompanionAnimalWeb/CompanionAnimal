@@ -56,6 +56,18 @@ public class PlaceRepositoryImpl implements PlaceRepository{
 	   System.out.println("findHotel 메서드 실행");
        return jdbcTemplate.query("select category, name, latitude, longitude from Service where category='호텔'", placeRowMapper());
    }
+
+   @Override
+   public List<Place> findHospital() {
+	   System.out.println("findHospital 메서드 실행");
+	   return jdbcTemplate.query("select category, name, latitude, longitude from Service where category='병원'", placeRowMapper());
+   }
+   
+   @Override
+   public List<Place> findSalon() {
+	   System.out.println("findSalon 메서드 실행");
+	   return jdbcTemplate.query("select category, name, latitude, longitude from Service where category='미용실'", placeRowMapper());
+   }
    
    //Place 정보를 매핑하는 RowMapper
    private RowMapper<Place> placeRowMapper() {
