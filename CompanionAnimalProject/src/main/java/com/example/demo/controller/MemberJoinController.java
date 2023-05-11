@@ -6,10 +6,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.User;
@@ -21,31 +21,35 @@ public class MemberJoinController {
 
 	//의존 주입
 	private static UserService userService;
-	private static String message = "";
 	
     @Autowired
     public MemberJoinController(UserService userService) {
         MemberJoinController.userService = userService;
     }
-    
+
     // 회원가입 성공시
-    @ResponseBody
-	@PostMapping(value = "/successMemberJoin")
-	public static String successMemberJoin(@Valid User user, Model model) throws Exception {
-		
-		// 회원가입이 완료되었습니다 알림창 출력 추가예정
-		if(userService.selectByUserId(user.getId()) == null) {
-			userService.insert(user);
-			message = "<script>alert('회원가입이 완료되었습니다. 로그인 해주세요!'); location.href='login';</script>";
-			return message;
-			//return "member/login";
-		}
-		else {
-			message = "<script>alert('이미 사용중인 아이디입니다.'); location.href='join';</script>";
-			return message;
-			//return "redirect:/member/join";
-		}
-	}
+    @PostMapping(value = "/successMemberJoin")
+    public static String successMemberJoin(@Valid User user, BindingResult bindingResult, Model model) throws Exception {
+      
+       if(bindingResult.hasErrors()){
+          model.addAttribute("user", user);
+          return "member/join";
+       }
+        
+       try {
+          if(userService.selectByUserId(user.getId()) == null) {
+             userService.insert(user);
+          }      
+          else {
+        	 model.addAttribute("message", "이미 사용중인 아이디입니다.");
+             return "member/join";
+          }
+       } catch(IllegalStateException e) {
+          model.addAttribute("errorMessage", e.getMessage());
+          return "member/join";
+       }
+        return "member/login";
+   }
 	
 	
 	// 로그인

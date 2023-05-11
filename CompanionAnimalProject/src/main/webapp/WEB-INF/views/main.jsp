@@ -18,8 +18,7 @@
 	<%@include file="fragments/common-css.jsp" %>
 	
 </head>
-<body id="section_1">
-로그인 완료 <br>
+<body id="section_1"> <br>
 아이디 : ${userInfo.id }<br>
 <c:if test="${userInfo ==null }">
 	<input type="button" value="로그인" onclick="location.href='./member/login'">
