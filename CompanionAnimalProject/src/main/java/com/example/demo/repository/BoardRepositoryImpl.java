@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.Board;
+import com.example.demo.model.BoardImages;
 import com.example.demo.model.Criteria;
 
 @Repository
@@ -34,6 +35,18 @@ public class BoardRepositoryImpl implements BoardRepository{
 	   jdbcTemplate.update(sql, board.getTitle(), board.getContent(), board.getRegDate(), board.getId());
    }
    
+   /* 게시물 이미지 등록*/
+   @Override
+   public void insertImages(BoardImages boardImages) {
+	   String sql = "insert into BoardImage(board_idx ,image_url) value(?,?)";
+	   jdbcTemplate.update(sql, boardImages.getBoardIdx(),boardImages.getUrl());
+   }
+   
+   /* 가장 최근에 추가된 게시물*/
+   @Override
+   public Board lastBoard() {
+	   return jdbcTemplate.queryForObject("SELECT board_idx FROM Board ORDER BY board_idx DESC LIMIT 1",lastBoardRowMapper());
+   }
    
    /* 특정 게시물 가져오기 */
    @Override
@@ -41,7 +54,6 @@ public class BoardRepositoryImpl implements BoardRepository{
 	   int boardIdx = no;
 	   return jdbcTemplate.queryForObject("select * from Board where board_idx = ?", boardRowMapper(), boardIdx);
    }
-   
 
 	@Override
 	public List<Board> findPost(String content, String title) {
@@ -69,6 +81,18 @@ public class BoardRepositoryImpl implements BoardRepository{
 	    	return board;
 	    };
 	}
+   
+   //PostImages 정보를 매핑하는 RowMapper1
+   private RowMapper<Board> lastBoardRowMapper() {
+	   return (rs, rowNum) -> {
+		   Board board = new Board();
+		   board.setBoardIdx(rs.getInt("board_Idx"));
+		    //postImages.setImageIdx(rs.getInt("image_idx"));
+	    	return board;
+	    };
+	}
+   
+   
 
    
    /* 게시글 수정 */
@@ -86,17 +110,6 @@ public class BoardRepositoryImpl implements BoardRepository{
 		jdbcTemplate.update(sql, bno);
 	}
 
-
-
-	
-	/* 게시물 페이징 처리 */
-//	@Override
-//	public HashMap<String, Integer> lsitPage(Board board) throws Exception {
-//		// TODO Auto-generated method stub
-//		String sql = "select * from board order by board_idx desc limit ?, ?";
-//		return jdbcTemplate.query
-//	}
-	
 	
 	//페이징 처리
 	//게시물 총 갯수 
@@ -106,18 +119,6 @@ public class BoardRepositoryImpl implements BoardRepository{
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 	
-//	@Override
-//		public List<Board> listPaging(int page) throws Exception {
-//			if (page <= 0) {
-//				page=1;
-//			}
-//			
-//			page = (page - 1) * 10;
-//			
-//			String sql = "select * from Board where board_idx > 0 limit ?,10";
-//			
-//			return jdbcTemplate.query(sql, boardRowMapper(), page);
-//		}
 	
 	@Override
 		public List<Board> listCriteria(Criteria criteria) throws Exception {

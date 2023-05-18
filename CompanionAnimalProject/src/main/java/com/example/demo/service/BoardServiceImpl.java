@@ -5,17 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.controller.BoardController;
 import com.example.demo.model.Board;
+import com.example.demo.model.BoardImages;
 import com.example.demo.model.Criteria;
 import com.example.demo.repository.BoardRepository;
 
-/**
- * 
- * @author Juhyeon Yeo
- * @since 2023. 4. 10. 오후 9:06:29
- *
- */
 @Service
 public class BoardServiceImpl implements BoardService{
 	
@@ -43,8 +37,19 @@ public class BoardServiceImpl implements BoardService{
     public void insert(Board board) throws Exception {
     	boardRepository.insert(board);
     }
-
     
+    /* 게시글 이미지 등록 */
+    @Override
+    public void insertImages(BoardImages boardImages) throws Exception {
+    	boardRepository.insertImages(boardImages);
+    }
+    
+    /* 가장 최근에 추가된 게시물*/
+    @Override
+    public Board lastBoard() throws Exception {
+    	return boardRepository.lastBoard();
+    }
+
     /* 게시글 수정 */
 	@Override
 	public void modify(Board board) throws Exception {
