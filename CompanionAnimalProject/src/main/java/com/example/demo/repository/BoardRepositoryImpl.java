@@ -1,8 +1,10 @@
 package com.example.demo.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -54,6 +56,23 @@ public class BoardRepositoryImpl implements BoardRepository{
 	   int boardIdx = no;
 	   return jdbcTemplate.queryForObject("select * from Board where board_idx = ?", boardRowMapper(), boardIdx);
    }
+   
+   /* 특정 게시물에 대한 이미지 가져오기 */
+   @Override
+   public Optional<String> findImages(int no) {
+       int boardIdx = no;
+       try {
+        @SuppressWarnings("deprecation")
+		String imageUrl = jdbcTemplate.queryForObject(
+               "SELECT image_url FROM BoardImage WHERE board_idx = ?",
+               new Object[]{boardIdx},
+               String.class
+           );
+           return Optional.ofNullable(imageUrl);
+       } catch (EmptyResultDataAccessException e) {
+           return Optional.empty();
+       }
+   }
 
 	@Override
 	public List<Board> findPost(String content, String title) {
@@ -82,18 +101,23 @@ public class BoardRepositoryImpl implements BoardRepository{
 	    };
 	}
    
-   //PostImages 정보를 매핑하는 RowMapper1
+   //가장 최근에 추가된 Board 정보를 매핑하는 RowMapper
    private RowMapper<Board> lastBoardRowMapper() {
 	   return (rs, rowNum) -> {
 		   Board board = new Board();
 		   board.setBoardIdx(rs.getInt("board_Idx"));
-		    //postImages.setImageIdx(rs.getInt("image_idx"));
-	    	return board;
+	       return board;
 	    };
 	}
    
-   
-
+   //Board 이미지 주소를 매핑하는 RowMapper
+   private RowMapper<Board> findImagesRowMapper() {
+	   return (rs, rowNum) -> {
+		   Board board = new Board();
+		   board.setImageUrl(rs.getString("image_url"));
+	       return board;
+	    };
+	}
    
    /* 게시글 수정 */
 	@Override

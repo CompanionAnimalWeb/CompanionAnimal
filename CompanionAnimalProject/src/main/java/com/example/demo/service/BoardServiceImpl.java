@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,12 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public Board findPost(int no) throws Exception {
         return boardRepository.findPost(no);
+    }
+    
+    // 특정 게시물에 대한 이미지를 가져오는 메서드
+    @Override
+    public Optional<String> findImages(int no) throws Exception {
+        return boardRepository.findImages(no);
     }
     
     /* 게시글 등록 */

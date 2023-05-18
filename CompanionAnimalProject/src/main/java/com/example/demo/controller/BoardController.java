@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,16 +92,21 @@ public class BoardController {
 		
 	}
 	
-	// 게시물 조회
+	// 특정 게시물 조회
 	@GetMapping(value = "/detail")
 	public String boardDetail(@RequestParam("bno") int bno, Model model) throws Exception {
 		
     	Board board = boardService.findPost(bno);
 		List<Comment> commentList = commentService.findComment(bno);
-		System.out.println(board.getBoardImage());
+		Optional<String> imageUrlOptional  = boardService.findImages(bno);
+		String saveName = imageUrlOptional.orElse(null);
+		
+		if(saveName != null) {
+			board.setImageUrl(saveName);
+		}
+
 		model.addAttribute("board", board);
 		model.addAttribute("commentList", commentList);
-//		model.addAttribute("replyList", replyList);
 		
 		return "board/community/detail";
 	}

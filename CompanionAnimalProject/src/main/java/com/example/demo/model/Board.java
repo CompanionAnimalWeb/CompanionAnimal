@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
-import org.springframework.web.multipart.MultipartFile;
+import java.io.File;
+import java.util.Optional;
 
 public class Board {
 	
@@ -12,7 +13,8 @@ public class Board {
 	private String id;
 	
 	//이미지
-	private MultipartFile BoardImage;
+	private String imageUrl;
+	private File BoardImage;
 	
 	/* 검색 필터 */
 	public String keyword;
@@ -55,10 +57,16 @@ public class Board {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public MultipartFile getBoardImage() {
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	public File getBoardImage() {
 		return BoardImage;
 	}
-	public void setBoardImage(MultipartFile boardImage) {
+	public void setBoardImage(File boardImage) {
 		BoardImage = boardImage;
 	}
 	
