@@ -103,7 +103,7 @@
 					    	<img src="${pageContext.request.contextPath}/resources/images/map/currentLocation.png" style="width:30px; height:30px;">
 					    </div>
 					</div>
-						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cfa528c2d7f45ee55449b267e67ffb19"></script>
+						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cfa528c2d7f45ee55449b267e67ffb19&libraries=clusterer"></script>
 						<script>
 						coffeePositions = [];
 						storePositions = [];
@@ -113,6 +113,14 @@
 						hospitalPositions = [];
 						salonPositions = [];
 						
+						coffeeLoc = []; // 커피숍 위치들을 가지고 있을 배열입니다
+					    storeLoc = []; // 편의점 위치들을 가지고 있을 배열입니다
+					    parkLoc = []; // 애견파크 위치들을 가지고 있을 배열입니다
+					    restaurantLoc = []; // 식당 위치들을 가지고 있을 배열입니다
+					    hotelLoc = []; // 호텔 위치들을 가지고 있을 배열입니다
+					    hospitalLoc = []; // 병원 위치들을 가지고 있을 배열입니다
+					    salonLoc = []; // 미용실 위치들을 가지고 있을 배열입니다
+					    
 						</script>
 						
 						<c:forEach items="${coffeeList}" var="coffee">
@@ -122,10 +130,10 @@
 						    new kakao.maps.LatLng(${coffee.latitude}, ${coffee.longitude})              
 						);
 						
-						coffeeMarkers.push({
+						coffeeLoc.push({
 							lat : ${coffee.latitude},
 							lng : ${coffee.longitude}
-						});
+						}); 
 						</script>
 						</c:forEach>
 
@@ -136,7 +144,7 @@
 						    new kakao.maps.LatLng(${store.latitude}, ${store.longitude})              
 						);
 						
-						storeMarkers.push({
+						storeLoc.push({
 							lat : ${store.latitude},
 							lng : ${store.longitude}
 						});
@@ -150,7 +158,7 @@
 						    new kakao.maps.LatLng(${park.latitude}, ${park.longitude})              
 						);
 						
-						parkMarkers.push({
+						parkLoc.push({
 							lat : ${park.latitude},
 							lng : ${park.longitude}
 						});
@@ -164,7 +172,7 @@
 						    new kakao.maps.LatLng(${restaurant.latitude}, ${restaurant.longitude})              
 						);
 						
-						restaurantMarkers.push({
+						restaurantLoc.push({
 							lat : ${restaurant.latitude},
 							lng : ${restaurant.longitude}
 						});
@@ -179,7 +187,7 @@
 						    new kakao.maps.LatLng(${hotel.latitude}, ${hotel.longitude})              
 						);
 						
-						hotelMarkers.push({
+						hotelLoc.push({
 							lat : ${hotel.latitude},
 							lng : ${hotel.longitude}
 						});
@@ -193,7 +201,7 @@
 						    new kakao.maps.LatLng(${hospital.latitude}, ${hospital.longitude})              
 						);
 						
-						hospitalMarkers.push({
+						hospitalLoc.push({
 							lat : ${hospital.latitude},
 							lng : ${hospital.longitude}
 						});
@@ -207,7 +215,7 @@
 						    new kakao.maps.LatLng(${salon.latitude}, ${salon.longitude})              
 						);
 						
-						salonMarkers.push({
+						salonLoc.push({
 							lat : ${salon.latitude},
 							lng : ${salon.longitude}
 						});
@@ -222,7 +230,7 @@
 						    }; 
 						
 						var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-						
+					
 						
 						var markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
 						    coffeeMarkers = [], // 커피숍 마커 객체를 가지고 있을 배열입니다
@@ -241,36 +249,13 @@
 						createHotelMarkers(); // 호텔 마커를 생성하고 호텔 마커 배열에 추가합니다
 						createHospitalMarkers(); // 병원 마커를 생성하고 병원 마커 배열에 추가합니다
 						createSalonMarkers(); // 미용실 마커를 생성하고 미용실 마커 배열에 추가합니다
+					
 						
 						changeMarker('coffee'); // 지도에 커피숍 마커가 보이도록 설정합니다    
 						
-						start();
+						start();			//현재 위치에서 시작
 						
-						// 마커 클러스터러를 생성합니다 
-				        var clusterer = new kakao.maps.MarkerClusterer({
-				            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
-				            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-				            minLevel: 10 // 클러스터 할 최소 지도 레벨 
-				        });
-				            
-						var clustererMarkers =[];
-						
-						/* var markers = [];
 
-				        for (var i = 0; i < coffeeMarkers.length; i++ ) {
-
-				          // 지도에 마커를 생성하고 표시한다.
-				          var marker = new kakao.maps.Marker({
-				            position: new kakao.maps.LatLng(coffeeMarkers[i].lat, coffeeMarkers[i].lng), // 마커의 좌표
-				            map: map // 마커를 표시할 지도 객체
-				          });
-
-				          // 생성된 마커를 마커 저장하는 변수에 넣음(마커 클러스터러 관련)
-				          markers.push(marker);
-				        } */
-
-				        
-						
 						function start(){
 							// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 							if (navigator.geolocation) {
@@ -286,7 +271,6 @@
 							        // 마커와 인포윈도우를 표시합니다
 							        displayMarker(locPosition);
 							        
-								    
 							      });
 							    
 							} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
@@ -304,7 +288,8 @@
 						    // 마커를 생성합니다
 						    var marker = new kakao.maps.Marker({  
 						        map: map, 
-						        position: locPosition
+						        position: locPosition,
+						        clickable: true
 						    }); 
 						    
 						    // 지도 중심좌표를 접속위치로 변경합니다
@@ -543,11 +528,7 @@
 						        setHotelMarkers(null);
 						        setHospitalMarkers(null);
 						        setSalonMarkers(null);
-						        
-						        
-						        
-						        //clusterer.addMarker(coffeeMarkers);  // 마커를 클러스터러에 추가
-						        
+						       
 						    } else if (type === 'store') { // 편의점 카테고리가 클릭됐을 때
 						    
 						        // 편의점 카테고리를 선택된 스타일로 변경하고
@@ -567,8 +548,6 @@
 						        setHotelMarkers(null);
 						        setHospitalMarkers(null);
 						        setSalonMarkers(null);
-						        
-						        //clusterer.addMarker(storeMarkers);  // 마커를 클러스터러에 추가
 						        
 						    } else if (type === 'park') { // 애견파크 카테고리가 클릭됐을 때
 						     
@@ -590,8 +569,6 @@
 						        setHospitalMarkers(null);
 						        setSalonMarkers(null);
 						        
-						        //clusterer.addMarker(parkMarkers);  // 마커를 클러스터러에 추가
-						        
 						    } else if (type === 'restaurant') { // 식당 카테고리가 클릭됐을 때
 							     
 						        // 식당 카테고리를 선택된 스타일로 변경하고
@@ -612,7 +589,6 @@
 						        setHospitalMarkers(null);
 						        setSalonMarkers(null);
 						        
-						        //clusterer.addMarker(restaurantMarkers);  // 마커를 클러스터러에 추가
 						        
 						    } else if (type === 'hotel') { // 호텔 카테고리가 클릭됐을 때
 							     
@@ -634,7 +610,7 @@
 						        setHospitalMarkers(null);
 						        setSalonMarkers(null);
 						        
-						        //clusterer.addMarker(hotelMarkers);  // 마커를 클러스터러에 추가
+						       
 
 						    } else if (type === 'hospital') { // 병원 카테고리가 클릭됐을 때
 							     
@@ -656,8 +632,7 @@
 						        setHospitalMarkers(map);
 						        setSalonMarkers(null);
 						        
-						        //clusterer.addMarker(hotelMarkers);  // 마커를 클러스터러에 추가
-  
+						        
 						} else if (type === 'salon') { // 미용실 카테고리가 클릭됐을 때
 						     
 					        // 미용실 카테고리를 선택된 스타일로 변경하고
@@ -678,8 +653,6 @@
 					        setHospitalMarkers(null);
 					        setSalonMarkers(map);
 					        
-					        //clusterer.addMarker(hotelMarkers);  // 마커를 클러스터러에 추가
-
 						} 
 					}
 						
@@ -687,16 +660,6 @@
 							start();
 						}
 						
-						/* function setMarkers(Positions){
-							// 커피숍 카테고리가 클릭됐을 때
-						    if (Positions === 'coffeePositions') {
-						        
-							Positions.map(function(position) {  // 마커를 배열 단위로 묶음
-						        return new kakao.maps.Marker({
-						            position : new kakao.maps.LatLng(position.lat, position.lng)
-						        });
-						    });
-						} */
 						</script>
 					</div>
 				
@@ -711,8 +674,6 @@
                		<p></p>
                 </div>
 
-			<div>
-				
 		</section>
 	</main>
 

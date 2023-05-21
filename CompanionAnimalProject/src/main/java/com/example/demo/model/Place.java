@@ -4,7 +4,7 @@ public class Place {
 	private int service_idx;
 	private String category;
 	private String name;
-	private String content;
+	private String address;
 	private double latitude;
 	private double longitude;
 	
@@ -26,11 +26,11 @@ public class Place {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getContent() {
-		return content;
+	public String getAddress() {
+		return address;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public double getLatitude() {
 		return latitude;
