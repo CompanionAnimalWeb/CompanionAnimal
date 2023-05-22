@@ -83,11 +83,6 @@ public class BoardServiceImpl implements BoardService{
 		return boardRepository.findPost(content, title);
 	}
 	
-//	@Override
-//	public List<Board> listPaging(int page) throws Exception {
-//		return boardRepository.listPaging(page);
-//	}
-	
 	@Override
 	public List<Board> listCriteria(Criteria criteria) throws Exception {
 		return boardRepository.listCriteria(criteria);

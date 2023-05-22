@@ -141,15 +141,20 @@ public class BoardController {
 	}
 	
   
-//    // 게시물 검색 
-//	@GetMapping(value = "/listSearch")
-//	public String boardListSearch(@RequestParam("keyword") String keyword, Model model) throws Exception  {
-//		
-//		List<Board> board = boardService.findPost(keyword, keyword);
-//		model.addAttribute("boardList", board);
-//		
-//        return "redirect:/board/mainSearch?keyword=" + keyword;
-//	}
+    // 게시물 검색 
+	@GetMapping(value = "/listSearch")
+	public String boardListSearch(@RequestParam("keyword") String keyword, Model model,Criteria criteria) throws Exception  {
+		
+		if(keyword.equals("")) {
+			return "redirect:/board/list?page=1"; 
+		}
+		else {
+		List<Board> board = boardService.findPost(keyword, keyword);
+		model.addAttribute("boardList", board);
+		
+		return "board/community/main";
+		}
+	}
 	
 	
 	
