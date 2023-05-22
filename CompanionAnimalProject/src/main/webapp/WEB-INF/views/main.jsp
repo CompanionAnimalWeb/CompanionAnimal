@@ -25,6 +25,8 @@
 </c:if>
 <c:if test="${userInfo !=null }">
 	<a href="./logout">로그아웃</a>
+	<a href="./modify">비밀번호 변경</a>
+	
 </c:if>
 	<!-- header -->
 	<%@include file="fragments/header.jsp" %>
