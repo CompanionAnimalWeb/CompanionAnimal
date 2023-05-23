@@ -146,9 +146,9 @@ public class BoardRepositoryImpl implements BoardRepository{
 	
 	
 	@Override
-		public List<Board> listCriteria(Criteria criteria) throws Exception {
+	public List<Board> listCriteria(Criteria criteria) throws Exception {
 			
-			String sql = "select * from Board limit ?,?";
-			return jdbcTemplate.query(sql, boardRowMapper(), criteria.getPageStart(), criteria.getPerPageNum());
-		}
+		String sql = "select * from Board limit ?,?";
+		return jdbcTemplate.query(sql, boardRowMapper(), criteria.getPageStart(), criteria.getPerPageNum());
+	}
 }
