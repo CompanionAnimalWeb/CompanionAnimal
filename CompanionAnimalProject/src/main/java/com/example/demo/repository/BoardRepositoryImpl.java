@@ -74,17 +74,18 @@ public class BoardRepositoryImpl implements BoardRepository{
        }
    }
 
+    // 게시물 검색
 	@Override
-	public List<Board> findPost(String content, String title) {
+	public List<Board> findPost(String id, String title) {
 		
-		String sql = "select * from Board where title like ? or content like ?";
+		String sql = "select * from Board where title like ? or id like ?";
 		
 		// SQL Injection 방지
 		// content, title 부분이 ('')로 둘러쌓인 채 쿼리가 실행되므로 위험을 방지할 수 있음.
-		String wrappedContent = "%" + content + "%";
+		String wrappedId = "%" + id + "%";
 		String wrappedTitle = "%" + title + "%";
 
-		return jdbcTemplate.query(sql, boardRowMapper(), wrappedTitle, wrappedContent);
+		return jdbcTemplate.query(sql, boardRowMapper(), wrappedTitle, wrappedId);
 	}
    
 

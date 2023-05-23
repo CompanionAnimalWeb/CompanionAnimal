@@ -79,8 +79,8 @@ public class BoardServiceImpl implements BoardService{
 
 	/* 게시물 검색 */
 	@Override
-	public List<Board> findPost(String content, String title) {
-		return boardRepository.findPost(content, title);
+	public List<Board> findPost(String id, String title) {
+		return boardRepository.findPost(id, title);
 	}
 	
 	@Override
