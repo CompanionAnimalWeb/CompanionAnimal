@@ -145,7 +145,6 @@ public class MemberController {
 		}
 		
 		userService.delete(user);
-		//session.removeAttribute("userInfo");
 		session.invalidate();
 		return "redirect:/main";
 	}

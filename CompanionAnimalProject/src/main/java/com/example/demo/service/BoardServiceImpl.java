@@ -69,4 +69,8 @@ public class BoardServiceImpl implements BoardService{
 	public List<Board> findPost(String content, String title) {
 		return boardRepository.findPost(content, title);
 	}
+	
+	public List<Board> selectByUserId(String id) throws Exception {
+		return boardRepository.selectByUserId(id);
+	}
 }

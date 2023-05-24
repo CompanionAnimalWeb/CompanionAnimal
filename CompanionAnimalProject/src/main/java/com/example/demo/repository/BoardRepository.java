@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.demo.controller.BoardController;
 import com.example.demo.model.Board;
+import com.example.demo.model.User;
 
 public interface BoardRepository {
 	
@@ -15,6 +16,7 @@ public interface BoardRepository {
 	public void modify(Board board) throws Exception;			// 게시물 수정
 	public void delete(int bno) throws Exception;				// 게시물 삭제
 	public int count() throws Exception;						// 게시물 총 갯수
+	public List<Board> selectByUserId(String id) throws Exception;
 	
 	//	public HashMap<String, Integer> lsitPage(Board board) throws Exception;	// 게시글 목록 + 페이징
 }

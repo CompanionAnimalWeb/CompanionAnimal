@@ -4,23 +4,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Board;
 import com.example.demo.model.Comment;
-import com.example.demo.model.Reply;
+import com.example.demo.model.User;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.ReplyService;
+import com.example.demo.service.UserService;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -37,13 +37,15 @@ public class BoardController {
 	private static BoardService boardService;
 	private static CommentService commentService;
 	private static ReplyService replyService;
+	private static UserService userService;
 		
 
     @Autowired
-    public BoardController(CommentService commentService, BoardService boardService, ReplyService replyService) {
+    public BoardController(CommentService commentService, BoardService boardService, ReplyService replyService, UserService userService) {
         this.commentService = commentService;
         this.boardService = boardService;
         this.replyService = replyService;
+        this.userService = userService;
     }
     
     
@@ -78,12 +80,16 @@ public class BoardController {
     
 	// 게시물 등록
 	@PostMapping(value="/write")
-	public static String boardWritePost(Board board, Model model) throws Exception {
+	public static String boardWritePost(Board board, Model model, HttpSession session) throws Exception {
 		
 		// 현재 시각
 		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		
 		board.setRegDate(nowDate);		
+		
+		User userInfo = (User) session.getAttribute("userInfo");
+		String id = userInfo.getId();
+		board.setId(id);
+		
 		boardService.insert(board);
 		
 		return "redirect:/board/list";
@@ -144,7 +150,24 @@ public class BoardController {
 //        return "redirect:/board/mainSearch?keyword=" + keyword;
 //	}
 	
+	@GetMapping(value = "/community/myPage")
+	public String myPage() {
+		return "board/community/myPage";
+	}
 	
+	/* 내가 쓴 글 확인 */
+	@GetMapping(value = "/community/myPosts")
+    public String myPosts(HttpSession session, Model model) throws Exception {
+		
+		User userInfo = (User) session.getAttribute("userInfo");
+		String id = userInfo.getId();
+
+		List<Board> userPosts = boardService.selectByUserId(id);
+		
+        model.addAttribute("boardList", userPosts);
+    
+        return "board/community/myPosts";
+    }
 	
 	
 	// 동물병원 메인 페이지
@@ -159,4 +182,5 @@ public class BoardController {
 	public static String serviceMain() {
         return "board/service/main";
 	}
+	
 }

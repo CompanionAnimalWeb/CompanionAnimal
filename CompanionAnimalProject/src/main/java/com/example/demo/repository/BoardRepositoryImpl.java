@@ -1,6 +1,5 @@
 package com.example.demo.repository;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.controller.BoardController;
 import com.example.demo.model.Board;
 
 @Repository
@@ -56,8 +54,26 @@ public class BoardRepositoryImpl implements BoardRepository{
 
 		return jdbcTemplate.query(sql, boardRowMapper(), wrappedTitle, wrappedContent);
 	}
+	
+	@Override
+	public List<Board> selectByUserId(String id) {
+		
+		String sql = "select * from Board where id=?";
+		return jdbcTemplate.query(sql, selectByUserIdMapper(), id);
+	}
+	
+	private RowMapper<Board> selectByUserIdMapper() {
+		return (rs, rowNum) -> {
+			Board board = new Board();
+	    	board.setBoardIdx(rs.getInt("board_Idx"));
+	    	board.setTitle(rs.getString("title"));
+	    	board.setContent(rs.getString("content"));
+	    	board.setRegDate(rs.getString("regdate"));
+			board.setId(rs.getString("id"));
+			return board;
+		};
+	}
    
-
    //Board 정보를 매핑하는 RowMapper
    private RowMapper<Board> boardRowMapper() {
 	   return (rs, rowNum) -> {
