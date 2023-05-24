@@ -1,23 +1,25 @@
 package com.example.demo.controller;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Board;
+import com.example.demo.model.BoardImages;
 import com.example.demo.model.Comment;
-import com.example.demo.model.Reply;
+import com.example.demo.model.Criteria;
+import com.example.demo.model.PageMaker;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.ReplyService;
@@ -25,14 +27,6 @@ import com.example.demo.service.ReplyService;
 @Controller
 @RequestMapping(value = "/board")
 public class BoardController {
-
-	/*
-	 * private int boardIdx; 
-	 * private String title; 
-	 * private String content; 
-	 * private String regDate; 
-	 * private String id;
-	 */
 
 	private static BoardService boardService;
 	private static CommentService commentService;
@@ -45,29 +39,20 @@ public class BoardController {
         this.boardService = boardService;
         this.replyService = replyService;
     }
-    
-    
 	
 	// 게시물 목록 
 	@GetMapping(value = "/list")
-	public String boardList(Model model) throws Exception  {
+	public String boardList(@RequestParam("page") int page,Model model,Criteria criteria) throws Exception  {
 		
-		List<Board> board = boardService.findAllBoard();
-		model.addAttribute("boardList", board);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		pageMaker.setTotalCount(boardService.count());
+		//List<Board> board = boardService.findAllBoard();
 		
+		model.addAttribute("boardList", boardService.listCriteria(criteria));
+		model.addAttribute("pageMaker", pageMaker);
         return "board/community/main";
 	}
-	
-//	// 게시판 목록 + 페이징 (구현 중 막힘)
-//	@GetMapping(value = "/listPage")
-//	public String boardListPage(Model model) throws Exception  {
-//		
-//		List<Board> board = boardService.findAllBoard();
-//		model.addAttribute("boardList", board);
-//		
-//        return "board/community/main";
-//	}
-	
 	
 	// 게시물 작성
     @GetMapping(value="/write")
@@ -78,28 +63,50 @@ public class BoardController {
     
 	// 게시물 등록
 	@PostMapping(value="/write")
-	public static String boardWritePost(Board board, Model model) throws Exception {
-		
+	public static String boardWritePost(Board board, @RequestParam("file") MultipartFile file) throws Exception {
+	 
+		BoardImages boardImages = new BoardImages();
+		//파일 업로드
+        String saveName = file.getOriginalFilename();
+        
+        File saveFile = new File("C:\\upload",saveName); 
+
+        if (file != null && !file.isEmpty()) {
+            try {
+            	file.transferTo(saveFile);  
+            } catch (Exception e) {
+                throw new RuntimeException("이미지 업로드가 실패하였습니다", e);
+            }
+        }
 		// 현재 시각
 		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		
-		board.setRegDate(nowDate);		
+		board.setRegDate(nowDate);
 		boardService.insert(board);
 		
-		return "redirect:/board/list";
+		boardImages.setUrl(saveName);
+		boardImages.setBoardIdx(boardService.lastBoard().getBoardIdx());
+		boardService.insertImages(boardImages);
+		
+		return "redirect:/board/list?page=1";
 		
 	}
 	
-	// 게시물 조회
+	// 특정 게시물 조회
 	@GetMapping(value = "/detail")
 	public String boardDetail(@RequestParam("bno") int bno, Model model) throws Exception {
-
 		
     	Board board = boardService.findPost(bno);
-		List<Comment> commentList = commentService.findComment(bno);;
+		List<Comment> commentList = commentService.findComment(bno);
+		Optional<String> imageUrlOptional  = boardService.findImages(bno);
+		String saveName = imageUrlOptional.orElse(null);
+		
+		if(saveName != null) {
+			board.setImageUrl(saveName);
+		}
+
 		model.addAttribute("board", board);
 		model.addAttribute("commentList", commentList);
-//		model.addAttribute("replyList", replyList);
 		
 		return "board/community/detail";
 	}
@@ -129,20 +136,25 @@ public class BoardController {
 	public static String boardDeletePost(@RequestParam("bno") int bno) throws Exception {
 
 		boardService.delete(bno);
-		return "redirect:/board/list";
+		return "redirect:/board/list?page=1";
 		
 	}
 	
   
-//    // 게시물 검색 
-//	@GetMapping(value = "/listSearch")
-//	public String boardListSearch(@RequestParam("keyword") String keyword, Model model) throws Exception  {
-//		
-//		List<Board> board = boardService.findPost(keyword, keyword);
-//		model.addAttribute("boardList", board);
-//		
-//        return "redirect:/board/mainSearch?keyword=" + keyword;
-//	}
+    // 게시물 검색 
+	@GetMapping(value = "/listSearch")
+	public String boardListSearch(@RequestParam("keyword") String keyword, Model model,Criteria criteria) throws Exception  {
+		
+		if(keyword.equals("")) {
+			return "redirect:/board/list?page=1"; 
+		}
+		else {
+		List<Board> board = boardService.findPost(keyword, keyword);
+		model.addAttribute("boardList", board);
+		
+		return "board/community/main";
+		}
+	}
 	
 	
 	

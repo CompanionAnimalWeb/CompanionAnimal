@@ -91,7 +91,7 @@
 											<c:choose>
 												<c:when test="${comment.commentIdx == cno}">
 													  <form action="../comment/modify" method="post">
-															<p>${comment.writer}</p>
+															<p>${comment.id}</p>
 															<textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px">${comment.content}</textarea>
 															<input type="hidden" name="boardIdx" value="${board.boardIdx}"/>
 															<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/><br>
@@ -101,7 +101,7 @@
 												</c:when>
 												<c:otherwise>
 													<div>
-														<p><b>${comment.writer}</b> <small>${comment.regDate}</small></p>
+														<p><b>${comment.id}</b> <small>${comment.regDate}</small></p>
 														<p>${comment.content}</p>
 													</div>
 													<hr>
@@ -111,7 +111,7 @@
 									</c:when>
 									<c:otherwise>
 									</c:otherwise>
-								</c:choose>				
+								</c:choose>	
 							</div>
 						</div>
 					</div>

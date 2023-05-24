@@ -31,6 +31,7 @@ public class MemberJoinController {
 	public static String successMemberJoin(User user, Model model) throws Exception {
 		
 		// 회원가입이 완료되었습니다 알림창 출력 추가예정
+
 		if(userService.selectByUserId(user.getId()) == null) {
 			userService.insert(user);
 			message = "<script>alert('회원가입이 완료되었습니다. 로그인 해주세요!'); location.href='login';</script>";

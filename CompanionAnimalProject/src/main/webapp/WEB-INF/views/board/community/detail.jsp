@@ -55,6 +55,13 @@
 				<br>
 				<div>
 					<p>${board.content}</p>
+                    <c:choose>
+                      <c:when test="${board.getImageUrl()==null}">
+                      </c:when>
+                      <c:otherwise>
+                        <img src="<c:url value="/upload/${board.getImageUrl()}"/>" style="width: 60%" />
+                      </c:otherwise>
+                  	</c:choose>
 				</div>
 				
 				<br>
@@ -91,7 +98,7 @@
 									<c:when test="${commentList != null and fn:length(commentList) > 0}">
 											<c:forEach items="${commentList}" var="comment">
 												<div>
-													<p><b>${comment.writer}</b> <small>${comment.regDate}</small></p>
+													<p><b>${comment.id}</b> <small>${comment.regDate}</small></p>
 													<p>${comment.content}</p>
 												</div>
 												<div>
