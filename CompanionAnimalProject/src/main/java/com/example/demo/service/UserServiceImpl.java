@@ -1,12 +1,10 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.controller.MemberJoinController;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 
@@ -36,9 +34,9 @@ public class UserServiceImpl implements UserService {
 	public User selectUser(User user) throws Exception {
 		return userRepository.selectUser(user);
 	}
+
 	@Override
-	public User selectByUserId(String id) throws Exception{
+	public User selectByUserId(String id) throws Exception {
 		return userRepository.selectByUserId(id);
 	}
-	
 }
