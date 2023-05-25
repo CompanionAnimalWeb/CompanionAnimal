@@ -9,7 +9,6 @@ public interface UserService {
     public List<User> findUsers();
     public void insert(User user) throws Exception;
     public User selectUser(User user) throws Exception;
-	public User selectByUserId(String id) throws Exception;
 	public void modify(User user) throws Exception;
 	public void delete(User user) throws Exception;
     public User selectByUserId(String id) throws Exception;
