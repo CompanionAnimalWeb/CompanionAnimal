@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.DogDetailDisease;
 import com.example.demo.model.DogDisease;
 import com.example.demo.repository.DiseaseRepository;
 
@@ -22,4 +23,15 @@ public class DiseaseServiceImpl implements DiseaseService{
 	public List<DogDisease> dogDeseaseList() throws Exception {
 		return diseaseRepository.dogDeseaseList();
 	}
+	
+	@Override
+	public List<String> selectDogDesease(String select) throws Exception {
+		return diseaseRepository.selectDogDesease(select);
+	}
+	
+	@Override
+	public DogDetailDisease symptomName(String select) throws Exception {
+		return diseaseRepository.symptomName(select);
+	}
+	
 }
