@@ -50,7 +50,7 @@ public class UserRepositoryImpl implements UserRepository {
 		String sql = "select id from User where id = ?";
 		User result;
 		try {
-			result = jdbcTemplate.queryForObject(sql, selectByUserIdMapper(),id);
+			result = jdbcTemplate.queryForObject(sql, selectByUserIdMapper(), id);
 			return result;
 		} catch (Exception e) {
 			return null;
@@ -83,11 +83,24 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 	   
 	private RowMapper<User> selectByUserIdMapper() {
+		System.out.println("selectByUserIdMapper 메소드 실행");
 		return (rs, rowNum) -> {
 			User user = new User();
 			user.setId(rs.getString("id"));
-			System.out.println(user.getId());
+			//System.out.println(user.getId());
 			return user;
 		};
 	}
+	
+	public void modify(User user) {
+		String sql = "update User set password = ? where id = ?";
+		jdbcTemplate.update(sql, user.getPassword(), user.getId());
+	}
+	
+	public void delete(User user) {
+		String sql = "delete from User where id = ? and password = ?";
+		jdbcTemplate.update(sql, user.getId(), user.getPassword());
+		System.out.println("delete 메소드 실행");
+	}
+
 }

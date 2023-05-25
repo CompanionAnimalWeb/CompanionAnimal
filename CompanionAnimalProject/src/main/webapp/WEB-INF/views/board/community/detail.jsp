@@ -65,10 +65,11 @@
 				</div>
 				
 				<br>
-
+				<c:if test="${userInfo.id == board.id }">
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 					<a href="../board/modify?bno=${board.boardIdx}" role="button" class="btn btn-outline-dark btn-sm me-md-3">수정</a>
 					<a href="../board/delete?bno=${board.boardIdx}" role="button" class="btn btn-outline-dark btn-sm me-md-3">삭제</a>
+				</c:if>
 					<a href="<c:url value="/board/list"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
 				</div>
 				

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +43,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-12">
                                 	<h5 class="mb-1">ID</h5>
-									<input type="text" name="id" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" value="${user.id}"/>
+									<input type="text" name="id" class="form-control" id="exampleFormControlInput1" value="${user.id}"/>
 									<br>
 									<h5 class="mb-1">Password</h5>
 									<input type="password" name="password" class="form-control" id="exampleFormControlInput1" placeholder=""/>								 

@@ -19,6 +19,9 @@ public interface BoardService {
 	public void modify(Board board) throws Exception;	// 게시글 수정
 	public void delete(int bno) throws Exception;		// 게시글 삭제	
 	public int count() throws Exception;				// 게시글 총 갯수
+	public List<Board> selectByUserId(String id) throws Exception;
+	
 	//public List<Board> listPaging(int page) throws Exception;
 	public List<Board> listCriteria(Criteria criteria) throws Exception;
+
 }
