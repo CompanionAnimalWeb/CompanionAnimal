@@ -24,8 +24,6 @@ public interface BoardRepository {
 	public List<Board> selectByUserId(String id) throws Exception;
 	
 	//	public HashMap<String, Integer> lsitPage(Board board) throws Exception;	// 게시글 목록 + 페이징
-}
-
 	public int countBoard() throws Exception;					// 게시물 총 갯수
 	//public List<Board> selectBoard() throws Exception;
 	//public List<Board> listPaging(int page) throws Exception;

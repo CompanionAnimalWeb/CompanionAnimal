@@ -164,9 +164,15 @@ public class BoardRepositoryImpl implements BoardRepository{
 	
 	
 	@Override
-		public List<Board> listCriteria(Criteria criteria) throws Exception {
-			
-			String sql = "select * from Board limit ?,?";
-			return jdbcTemplate.query(sql, boardRowMapper(), criteria.getPageStart(), criteria.getPerPageNum());
-		}
+	public List<Board> listCriteria(Criteria criteria) throws Exception {
+		
+		String sql = "select * from Board limit ?,?";
+		return jdbcTemplate.query(sql, boardRowMapper(), criteria.getPageStart(), criteria.getPerPageNum());
+	}
+
+	@Override
+	public int count() throws Exception {
+	  String sql = "select count(*) from Board";
+      return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 }

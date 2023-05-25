@@ -4,8 +4,6 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-<<<<<<< HEAD
-
 import javax.servlet.http.HttpSession;
 
 import java.util.Optional;
@@ -23,12 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.model.Board;
 import com.example.demo.model.BoardImages;
 import com.example.demo.model.Comment;
-<<<<<<< HEAD
 import com.example.demo.model.User;
-=======
 import com.example.demo.model.Criteria;
 import com.example.demo.model.PageMaker;
->>>>>>> main
 import com.example.demo.service.BoardService;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.ReplyService;
@@ -72,7 +67,7 @@ public class BoardController {
     	
         return "/board/community/write";
     }   
-    
+    /*
 	// 게시물 등록
 	@PostMapping(value="/write")
 	public static String boardWritePost(Board board, Model model, HttpSession session) throws Exception {
@@ -84,10 +79,20 @@ public class BoardController {
 		User userInfo = (User) session.getAttribute("userInfo");
 		String id = userInfo.getId();
 		board.setId(id);
-		
+	}/*/
 
-	public static String boardWritePost(Board board, @RequestParam("file") MultipartFile file) throws Exception {
+	// 게시물 등록
+	@PostMapping(value="/write")
+	public static String boardWritePost(Board board, @RequestParam("file") MultipartFile file, Model model, HttpSession session) throws Exception {
 	 
+		// 현재 시각
+		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		
+		board.setRegDate(nowDate);
+		User userInfo = (User) session.getAttribute("userInfo");
+		String id = userInfo.getId();
+		board.setId(id);
+		
 		BoardImages boardImages = new BoardImages();
 		//파일 업로드
         String saveName = file.getOriginalFilename();
@@ -101,11 +106,7 @@ public class BoardController {
                 throw new RuntimeException("이미지 업로드가 실패하였습니다", e);
             }
         }
-		// 현재 시각
-		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		
-		board.setRegDate(nowDate);
-
 		boardService.insert(board);
 		
 		boardImages.setUrl(saveName);
