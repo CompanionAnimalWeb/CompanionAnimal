@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,9 +26,9 @@
 	<input type="button" value="로그인" onclick="location.href='./member/login'">
 </c:if>
 <c:if test="${userInfo !=null }">
-	<a href="./logout">로그아웃</a>
-	<a href="./modify">비밀번호 변경</a>
-	<a href="../board/community/myPage">마이페이지</a>
+	<a href="<c:url value="/member/logout"/>"> 로그아웃</a>
+	<a href="<c:url value="/member/modify"/>"> 비밀번호 변경</a>
+	<a href="<c:url value="/board/community/myPage"/>"> 마이페이지</a>                           	
 </c:if>
 	<!-- header -->
 	<%@include file="fragments/header.jsp" %>
