@@ -81,6 +81,7 @@ public class PlaceRepositoryImpl implements PlaceRepository{
 	    	place.setLongitude(rs.getDouble("longitude"));
 	    	System.out.println(place.getName());
 	    	System.out.println(place.getCategory());
+	    	System.out.println(place.getAddress());
 	        return place;
 	    };
 	}

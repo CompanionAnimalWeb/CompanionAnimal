@@ -103,7 +103,7 @@
 					    	<img src="${pageContext.request.contextPath}/resources/images/map/currentLocation.png" style="width:30px; height:30px;">
 					    </div>
 					</div>
-						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cfa528c2d7f45ee55449b267e67ffb19&libraries=clusterer"></script>
+						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cfa528c2d7f45ee55449b267e67ffb19"></script>
 						<script>
 						coffeePositions = [];
 						storePositions = [];
@@ -112,41 +112,26 @@
 						hotelPositions = [];
 						hospitalPositions = [];
 						salonPositions = [];
-						
-						coffeeLoc = []; // 커피숍 위치들을 가지고 있을 배열입니다
-					    storeLoc = []; // 편의점 위치들을 가지고 있을 배열입니다
-					    parkLoc = []; // 애견파크 위치들을 가지고 있을 배열입니다
-					    restaurantLoc = []; // 식당 위치들을 가지고 있을 배열입니다
-					    hotelLoc = []; // 호텔 위치들을 가지고 있을 배열입니다
-					    hospitalLoc = []; // 병원 위치들을 가지고 있을 배열입니다
-					    salonLoc = []; // 미용실 위치들을 가지고 있을 배열입니다
-					    
 						</script>
 						
 						<c:forEach items="${coffeeList}" var="coffee">
 						<script>
 						// 커피숍 마커가 표시될 좌표 배열입니다
-						coffeePositions.push(
-						    new kakao.maps.LatLng(${coffee.latitude}, ${coffee.longitude})              
-						);
-						
-						coffeeLoc.push({
-							lat : ${coffee.latitude},
-							lng : ${coffee.longitude}
-						}); 
+						coffeePositions.push({
+						    latlng : new kakao.maps.LatLng(${coffee.latitude}, ${coffee.longitude}),
+							name : '${coffee.name}',
+							address : '${coffee.address}'              
+						});
 						</script>
 						</c:forEach>
 
 						<c:forEach items="${storeList}" var="store">
 						<script>
 						//마트 마커가 표시될 좌표 배열입니다
-						storePositions.push(
-						    new kakao.maps.LatLng(${store.latitude}, ${store.longitude})              
-						);
-						
-						storeLoc.push({
-							lat : ${store.latitude},
-							lng : ${store.longitude}
+						storePositions.push({
+						    latlng : new kakao.maps.LatLng(${store.latitude}, ${store.longitude}),
+							name : '${store.name}',
+							address : '${store.address}'              
 						});
 						</script>
 						</c:forEach>
@@ -154,13 +139,10 @@
 						<c:forEach items="${parkList}" var="park">
 						<script>
 						// 공원 마커가 표시될 좌표 배열입니다
-						parkPositions.push(
-						    new kakao.maps.LatLng(${park.latitude}, ${park.longitude})              
-						);
-						
-						parkLoc.push({
-							lat : ${park.latitude},
-							lng : ${park.longitude}
+						parkPositions.push({
+						    latlng : new kakao.maps.LatLng(${park.latitude}, ${park.longitude}),
+							name : '${park.name}',
+							address : '${park.address}'              
 						});
 						</script>
 						</c:forEach>
@@ -168,28 +150,21 @@
 						<c:forEach items="${restaurantList}" var="restaurant">
 						<script>
 						// 식당 마커가 표시될 좌표 배열입니다
-						restaurantPositions.push(
-						    new kakao.maps.LatLng(${restaurant.latitude}, ${restaurant.longitude})              
-						);
-						
-						restaurantLoc.push({
-							lat : ${restaurant.latitude},
-							lng : ${restaurant.longitude}
+						restaurantPositions.push({
+						    latlng : new kakao.maps.LatLng(${restaurant.latitude}, ${restaurant.longitude}),
+							name : '${restaurant.name}',
+							address : '${restaurant.address}'             
 						});
 						</script>
 						</c:forEach>
 						
-						
 						<c:forEach items="${hotelList}" var="hotel">
 						<script>
 						// 호텔 마커가 표시될 좌표 배열입니다
-						hotelPositions.push(
-						    new kakao.maps.LatLng(${hotel.latitude}, ${hotel.longitude})              
-						);
-						
-						hotelLoc.push({
-							lat : ${hotel.latitude},
-							lng : ${hotel.longitude}
+						hotelPositions.push({
+						    latlng : new kakao.maps.LatLng(${hotel.latitude}, ${hotel.longitude}),
+							name : '${hotel.name}',
+							address : '${hotel.address}'              
 						});
 						</script>
 						</c:forEach>
@@ -197,13 +172,10 @@
 						<c:forEach items="${hospitalList}" var="hospital">
 						<script>
 						// 병원 마커가 표시될 좌표 배열입니다
-						hospitalPositions.push(
-						    new kakao.maps.LatLng(${hospital.latitude}, ${hospital.longitude})              
-						);
-						
-						hospitalLoc.push({
-							lat : ${hospital.latitude},
-							lng : ${hospital.longitude}
+						hospitalPositions.push({
+						    latlng : new kakao.maps.LatLng(${hospital.latitude}, ${hospital.longitude}),
+							name : '${hospital.name}',
+							address : '${hospital.address}'            
 						});
 						</script>
 						</c:forEach>
@@ -211,13 +183,10 @@
 						<c:forEach items="${salonList}" var="salon">
 						<script>
 						// 미용실 마커가 표시될 좌표 배열입니다
-						salonPositions.push(
-						    new kakao.maps.LatLng(${salon.latitude}, ${salon.longitude})              
-						);
-						
-						salonLoc.push({
-							lat : ${salon.latitude},
-							lng : ${salon.longitude}
+						salonPositions.push({
+						    latlng : new kakao.maps.LatLng(${salon.latitude}, ${salon.longitude}),
+							name : '${salon.name}',
+							address : '${salon.address}'              
 						});
 						</script>
 						</c:forEach>
@@ -230,26 +199,6 @@
 						    }; 
 						
 						var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-					
-						
-						var markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
-						    coffeeMarkers = [], // 커피숍 마커 객체를 가지고 있을 배열입니다
-						    storeMarkers = [], // 편의점 마커 객체를 가지고 있을 배열입니다
-						    parkMarkers = [], // 애견파크 마커 객체를 가지고 있을 배열입니다
-						    restaurantMarkers = [], // 식당 마커 객체를 가지고 있을 배열입니다
-						    hotelMarkers = []; // 호텔 마커 객체를 가지고 있을 배열입니다
-						    hospitalMarkers = []; // 병원 마커 객체를 가지고 있을 배열입니다
-						    salonMarkers = []; // 미용실 마커 객체를 가지고 있을 배열입니다
-						    
-						
-						createCoffeeMarkers(); // 커피숍 마커를 생성하고 커피숍 마커 배열에 추가합니다
-						createStoreMarkers(); // 편의점 마커를 생성하고 편의점 마커 배열에 추가합니다
-						createParkMarkers(); // 애견파크 마커를 생성하고 애견파크 마커 배열에 추가합니다
-						createRestaurantMarkers(); // 식당 마커를 생성하고 식당 마커 배열에 추가합니다
-						createHotelMarkers(); // 호텔 마커를 생성하고 호텔 마커 배열에 추가합니다
-						createHospitalMarkers(); // 병원 마커를 생성하고 병원 마커 배열에 추가합니다
-						createSalonMarkers(); // 미용실 마커를 생성하고 미용실 마커 배열에 추가합니다
-					
 						
 						changeMarker('coffee'); // 지도에 커피숍 마커가 보이도록 설정합니다    
 						
@@ -288,210 +237,186 @@
 						    // 마커를 생성합니다
 						    var marker = new kakao.maps.Marker({  
 						        map: map, 
-						        position: locPosition,
-						        clickable: true
+						        position: locPosition
 						    }); 
 						    
 						    // 지도 중심좌표를 접속위치로 변경합니다
 						    map.setCenter(locPosition);      
 						}    
 						
-						// 마커이미지의 주소와, 크기, 옵션으로 마커 이미지를 생성하여 리턴하는 함수입니다
-						function createMarkerImage(src, size, options) {
-						    var markerImage = new kakao.maps.MarkerImage(src, size, options);
-						    return markerImage;            
+						function nameAddress(array){
+							var html = '<div style="padding:5px;">Name : ' + array.name + '<br>';
+							  	html += 'Address : ' + array.address + '</div>';
+							  	
+							return html;
 						}
-
-						// 좌표와 마커이미지를 받아 마커를 생성하여 리턴하는 함수입니다
-						function createMarker(position, image) {
-						    var marker = new kakao.maps.Marker({
-						        position: position,
-						        image: image
-						    });
-						    
-						    return marker;  
-						}   
-						   
-						// 커피숍 마커를 생성하고 커피숍 마커 배열에 추가하는 함수입니다
-						function createCoffeeMarkers() {
-						    for (var i = 0; i < coffeePositions.length; i++) {  
-
-						        var imageSize = new kakao.maps.Size(22, 26),
-						            imageOptions = {  
-						                spriteOrigin: new kakao.maps.Point(10, 0),    
-						                spriteSize: new kakao.maps.Size(36, 98)  
-						            };     
-
-						        // 마커이미지와 마커를 생성합니다
-						        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						            marker = createMarker(coffeePositions[i], markerImage);  
-						        
-						        // 생성된 마커를 커피숍 마커 배열에 추가합니다
-						        coffeeMarkers.push(marker);
-						    }     
-						}
-
+						
 						// 커피숍 마커들의 지도 표시 여부를 설정하는 함수입니다
-						function setCoffeeMarkers(map) {        
-						    for (var i = 0; i < coffeeMarkers.length; i++) {  
-						        coffeeMarkers[i].setMap(map);
-						    }        
+						function setCoffeeMarkers(map) {
+	 						for (var i = 0; i < coffeePositions.length; i ++) {
+							    // 마커를 생성합니다
+							    var marker = new kakao.maps.Marker({
+							        map: map, // 마커를 표시할 지도
+							        position: coffeePositions[i].latlng // 마커의 위치
+							    });
+					
+							    // 마커에 표시할 인포윈도우를 생성합니다 
+							    var infowindow = new kakao.maps.InfoWindow({
+							        content: nameAddress(coffeePositions[i]) // 인포윈도우에 표시할 내용
+							    });
+					
+							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+							}        
 						}
 
-						// 편의점 마커를 생성하고 편의점 마커 배열에 추가하는 함수입니다
-						function createStoreMarkers() {
-						    for (var i = 0; i < storePositions.length; i++) {
-						        
-						        var imageSize = new kakao.maps.Size(22, 26),
-						            imageOptions = {   
-						                spriteOrigin: new kakao.maps.Point(10, 36),    
-						                spriteSize: new kakao.maps.Size(36, 98)  
-						            };       
-						     
-						        // 마커이미지와 마커를 생성합니다
-						        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						            marker = createMarker(storePositions[i], markerImage);  
-
-						        // 생성된 마커를 편의점 마커 배열에 추가합니다
-						        storeMarkers.push(marker);    
-						    }        
-						}
 
 						// 편의점 마커들의 지도 표시 여부를 설정하는 함수입니다
 						function setStoreMarkers(map) {        
-						    for (var i = 0; i < storeMarkers.length; i++) {  
-						        storeMarkers[i].setMap(map);
-						    }        
+							for (var i = 0; i < storePositions.length; i ++) {
+							    // 마커를 생성합니다
+							    var marker = new kakao.maps.Marker({
+							        map: map, // 마커를 표시할 지도
+							        position: storePositions[i].latlng // 마커의 위치
+							    });
+					
+							    // 마커에 표시할 인포윈도우를 생성합니다 
+							    var infowindow = new kakao.maps.InfoWindow({
+							        content: nameAddress(storePositions[i]) // 인포윈도우에 표시할 내용
+							    });
+					
+							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+							}       
 						}
-
-						// 애견파크 마커를 생성하고 애견파크 마커 배열에 추가하는 함수입니다
-						function createParkMarkers() {
-						    for (var i = 0; i < parkPositions.length; i++) {
-						        
-						        var imageSize = new kakao.maps.Size(22, 26),
-						            imageOptions = {   
-						                spriteOrigin: new kakao.maps.Point(10, 72),    
-						                spriteSize: new kakao.maps.Size(36, 98)  
-						            };       
-						     
-						        // 마커이미지와 마커를 생성합니다
-						        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						            marker = createMarker(parkPositions[i], markerImage);  
-
-						        // 생성된 마커를 애견파크 마커 배열에 추가합니다
-						        parkMarkers.push(marker);        
-						    }                
-						}
+						
 
 						// 애견파크 마커들의 지도 표시 여부를 설정하는 함수입니다
 						function setParkMarkers(map) {        
-						    for (var i = 0; i < parkMarkers.length; i++) {  
-						        parkMarkers[i].setMap(map);
-						    }        
+							for (var i = 0; i < parkPositions.length; i ++) {
+							    // 마커를 생성합니다
+							    var marker = new kakao.maps.Marker({
+							        map: map, // 마커를 표시할 지도
+							        position: parkPositions[i].latlng // 마커의 위치
+							    });
+					
+							    // 마커에 표시할 인포윈도우를 생성합니다 
+							    var infowindow = new kakao.maps.InfoWindow({
+							        content: nameAddress(parkPositions[i]) // 인포윈도우에 표시할 내용
+							    });
+					
+							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+							}        
 						}
-
-						// 식당 마커를 생성하고 식당 마커 배열에 추가하는 함수입니다
-						function createRestaurantMarkers() {
-						    for (var i = 0; i < restaurantPositions.length; i++) {
-						        
-						        var imageSize = new kakao.maps.Size(22, 26),
-						            imageOptions = {   
-						                spriteOrigin: new kakao.maps.Point(10, 72),    
-						                spriteSize: new kakao.maps.Size(36, 98)  
-						            };       
-						     
-						        // 마커이미지와 마커를 생성합니다
-						        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						            marker = createMarker(restaurantPositions[i], markerImage);  
-
-						        // 생성된 마커를 식당 마커 배열에 추가합니다
-						        restaurantMarkers.push(marker);        
-						    }                
-						}
+						
 
 						// 식당 마커들의 지도 표시 여부를 설정하는 함수입니다
 						function setRestaurantMarkers(map) {        
-						    for (var i = 0; i < restaurantMarkers.length; i++) {  
-						        restaurantMarkers[i].setMap(map);
-						    }        
+							for (var i = 0; i < restaurantPositions.length; i ++) {
+							    // 마커를 생성합니다
+							    var marker = new kakao.maps.Marker({
+							        map: map, // 마커를 표시할 지도
+							        position: restaurantPositions[i].latlng // 마커의 위치
+							    });
+					
+							    // 마커에 표시할 인포윈도우를 생성합니다 
+							    var infowindow = new kakao.maps.InfoWindow({
+							        content: nameAddress(restaurantPositions[i]) // 인포윈도우에 표시할 내용
+							    });
+					
+							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+							}        
 						}
 						
-						// 호텔 마커를 생성하고 호텔 마커 배열에 추가하는 함수입니다
-						function createHotelMarkers() {
-						    for (var i = 0; i < hotelPositions.length; i++) {
-						        
-						        var imageSize = new kakao.maps.Size(22, 26),
-						            imageOptions = {   
-						                spriteOrigin: new kakao.maps.Point(10, 72),    
-						                spriteSize: new kakao.maps.Size(36, 98)  
-						            };       
-						     
-						        // 마커이미지와 마커를 생성합니다
-						        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						            marker = createMarker(hotelPositions[i], markerImage);  
-
-						        // 생성된 마커를 호텔 마커 배열에 추가합니다
-						        hotelMarkers.push(marker);        
-						    }                
-						}
-
+						
 						// 호텔 마커들의 지도 표시 여부를 설정하는 함수입니다
 						function setHotelMarkers(map) {        
-						    for (var i = 0; i < hotelMarkers.length; i++) {  
-						        hotelMarkers[i].setMap(map);
-						    }        
-						}
-						
-						// 병원 마커를 생성하고 병원 마커 배열에 추가하는 함수입니다
-						function createHospitalMarkers() {
-						    for (var i = 0; i < hospitalPositions.length; i++) {
-						        
-						        var imageSize = new kakao.maps.Size(22, 26),
-						            imageOptions = {   
-						                spriteOrigin: new kakao.maps.Point(10, 72),    
-						                spriteSize: new kakao.maps.Size(36, 98)  
-						            };       
-						     
-						        // 마커이미지와 마커를 생성합니다
-						        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						            marker = createMarker(hospitalPositions[i], markerImage);  
-
-						        // 생성된 마커를 병원 마커 배열에 추가합니다
-						        hospitalMarkers.push(marker);        
-						    }                
+							for (var i = 0; i < hotelPositions.length; i ++) {
+							    // 마커를 생성합니다
+							    var marker = new kakao.maps.Marker({
+							        map: map, // 마커를 표시할 지도
+							        position: hotelPositions[i].latlng // 마커의 위치
+							    });
+					
+							    // 마커에 표시할 인포윈도우를 생성합니다 
+							    var infowindow = new kakao.maps.InfoWindow({
+							        content: nameAddress(hotelPositions[i]) // 인포윈도우에 표시할 내용
+							    });
+					
+							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+							}        
 						}
 
 						// 병원 마커들의 지도 표시 여부를 설정하는 함수입니다
 						function setHospitalMarkers(map) {        
-						    for (var i = 0; i < hospitalMarkers.length; i++) {  
-						        hospitalMarkers[i].setMap(map);
-						    }        
+							for (var i = 0; i < hospitalPositions.length; i ++) {
+							    // 마커를 생성합니다
+							    var marker = new kakao.maps.Marker({
+							        map: map, // 마커를 표시할 지도
+							        position: hospitalPositions[i].latlng // 마커의 위치
+							    });
+					
+							    // 마커에 표시할 인포윈도우를 생성합니다 
+							    var infowindow = new kakao.maps.InfoWindow({
+							        content: nameAddress(hospitalPositions[i]) // 인포윈도우에 표시할 내용
+							    });
+					
+							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+							}        
 						}
 						
-						// 미용실 마커를 생성하고 미용실 마커 배열에 추가하는 함수입니다
-						function createSalonMarkers() {
-						    for (var i = 0; i < salonPositions.length; i++) {
-						        
-						        var imageSize = new kakao.maps.Size(22, 26),
-						            imageOptions = {   
-						                spriteOrigin: new kakao.maps.Point(10, 72),    
-						                spriteSize: new kakao.maps.Size(36, 98)  
-						            };       
-						     
-						        // 마커이미지와 마커를 생성합니다
-						        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						            marker = createMarker(salonPositions[i], markerImage);  
-
-						        // 생성된 마커를 미용실 마커 배열에 추가합니다
-						        salonMarkers.push(marker);        
-						    }                
-						}
 
 						// 미용실 마커들의 지도 표시 여부를 설정하는 함수입니다
 						function setSalonMarkers(map) {        
-						    for (var i = 0; i < salonMarkers.length; i++) {  
-						        salonMarkers[i].setMap(map);
-						    }        
+							for (var i = 0; i < salonPositions.length; i ++) {
+							    // 마커를 생성합니다
+							    var marker = new kakao.maps.Marker({
+							        map: map, // 마커를 표시할 지도
+							        position: salonPositions[i].latlng // 마커의 위치
+							    });
+					
+							    // 마커에 표시할 인포윈도우를 생성합니다 
+							    var infowindow = new kakao.maps.InfoWindow({
+							        content: nameAddress(salonPositions[i]) // 인포윈도우에 표시할 내용
+							    });
+					
+							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+							    
+							}
+						}
+						
+
+						function clearMarkers(markers) {
+						    for (var i = 0; i < markers.length; i++) {
+						        markers[i].setMap(null); // 마커를 지도에서 제거합니다.
+						    }
+						    markers = []; // 마커 배열을 초기화합니다.
 						}
 						
 						// 카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경합니다
@@ -522,13 +447,7 @@
 						        
 						        // 커피숍 마커들만 지도에 표시하도록 설정합니다
 						        setCoffeeMarkers(map);
-						        setStoreMarkers(null);
-						        setParkMarkers(null);
-						        setRestaurantMarkers(null);
-						        setHotelMarkers(null);
-						        setHospitalMarkers(null);
-						        setSalonMarkers(null);
-						       
+						        
 						    } else if (type === 'store') { // 편의점 카테고리가 클릭됐을 때
 						    
 						        // 편의점 카테고리를 선택된 스타일로 변경하고
@@ -543,10 +462,10 @@
 						        // 편의점 마커들만 지도에 표시하도록 설정합니다
 						        setCoffeeMarkers(null);
 						        setStoreMarkers(map);
-						        setParkMarkers(null);
+						        setParkMarkers(null);  
 						        setRestaurantMarkers(null);
 						        setHotelMarkers(null);
-						        setHospitalMarkers(null);
+						       	setHospitalMarkers(null);
 						        setSalonMarkers(null);
 						        
 						    } else if (type === 'park') { // 애견파크 카테고리가 클릭됐을 때
@@ -566,7 +485,7 @@
 						        setParkMarkers(map);  
 						        setRestaurantMarkers(null);
 						        setHotelMarkers(null);
-						        setHospitalMarkers(null);
+						       	setHospitalMarkers(null);
 						        setSalonMarkers(null);
 						        
 						    } else if (type === 'restaurant') { // 식당 카테고리가 클릭됐을 때
@@ -586,9 +505,8 @@
 						        setParkMarkers(null);  
 						        setRestaurantMarkers(map);
 						        setHotelMarkers(null);
-						        setHospitalMarkers(null);
+						       	setHospitalMarkers(null);
 						        setSalonMarkers(null);
-						        
 						        
 						    } else if (type === 'hotel') { // 호텔 카테고리가 클릭됐을 때
 							     
@@ -607,11 +525,9 @@
 						        setParkMarkers(null);  
 						        setRestaurantMarkers(null);
 						        setHotelMarkers(map);
-						        setHospitalMarkers(null);
+						       	setHospitalMarkers(null);
 						        setSalonMarkers(null);
-						        
 						       
-
 						    } else if (type === 'hospital') { // 병원 카테고리가 클릭됐을 때
 							     
 						        // 병원 카테고리를 선택된 스타일로 변경하고
@@ -629,35 +545,49 @@
 						        setParkMarkers(null);  
 						        setRestaurantMarkers(null);
 						        setHotelMarkers(null);
-						        setHospitalMarkers(map);
+						       	setHospitalMarkers(map);
 						        setSalonMarkers(null);
 						        
+							} else if (type === 'salon') { // 미용실 카테고리가 클릭됐을 때
+							     
+						        // 미용실 카테고리를 선택된 스타일로 변경하고
+						        coffeeMenu.className = '';
+						        storeMenu.className = '';
+						        parkMenu.className = '';
+						        restaurantMenu.className = '';
+						        hotelMenu.className = '';
+						        hospitalMenu.className = '';
+						        salonMenu.className = 'menu_selected';
 						        
-						} else if (type === 'salon') { // 미용실 카테고리가 클릭됐을 때
-						     
-					        // 미용실 카테고리를 선택된 스타일로 변경하고
-					        coffeeMenu.className = '';
-					        storeMenu.className = '';
-					        parkMenu.className = '';
-					        restaurantMenu.className = '';
-					        hotelMenu.className = '';
-					        hospitalMenu.className = '';
-					        salonMenu.className = 'menu_selected';
-					        
-					        // 미용실 마커들만 지도에 표시하도록 설정합니다
-					        setCoffeeMarkers(null);
-					        setStoreMarkers(null);
-					        setParkMarkers(null);  
-					        setRestaurantMarkers(null);
-					        setHotelMarkers(null);
-					        setHospitalMarkers(null);
-					        setSalonMarkers(map);
-					        
-						} 
-					}
+						        // 미용실 마커들만 지도에 표시하도록 설정합니다
+						        setCoffeeMarkers(null);
+						        setStoreMarkers(null);
+						        setParkMarkers(null);  
+						        setRestaurantMarkers(null);
+						        setHotelMarkers(null);
+						       	setHospitalMarkers(null);
+						        setSalonMarkers(map);
+							} 
+						}
+						
 						
 						function setCurrentLocation() {   	//현위치로 이동
 							start();
+						}
+						
+						
+						// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+						function makeOverListener(map, marker, infowindow) {
+						    return function() {
+						        infowindow.open(map, marker);
+						    };
+						}
+
+						// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+						function makeOutListener(infowindow) {
+						    return function() {
+						        infowindow.close();
+						    };
 						}
 						
 						</script>
