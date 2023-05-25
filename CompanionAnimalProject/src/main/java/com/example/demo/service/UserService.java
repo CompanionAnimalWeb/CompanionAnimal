@@ -12,5 +12,6 @@ public interface UserService {
 	public User selectByUserId(String id) throws Exception;
 	public void modify(User user) throws Exception;
 	public void delete(User user) throws Exception;
-	
+    public User selectByUserId(String id) throws Exception;
+
 }

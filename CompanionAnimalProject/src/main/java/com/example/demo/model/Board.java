@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.io.File;
+import java.util.Optional;
 
 public class Board {
 	
@@ -7,7 +9,12 @@ public class Board {
 	private String title;
 	private String content;
 	private String regDate;
+	
 	private String id;
+	
+	//이미지
+	private String imageUrl;
+	private File BoardImage;
 	
 	/* 검색 필터 */
 	public String keyword;
@@ -49,6 +56,18 @@ public class Board {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	public File getBoardImage() {
+		return BoardImage;
+	}
+	public void setBoardImage(File boardImage) {
+		BoardImage = boardImage;
 	}
 	
 }

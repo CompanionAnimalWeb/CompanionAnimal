@@ -55,6 +55,7 @@ public class ReplyRepositoryImpl implements ReplyRepository {
 
 	/* 답글 삭제 */
 	public void delete(int commentIdx, int replyIdx) throws Exception {
+
 		jdbcTemplate.update("delete from reply where comment_idx = ? and reply_idx = ?", commentIdx, replyIdx);
 	}
 
