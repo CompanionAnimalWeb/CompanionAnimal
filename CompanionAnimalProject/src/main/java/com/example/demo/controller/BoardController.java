@@ -133,6 +133,8 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("commentList", commentList);
 		
+		System.out.println(board.getImageUrl());
+		
 		return "board/community/detail";
 	}
 	
