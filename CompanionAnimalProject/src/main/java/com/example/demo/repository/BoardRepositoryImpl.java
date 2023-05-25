@@ -87,8 +87,26 @@ public class BoardRepositoryImpl implements BoardRepository{
 
 		return jdbcTemplate.query(sql, boardRowMapper(), wrappedTitle, wrappedId);
 	}
+	
+	@Override
+	public List<Board> selectByUserId(String id) {
+		
+		String sql = "select * from Board where id=?";
+		return jdbcTemplate.query(sql, selectByUserIdMapper(), id);
+	}
+	
+	private RowMapper<Board> selectByUserIdMapper() {
+		return (rs, rowNum) -> {
+			Board board = new Board();
+	    	board.setBoardIdx(rs.getInt("board_Idx"));
+	    	board.setTitle(rs.getString("title"));
+	    	board.setContent(rs.getString("content"));
+	    	board.setRegDate(rs.getString("regdate"));
+			board.setId(rs.getString("id"));
+			return board;
+		};
+	}
    
-
    //Board 정보를 매핑하는 RowMapper
    private RowMapper<Board> boardRowMapper() {
 	   return (rs, rowNum) -> {
@@ -147,8 +165,14 @@ public class BoardRepositoryImpl implements BoardRepository{
 	
 	@Override
 	public List<Board> listCriteria(Criteria criteria) throws Exception {
-			
+		
 		String sql = "select * from Board limit ?,?";
 		return jdbcTemplate.query(sql, boardRowMapper(), criteria.getPageStart(), criteria.getPerPageNum());
+	}
+
+	@Override
+	public int count() throws Exception {
+	  String sql = "select count(*) from Board";
+      return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 }
