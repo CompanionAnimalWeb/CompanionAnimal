@@ -244,6 +244,7 @@
 						    map.setCenter(locPosition);      
 						}    
 						
+						//인포윈도우 내용
 						function nameAddress(array){
 							var html = '<div style="padding:5px;">Name : ' + array.name + '<br>';
 							  	html += 'Address : ' + array.address + '</div>';
@@ -251,173 +252,89 @@
 							return html;
 						}
 						
-						// 커피숍 마커들의 지도 표시 여부를 설정하는 함수입니다
-						function setCoffeeMarkers(map) {
-	 						for (var i = 0; i < coffeePositions.length; i ++) {
-							    // 마커를 생성합니다
-							    var marker = new kakao.maps.Marker({
-							        map: map, // 마커를 표시할 지도
-							        position: coffeePositions[i].latlng // 마커의 위치
-							    });
-					
-							    // 마커에 표시할 인포윈도우를 생성합니다 
-							    var infowindow = new kakao.maps.InfoWindow({
-							        content: nameAddress(coffeePositions[i]) // 인포윈도우에 표시할 내용
-							    });
-					
-							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-							}        
-						}
-
-
-						// 편의점 마커들의 지도 표시 여부를 설정하는 함수입니다
-						function setStoreMarkers(map) {        
-							for (var i = 0; i < storePositions.length; i ++) {
-							    // 마커를 생성합니다
-							    var marker = new kakao.maps.Marker({
-							        map: map, // 마커를 표시할 지도
-							        position: storePositions[i].latlng // 마커의 위치
-							    });
-					
-							    // 마커에 표시할 인포윈도우를 생성합니다 
-							    var infowindow = new kakao.maps.InfoWindow({
-							        content: nameAddress(storePositions[i]) // 인포윈도우에 표시할 내용
-							    });
-					
-							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-							}       
-						}
 						
-
-						// 애견파크 마커들의 지도 표시 여부를 설정하는 함수입니다
-						function setParkMarkers(map) {        
-							for (var i = 0; i < parkPositions.length; i ++) {
-							    // 마커를 생성합니다
-							    var marker = new kakao.maps.Marker({
-							        map: map, // 마커를 표시할 지도
-							        position: parkPositions[i].latlng // 마커의 위치
-							    });
-					
-							    // 마커에 표시할 인포윈도우를 생성합니다 
-							    var infowindow = new kakao.maps.InfoWindow({
-							        content: nameAddress(parkPositions[i]) // 인포윈도우에 표시할 내용
-							    });
-					
-							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-							}        
-						}
+						//마커에 인포윈도우 생성
+						function createMarker(map, positionData) {
+						  	var marker = new kakao.maps.Marker({
+						    	position: positionData.latlng,
+						    	clickable: true
+							});
 						
-
-						// 식당 마커들의 지도 표시 여부를 설정하는 함수입니다
-						function setRestaurantMarkers(map) {        
-							for (var i = 0; i < restaurantPositions.length; i ++) {
-							    // 마커를 생성합니다
-							    var marker = new kakao.maps.Marker({
-							        map: map, // 마커를 표시할 지도
-							        position: restaurantPositions[i].latlng // 마커의 위치
-							    });
-					
-							    // 마커에 표시할 인포윈도우를 생성합니다 
-							    var infowindow = new kakao.maps.InfoWindow({
-							        content: nameAddress(restaurantPositions[i]) // 인포윈도우에 표시할 내용
-							    });
-					
-							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-							}        
+							marker.setMap(map);
+						
+						  	var infowindow = new kakao.maps.InfoWindow({
+						    	content: nameAddress(positionData),
+						    	removable: true
+						  	});
+						
+						  	kakao.maps.event.addListener(marker, 'click', function () {
+						    	infowindow.open(map, marker);
+						  	});
+						  	
+						  	positionData.marker = marker; // positionData 객체에 marker 속성으로 저장합니다.
 						}
 						
 						
-						// 호텔 마커들의 지도 표시 여부를 설정하는 함수입니다
-						function setHotelMarkers(map) {        
-							for (var i = 0; i < hotelPositions.length; i ++) {
-							    // 마커를 생성합니다
-							    var marker = new kakao.maps.Marker({
-							        map: map, // 마커를 표시할 지도
-							        position: hotelPositions[i].latlng // 마커의 위치
-							    });
-					
-							    // 마커에 표시할 인포윈도우를 생성합니다 
-							    var infowindow = new kakao.maps.InfoWindow({
-							        content: nameAddress(hotelPositions[i]) // 인포윈도우에 표시할 내용
-							    });
-					
-							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-							}        
+						// 마커들을 표시하는 함수
+						function setMarkers(map, positions) {
+						  for (var i = 0; i < positions.length; i++) {
+						    createMarker(map, positions[i]);
+						  }
 						}
 
-						// 병원 마커들의 지도 표시 여부를 설정하는 함수입니다
-						function setHospitalMarkers(map) {        
-							for (var i = 0; i < hospitalPositions.length; i ++) {
-							    // 마커를 생성합니다
-							    var marker = new kakao.maps.Marker({
-							        map: map, // 마커를 표시할 지도
-							        position: hospitalPositions[i].latlng // 마커의 위치
-							    });
-					
-							    // 마커에 표시할 인포윈도우를 생성합니다 
-							    var infowindow = new kakao.maps.InfoWindow({
-							        content: nameAddress(hospitalPositions[i]) // 인포윈도우에 표시할 내용
-							    });
-					
-							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-							}        
-						}
-						
-
-						// 미용실 마커들의 지도 표시 여부를 설정하는 함수입니다
-						function setSalonMarkers(map) {        
-							for (var i = 0; i < salonPositions.length; i ++) {
-							    // 마커를 생성합니다
-							    var marker = new kakao.maps.Marker({
-							        map: map, // 마커를 표시할 지도
-							        position: salonPositions[i].latlng // 마커의 위치
-							    });
-					
-							    // 마커에 표시할 인포윈도우를 생성합니다 
-							    var infowindow = new kakao.maps.InfoWindow({
-							        content: nameAddress(salonPositions[i]) // 인포윈도우에 표시할 내용
-							    });
-					
-							    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-							    
+						// 마커 유형에 따라 해당하는 함수 호출
+						function setMarkersByType(map, markerType) {
+							switch (markerType) {
+								case 'coffee':
+						      		setMarkers(map, coffeePositions);
+						      		break;
+						    	
+								case 'store':
+						      		setMarkers(map, storePositions);
+						      		break;
+						    	
+						    	case 'park':
+						      		setMarkers(map, parkPositions);
+						      		break;
+						    	
+						    	case 'restaurant':
+						      		setMarkers(map, restaurantPositions);
+						      		break;
+						    	
+						    	case 'hotel':
+						      		setMarkers(map, hotelPositions);
+						      		break;
+						    	
+						    	case 'hospital':
+						      		setMarkers(map, hospitalPositions);
+						      		break;
+						    	
+						    	case 'salon':
+						      		setMarkers(map, salonPositions);
+						      		break;
+						    	
+						    	default:
+						      		break;
 							}
 						}
 						
+						//해당 카테고리를 제외한 나머지 카테고리의 마커들을 지도에서 제거
+						function removeMarkersByType(selectedType) {
+							var allPositions = [coffeePositions, storePositions, parkPositions, restaurantPositions, hotelPositions, hospitalPositions, salonPositions];
 
-						function clearMarkers(markers) {
-						    for (var i = 0; i < markers.length; i++) {
-						        markers[i].setMap(null); // 마커를 지도에서 제거합니다.
-						    }
-						    markers = []; // 마커 배열을 초기화합니다.
+							for (var i = 0; i < allPositions.length; i++) {
+								var positions = allPositions[i];
+
+								if (selectedType !== positions) {
+									for (var j = 0; j < positions.length; j++) {
+										if (positions[j].marker) {
+											positions[j].marker.setMap(null); // 각 마커를 지도에서 제거합니다.
+										}
+							      	}
+								}
+							}
 						}
+
 						
 						// 카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경합니다
 						function changeMarker(type){
@@ -434,10 +351,8 @@
 						    // 커피숍 카테고리가 클릭됐을 때
 						    if (type === 'coffee') {
 						    
-						        // 커피숍 카테고리를 선택된 스타일로 변경하고
+						        // 커피숍 카테고리를 선택된 스타일로 변경
 						        coffeeMenu.className = 'menu_selected';
-						        
-						        // 편의점과 애견파크, 식당, 호텔 등 카테고리는 선택되지 않은 스타일로 바꿉니다
 						        storeMenu.className = '';
 						        parkMenu.className = '';
 						        restaurantMenu.className = '';
@@ -446,11 +361,12 @@
 						        salonMenu.className = '';
 						        
 						        // 커피숍 마커들만 지도에 표시하도록 설정합니다
-						        setCoffeeMarkers(map);
+						        setMarkersByType(map, 'coffee');
+						        removeMarkersByType(coffeePositions);
 						        
 						    } else if (type === 'store') { // 편의점 카테고리가 클릭됐을 때
 						    
-						        // 편의점 카테고리를 선택된 스타일로 변경하고
+						        // 편의점 카테고리를 선택된 스타일로 변경
 						        coffeeMenu.className = '';
 						        storeMenu.className = 'menu_selected';
 						        parkMenu.className = '';
@@ -460,17 +376,12 @@
 						        salonMenu.className = '';
 						        
 						        // 편의점 마커들만 지도에 표시하도록 설정합니다
-						        setCoffeeMarkers(null);
-						        setStoreMarkers(map);
-						        setParkMarkers(null);  
-						        setRestaurantMarkers(null);
-						        setHotelMarkers(null);
-						       	setHospitalMarkers(null);
-						        setSalonMarkers(null);
+						        setMarkersByType(map, 'store');
+						        removeMarkersByType(storePositions);
 						        
 						    } else if (type === 'park') { // 애견파크 카테고리가 클릭됐을 때
 						     
-						        // 애견파크 카테고리를 선택된 스타일로 변경하고
+						        // 애견파크 카테고리를 선택된 스타일로 변경
 						        coffeeMenu.className = '';
 						        storeMenu.className = '';
 						        parkMenu.className = 'menu_selected';
@@ -480,17 +391,12 @@
 						        salonMenu.className = '';
 						        
 						        // 애견파크 마커들만 지도에 표시하도록 설정합니다
-						        setCoffeeMarkers(null);
-						        setStoreMarkers(null);
-						        setParkMarkers(map);  
-						        setRestaurantMarkers(null);
-						        setHotelMarkers(null);
-						       	setHospitalMarkers(null);
-						        setSalonMarkers(null);
+						        setMarkersByType(map, 'park');
+						        removeMarkersByType(parkPositions);
 						        
 						    } else if (type === 'restaurant') { // 식당 카테고리가 클릭됐을 때
 							     
-						        // 식당 카테고리를 선택된 스타일로 변경하고
+						        // 식당 카테고리를 선택된 스타일로 변경
 						        coffeeMenu.className = '';
 						        storeMenu.className = '';
 						        parkMenu.className = '';
@@ -500,17 +406,12 @@
 						        salonMenu.className = '';
 						        
 						        // 식당 마커들만 지도에 표시하도록 설정합니다
-						        setCoffeeMarkers(null);
-						        setStoreMarkers(null);
-						        setParkMarkers(null);  
-						        setRestaurantMarkers(map);
-						        setHotelMarkers(null);
-						       	setHospitalMarkers(null);
-						        setSalonMarkers(null);
+						        setMarkersByType(map, 'restaurant');
+						        removeMarkersByType(restaurantPositions);
 						        
 						    } else if (type === 'hotel') { // 호텔 카테고리가 클릭됐을 때
 							     
-						        // 식당 카테고리를 선택된 스타일로 변경하고
+						        // 식당 카테고리를 선택된 스타일로 변경
 						        coffeeMenu.className = '';
 						        storeMenu.className = '';
 						        parkMenu.className = '';
@@ -519,18 +420,13 @@
 						        hospitalMenu.className = '';
 						        salonMenu.className = '';
 						        
-						        // 식당 마커들만 지도에 표시하도록 설정합니다
-						        setCoffeeMarkers(null);
-						        setStoreMarkers(null);
-						        setParkMarkers(null);  
-						        setRestaurantMarkers(null);
-						        setHotelMarkers(map);
-						       	setHospitalMarkers(null);
-						        setSalonMarkers(null);
+						        // 호텔 마커들만 지도에 표시하도록 설정합니다
+						        setMarkersByType(map, 'hotel');
+						        removeMarkersByType(hotelPositions);
 						       
 						    } else if (type === 'hospital') { // 병원 카테고리가 클릭됐을 때
 							     
-						        // 병원 카테고리를 선택된 스타일로 변경하고
+						        // 병원 카테고리를 선택된 스타일로 변경
 						        coffeeMenu.className = '';
 						        storeMenu.className = '';
 						        parkMenu.className = '';
@@ -540,17 +436,12 @@
 						        salonMenu.className = '';
 						        
 						        // 병원 마커들만 지도에 표시하도록 설정합니다
-						        setCoffeeMarkers(null);
-						        setStoreMarkers(null);
-						        setParkMarkers(null);  
-						        setRestaurantMarkers(null);
-						        setHotelMarkers(null);
-						       	setHospitalMarkers(map);
-						        setSalonMarkers(null);
+						        setMarkersByType(map, 'hospital');
+						        removeMarkersByType(hospitalPositions);
 						        
 							} else if (type === 'salon') { // 미용실 카테고리가 클릭됐을 때
 							     
-						        // 미용실 카테고리를 선택된 스타일로 변경하고
+						        // 미용실 카테고리를 선택된 스타일로 변경
 						        coffeeMenu.className = '';
 						        storeMenu.className = '';
 						        parkMenu.className = '';
@@ -560,13 +451,8 @@
 						        salonMenu.className = 'menu_selected';
 						        
 						        // 미용실 마커들만 지도에 표시하도록 설정합니다
-						        setCoffeeMarkers(null);
-						        setStoreMarkers(null);
-						        setParkMarkers(null);  
-						        setRestaurantMarkers(null);
-						        setHotelMarkers(null);
-						       	setHospitalMarkers(null);
-						        setSalonMarkers(map);
+						        setMarkersByType(map, 'salon');
+						        removeMarkersByType(salonPositions);
 							} 
 						}
 						
