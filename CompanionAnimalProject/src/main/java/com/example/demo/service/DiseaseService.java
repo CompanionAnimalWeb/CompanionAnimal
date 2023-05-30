@@ -11,11 +11,11 @@ public interface DiseaseService {
 	
 	//반려견
 	public List<DogDisease> dogDiseaseList() throws Exception;	// 반려견 증상 리스트
-	public List<String> selectDogDisease(String select) throws Exception;	// 선택한 카테고리에 대한 증상 리스트
-	public DogDetailDisease symptomName(String select) throws Exception;	// 증상명과 설명
+	public List<DogDetailDisease> selectDogDisease(String select) throws Exception;	// 선택한 카테고리에 대한 증상 리스트
+	//public DogDetailDisease symptomName(String select) throws Exception;	// 증상명과 설명
 	
 	//반려묘
 	public List<CatDisease> catDiseaseList() throws Exception;	// 반려묘 증상 리스트
 	public List<CatDetailDisease> selectCatDisease(String select) throws Exception;	// 선택한 카테고리에 대한 증상 리스트
-	public List<CatDetailDisease> diseaseName(String[] values) throws Exception; // 질병과 설명
+	public List<CatDetailDisease> catDiseaseName(String[] values) throws Exception; // 질병과 설명
 }

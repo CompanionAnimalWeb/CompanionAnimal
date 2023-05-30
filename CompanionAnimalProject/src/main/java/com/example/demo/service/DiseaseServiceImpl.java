@@ -28,13 +28,8 @@ public class DiseaseServiceImpl implements DiseaseService{
 	}
 	
 	@Override
-	public List<String> selectDogDisease(String select) throws Exception {
+	public List<DogDetailDisease> selectDogDisease(String select) throws Exception {
 		return diseaseRepository.selectDogDisease(select);
-	}
-	
-	@Override
-	public DogDetailDisease symptomName(String select) throws Exception {
-		return diseaseRepository.symptomName(select);
 	}
 	
 	/*반려묘 관련*/
@@ -49,9 +44,10 @@ public class DiseaseServiceImpl implements DiseaseService{
 	}
 	
 	@Override
-	public List<CatDetailDisease> diseaseName(String[] values) throws Exception {
-		return diseaseRepository.diseaseName(values);
+	public List<CatDetailDisease> catDiseaseName(String[] values) throws Exception {
+		return diseaseRepository.catDiseaseName(values);
 	}
+
 	
 	
 }

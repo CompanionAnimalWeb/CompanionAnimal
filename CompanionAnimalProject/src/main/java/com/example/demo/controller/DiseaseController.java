@@ -42,11 +42,15 @@ public class DiseaseController {
         return "/disease/dog";
     }
     
-    // 반려견 증상을 선택 => 해당되는 세부 증상 나열
+    // 반려묘 증상을 선택 => 해당되는 세부 증상 나열
     @GetMapping(value="/dog/detail")
     public String selectDogDisease(@RequestParam("select") String select, Model model) throws Exception {
     	
-    	model.addAttribute("dogList", diseaseService.selectDogDisease(select));
+    	
+    	List<DogDetailDisease> list = diseaseService.selectDogDisease(select);
+    	
+    	model.addAttribute("select",select);
+    	model.addAttribute("dogList", list);
     	
     	return "/disease/dogDetail";
     }
@@ -55,7 +59,7 @@ public class DiseaseController {
     @GetMapping(value="/dog/detail/symptomName")
     public String symptomName(@RequestParam("select") String select, Model model) throws Exception {
     	DogDetailDisease detailDisease = new DogDetailDisease();
-    	detailDisease = diseaseService.symptomName(select);
+    	//detailDisease = diseaseService.symptomName(select);
     	System.out.println(detailDisease.getDiseaseName());
     	System.out.println(detailDisease.getTreatment());
     	
@@ -94,7 +98,7 @@ public class DiseaseController {
     	
         String[] selectedValues = request.getParameterValues("selectedValues");
         
-        List<CatDetailDisease> list = diseaseService.diseaseName(selectedValues);
+        List<CatDetailDisease> list = diseaseService.catDiseaseName(selectedValues);
         
         model.addAttribute("catList", list);
         

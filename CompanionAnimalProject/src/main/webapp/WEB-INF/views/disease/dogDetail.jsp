@@ -12,15 +12,20 @@
 <body>
 <h1>반려견 세부 증상 선택</h1>
 
-<c:choose>
-	<c:when test="${dogList != null}">
-		<c:forEach items="${dogList}" var="dog">
-		  <c:set var="encodedDog" value="${URLEncoder.encode(dog, 'UTF-8')}"/>
-			<li><a href="detail/symptomName?select=${encodedDog}">${dog}</a></li>
-			<br><br>
-			</tr>
-		</c:forEach>
-	</c:when>
-</c:choose>
+<form action="../dog/detail/name" method="post">
+  <c:choose>
+    <c:when test="${dogList != null}">
+      <c:forEach items="${dogList}" var="dog">
+        <tr>${dog.getClassification()} ${dog.getDiseaseIdx()}<br><br>
+        <c:forEach items="${dog.getDetailSymptom()}" var="detailSymptom">
+          <input type="checkbox" name="selectedValues" value="${dog.getDiseaseIdx()}">${detailSymptom}<br>
+        </c:forEach>
+        <br><br>
+        </tr>
+      </c:forEach>
+    </c:when>
+  </c:choose>
+  <input type="submit" value="증상 확인하기">
+</form>
 </body>
 </html>

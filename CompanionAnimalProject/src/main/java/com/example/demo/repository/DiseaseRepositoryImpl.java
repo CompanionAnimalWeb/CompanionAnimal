@@ -33,15 +33,12 @@ public class DiseaseRepositoryImpl implements DiseaseRepository{
 	}
 	
 	@Override
-	public List<String> selectDogDisease(String select) throws Exception {
-		String sql = "select detail_symptom from DogDetailDisease where main_symptom = ?";
-		return jdbcTemplate.queryForList(sql,String.class,select);
-	}
-	
-	@Override
-	public DogDetailDisease symptomName(String select) throws Exception {
-		String sql = "select disease_name, treatment from DogDetailDisease where detail_symptom = ?";
-		return jdbcTemplate.queryForObject(sql, DogDetailDiseaseRowMapper(),select);
+	public List<DogDetailDisease> selectDogDisease(String select) throws Exception {
+		String sql = "select classfication, group_concat(detail_symptom) as detail_symptom , disease_idx from DogDetailDisease "
+					+ "where main_symptom = ? "
+					+ "group by  classfication "
+					+ "order by classfication";
+		return jdbcTemplate.query(sql,dogDetailDiseaseRowMapper(),select);
 	}
 	
 	
@@ -54,13 +51,14 @@ public class DiseaseRepositoryImpl implements DiseaseRepository{
 		 };
 	}
 	
-	private RowMapper<DogDetailDisease> DogDetailDiseaseRowMapper() {
+	private RowMapper<DogDetailDisease> dogDetailDiseaseRowMapper() {
 		return (rs, rowNum) -> {
 			DogDetailDisease dogDetailDisease = new DogDetailDisease();
-			dogDetailDisease.setDiseaseName(rs.getString("disease_name"));
-			dogDetailDisease.setTreatment(rs.getString("treatment"));
-		    return dogDetailDisease;
-		 };
+			dogDetailDisease.setClassification(rs.getString("classfication"));
+			dogDetailDisease.setDetailSymptom(rs.getString("detail_symptom"));
+			dogDetailDisease.setDiseaseIdx(rs.getInt("disease_idx"));
+			return dogDetailDisease;
+		};
 	}
 	
 	
@@ -83,7 +81,7 @@ public class DiseaseRepositoryImpl implements DiseaseRepository{
 	}
 	
 	@Override
-	public List<CatDetailDisease> diseaseName(String[] values) throws Exception {
+	public List<CatDetailDisease> catDiseaseName(String[] values) throws Exception {
 	    String sql = "SELECT disease_name, treatment FROM CatDiseaseName WHERE disease_idx IN ("
 	            + String.join(",", Collections.nCopies(values.length, "?"))
 	            + ")";
