@@ -41,14 +41,14 @@
 
 					<c:if test="${userInfo == null }">
                     <li class="nav-item ms-3">
-                        <a class="nav-link custom-btn custom-border-btn btn" href="<c:url value="/member/login"/>">LOGIN</a>
+                        <a class="nav-link custom-btn custom-border-btn btn" href="<c:url value="/member/login"/>">Login</a>
                     </li>
                     </c:if>
                     <c:if test="${userInfo != null }">
                  	<li class="nav-item dropdown">
                         <a class="nav-link" href="<c:url value="/mypage/main"/>"><b>MY PAGE</b></a>
                     </li>
-                   	<a class="nav-link custom-btn custom-border-btn btn" href="<c:url value="/member/logout"/>">LOGOUT</a>                        	
+                   	<a class="nav-link custom-btn custom-border-btn btn" href="<c:url value="/member/logout"/>">Logout</a>                        	
 					</c:if>
                 </ul>
             </div>

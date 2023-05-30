@@ -36,18 +36,18 @@
                         <div id="hero-slide" class="carousel carousel-fade slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="${pageContext.request.contextPath}/resources/images/main/main_6.png"
-                                        " alt="..." height="700" width="2000">
+                                    <img src="${pageContext.request.contextPath}/resources/images/main/main_image_1.png"
+                                        alt="..." height="700" width="2000">
                                 </div>
 
                                 <div class="carousel-item">
-                                    <img src="${pageContext.request.contextPath}/resources/images/main/main_5.png"
-                                        " alt="..." height="700" width="2000">
+                                    <img src="${pageContext.request.contextPath}/resources/images/main/main_image_2.png"
+                                        alt="..." height="700" width="2000">
                                 </div>
 
                                 <div class="carousel-item">
-                                    <img src="${pageContext.request.contextPath}/resources/images/main/main_3.jpg"
-                                        " alt="..." height="700" width="2000">
+                                    <img src="${pageContext.request.contextPath}/resources/images/main/main_image_3.png"
+                                       alt="..." height="700" width="2000">
                                 </div>
                             </div>
 
@@ -81,9 +81,7 @@
                     <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
                         <div class="featured-block d-flex justify-content-center align-items-center">
                             <a href="donate.html" class="d-block">
-                                <img src="../images/icons/hands.png" class="featured-block-image img-fluid" alt="">
-
-                                <p class="featured-block-text">이미지 <strong> 1</strong></p>
+                                <img src="${pageContext.request.contextPath}/resources/images/main/dog2.png" class="featured-block-image img-fluid" alt="">
                             </a>
                         </div>
                     </div>
@@ -91,9 +89,7 @@
                     <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">
                         <div class="featured-block d-flex justify-content-center align-items-center">
                             <a href="donate.html" class="d-block">
-                                <img src="../images/icons/heart.png" class="featured-block-image img-fluid" alt="">
-
-                                <p class="featured-block-text"><strong>이미지 </strong> 2</p>
+                                <img src="${pageContext.request.contextPath}/resources/images/main/dog1.png" class="featured-block-image img-fluid" alt="">
                             </a>
                         </div>
                     </div>
@@ -101,9 +97,7 @@
                     <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">
                         <div class="featured-block d-flex justify-content-center align-items-center">
                             <a href="donate.html" class="d-block">
-                                <img src="../images/icons/receive.png" class="featured-block-image img-fluid" alt="">
-
-                                <p class="featured-block-text">이미지 <strong>3</strong></p>
+                                <img src="${pageContext.request.contextPath}/resources/images/main/cat1.png" class="featured-block-image img-fluid" alt="">
                             </a>
                         </div>
                     </div>
@@ -111,9 +105,8 @@
                     <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
                         <div class="featured-block d-flex justify-content-center align-items-center">
                             <a href="donate.html" class="d-block">
-                                <img src="../images/icons/scholarship.png" class="featured-block-image img-fluid" alt="">
+                                <img src="${pageContext.request.contextPath}/resources/images/main/cat2.png" class="featured-block-image img-fluid" alt="">
 
-                                <p class="featured-block-text"><strong>이미지 </strong>4</p>
                             </a>
                         </div>
                     </div>
@@ -127,60 +120,26 @@
                 <div class="row">
 
                     <div class="col-lg-6 col-12 mb-5 mb-lg-0">
-                        <img src="/resources//resources/../images/group-people-volunteering-foodbank-poor-people.jpg"
+                        <img src="${pageContext.request.contextPath}/resources/images/main/main_image.png"
+                            style="width=100%;height=100%;object-fit:fill;"
                             class="custom-text-box-image img-fluid" alt="">
                     </div>
 
                     <div class="col-lg-6 col-12">
                         <div class="custom-text-box">
-                            <h2 class="mb-2">커뮤니티</h2>
-
-                            <h5 class="mb-3">공지사항</h5>
-
-                            <p class="mb-0">어쩌고저쩌고</p>
+                            <h2 class="mb-2">Community</h2>
                         </div>
-
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-12">
-                                <div class="custom-text-box mb-lg-0">
-                                    <h5 class="mb-3">실시간 인기글</h5>
-
-                                    <p>어쩌고 저쩌고</p>
-
-                                    <ul class="custom-list mt-2">
-                                        <li class="custom-list-item d-flex">
-                                            <i class="bi-check custom-text-box-icon me-2"></i>
-                                            1
-                                        </li>
-
-                                        <li class="custom-list-item d-flex">
-                                            <i class="bi-check custom-text-box-icon me-2"></i>
-                                            2
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 col-md-6 col-12">
-                                <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
-                                    <h5 class="mb-3">실시간 인기글</h5>
-
-                                    <p>어쩌고 저쩌고</p>
-
-                                    <ul class="custom-list mt-2">
-                                        <li class="custom-list-item d-flex">
-                                            <i class="bi-check custom-text-box-icon me-2"></i>
-                                            1
-                                        </li>
-
-                                        <li class="custom-list-item d-flex">
-                                            <i class="bi-check custom-text-box-icon me-2"></i>
-                                            2
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                        
+                       	<div class="custom-text-box">
+	                       <h5 class="mb-3">동물보감📒</h5>
+	                       <p>우리 아이에게 도움이 될만한 여러가지 꿀팁을 확인해볼 수 있어요</p>
                         </div>
+                        
+                       	<div class="custom-text-box">
+	                       <h5 class="mb-3">동물병원🚑</h5>
+	                       <p>우리 아이에게 이상 증상이 보인다면? 증상별 병명을 예측해볼 수 있어요</p>
+                        </div>                        
+                        
                     </div>
 
                 </div>
@@ -193,13 +152,16 @@
                 <div class="row">
 
                     <div class="col-lg-6 col-md-5 col-12">
-                        <img src="../images/portrait-volunteer-who-organized-donations-charity.jpg"
+                        <img src="${pageContext.request.contextPath}/resources/images/main/main_image_map.png"
                             class="about-image ms-lg-auto bg-light shadow-lg img-fluid" alt="">
                     </div>
 
                     <div class="col-lg-5 col-md-7 col-12">
                         <div class="custom-text-block">
-                            <h2 class="mb-0">우리동네</h2>
+                            <h2 class="mb-0">우리 동네</h2>
+                            <br><br>
+                            <h5 class="mb-3">애견 동반 가능한 카페, 음식점 및 여러가지</h5>
+                            <h5 class="mb-3">펫 서비스 시설을 빠르게 찾아보세요💙 </h5>
                         </div>
                     </div>
 
@@ -207,100 +169,6 @@
             </div>
         </section>
 
-        <section class="cta-section section-padding section-bg">
-            <div class="container">
-                <div class="row justify-content-center align-items-center">
-
-                    <div class="col-lg-5 col-12 ms-auto">
-                        <h2 class="mb-0">Make an impact. <br> Save lives.</h2>
-                    </div>
-
-                    <div class="col-lg-5 col-12">
-                        <a href="#" class="me-4">Make a donation</a>
-
-                        <a href="#section_4" class="custom-btn btn smoothscroll">Become a volunteer</a>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-
-        <section class="testimonial-section section-padding section-bg" id="section_4">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-8 col-12 mx-auto">
-                        <h2 class="mb-lg-3">Happy customers</h2>
-
-                        <div id="testimonial-carousel" class="carousel carousel-fade slide" data-bs-ride="carousel">
-
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="carousel-caption">
-                                        <h4 class="carousel-title">뭐 넣지 1</h4>
-
-                                        <small class="carousel-name"><span class="carousel-name-title">Maria</span>,
-                                            Boss</small>
-                                    </div>
-                                </div>
-
-                                <div class="carousel-item">
-                                    <div class="carousel-caption">
-                                        <h4 class="carousel-title">뭐 넣지 2</h4>
-
-                                        <small class="carousel-name"><span class="carousel-name-title">Thomas</span>,
-                                            Partner</small>
-                                    </div>
-                                </div>
-
-                                <div class="carousel-item">
-                                    <div class="carousel-caption">
-                                        <h4 class="carousel-title">뭐 넣지 3</h4>
-
-                                        <small class="carousel-name"><span class="carousel-name-title">Jane</span>,
-                                            Advisor</small>
-                                    </div>
-                                </div>
-
-                                <div class="carousel-item">
-                                    <div class="carousel-caption">
-                                        <h4 class="carousel-title">뭐 넣지 4</h4>
-
-                                        <small class="carousel-name"><span class="carousel-name-title">Bob</span>,
-                                            Entreprenuer</small>
-                                    </div>
-                                </div>
-
-                                <ol class="carousel-indicators">
-                                    <li data-bs-target="#testimonial-carousel" data-bs-slide-to="0" class="active">
-                                        <img src="../images/avatar/portrait-beautiful-young-woman-standing-grey-wall.jpg"
-                                            class="img-fluid rounded-circle avatar-image" alt="avatar">
-                                    </li>
-
-                                    <li data-bs-target="#testimonial-carousel" data-bs-slide-to="1" class="">
-                                        <img src="../images/avatar/portrait-young-redhead-bearded-male.jpg"
-                                            class="img-fluid rounded-circle avatar-image" alt="avatar">
-                                    </li>
-
-                                    <li data-bs-target="#testimonial-carousel" data-bs-slide-to="2" class="">
-                                        <img src="../images/avatar/pretty-blonde-woman-wearing-white-t-shirt.jpg"
-                                            class="img-fluid rounded-circle avatar-image" alt="avatar">
-                                    </li>
-
-                                    <li data-bs-target="#testimonial-carousel" data-bs-slide-to="3" class="">
-                                        <img src="../images/avatar/studio-portrait-emotional-happy-funny.jpg"
-                                            class="img-fluid rounded-circle avatar-image" alt="avatar">
-                                    </li>
-                                </ol>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
 
 
         <section class="contact-section section-padding" id="section_6">
@@ -309,15 +177,15 @@
 
                     <div class="col-lg-4 col-12 ms-auto mb-5 mb-lg-0">
                         <div class="contact-info-wrap">
-                            <h2>만든사람</h2>
+                            <h2>만든 사람</h2>
 
                             <div class="contact-image-wrap d-flex flex-wrap">
-                                <img src="img"
+                                <img src="${pageContext.request.contextPath}/resources/images/main/main_image_pet.png"
                                     class="img-fluid avatar-image" alt="">
 
                                 <div class="d-flex flex-column justify-content-center ms-3">
-                                    <p class="mb-0">담당자 info</p>
-                                    <p class="mb-0"><strong>흠</strong></p>
+                                    <p class="mb-0">우리 조 고생했다🧡</p>
+                                    <p class="mb-0"><strong>수빈, 주현, 창현, 훈택</strong></p>
                                 </div>
                             </div>
 
@@ -326,14 +194,14 @@
 
                                 <p class="d-flex mb-2">
                                     <i class="bi-geo-alt me-2"></i>
-                                    진주시 진주대로 연암공대 스소과 어쩌고
+                                    경상남도 진주시 진주대로629번길 35
                                 </p>
 
                                 <p class="d-flex mb-2">
                                     <i class="bi-telephone me-2"></i>
 
-                                    <a href="tel: 010-4137-4605">
-                                        내 번호임
+                                    <a href="tel: 055-751-2190">
+                                        055-751-2190, 2199
                                     </a>
                                 </p>
 
@@ -360,20 +228,20 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <input type="text" name="first-name" id="first-name" class="form-control"
-                                        placeholder="Yeo" required>
+                                        placeholder="성" required>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <input type="text" name="last-name" id="last-name" class="form-control"
-                                        placeholder="Juhyeon" required>
+                                        placeholder="이름" required>
                                 </div>
                             </div>
 
                             <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control"
-                                placeholder="ju_h518@naver.com" required>
+                                placeholder="이메일" required>
 
                             <textarea name="message" rows="5" class="form-control" id="message"
-                                placeholder="What can we help you?"></textarea>
+                                placeholder="도움이 필요하신가요?"></textarea>
 
                             <button type="submit" class="form-control">Send Message</button>
                         </form>

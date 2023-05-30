@@ -70,7 +70,7 @@
 					</table>
 					
 					<button type="button" class="btn btn-outline-dark" onclick="location.href='../member/modify'">비밀번호 변경</button>
-					<button type="button" class="btn btn-dark" onclick="location.href='../member/delete'">탈퇴하기😭</button>
+					<button type="button" class="btn btn-secondary" onclick="location.href='../member/delete'">탈퇴하기😭</button>
 					
 					</body>
                           	

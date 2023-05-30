@@ -62,57 +62,52 @@
                 </div>
                 
 				<table class="table table-bordered table-hover" style="font-size:small; text-align:center">
-					<thead>
-						<tr class="table-light table-striped">
-					    	<th scope="col">번호</th>
-					    	<th scope="col">제목</th>
-					    	<th scope="col">작성자</th>
-					    	<th scope="col">조회수</th>
-					    	<th scope="col">작성일</th>
-					    </tr>
-					</thead>
+					<tr class="table-light">
+				    	<th scope="col" style="width:10%">번호</th>
+				    	<th scope="col" style="width:50%">제목</th>
+				    	<th scope="col" style="width:20%">작성자</th>
+				    	<th scope="col" style="width:20%">작성일</th>
+				    </tr>
 				  	<c:choose>
 					  	<c:when test="${boardList != null and fn:length(boardList) > 0}">
-							<tbody>
-								<c:forEach items="${boardList}" var="board">
-									<tr onclick="location.href='../board/detail?bno=${board.boardIdx}'">
-								     	<th>${board.boardIdx}</th>
-								      	<td>${board.title}</td>
-								      	<td>${board.id}</td>
-								      	<td>조회수는 나중에 만들자...</td>
-							      		<td>${board.regDate}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
+							<c:forEach items="${boardList}" var="board">
+								<tr onclick="location.href='../board/detail?bno=${board.boardIdx}'">
+							     	<th>${board.boardIdx}</th>
+							      	<td>${board.title}</td>
+							      	<td>${board.id}</td>
+						      		<td>${board.regDate}</td>
+								</tr>
+							</c:forEach>
 					    </c:when>
 						<c:otherwise>
 						  	<!-- 등록된 게시물이 없는 경우 -->
-						  	<tbody>
-								<tr style="height: 30px;">
-									<td colspan="5" style="text-align: center;">등록된 게시물이 없습니다.</td>
-								</tr>
-							</tbody>
+					  		<tr style="height: 30px;">
+								<td colspan="5" style="text-align: center;">등록된 게시물이 없습니다.</td>
+							</tr>
 						</c:otherwise>
 					</c:choose>
 				</table>
 				
-			
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">	
+					<c:if test="${userInfo != null }">
+						<button type="button" class="btn btn-outline-secondary">
+							<a href="<c:url value="/board/write"/>" role="ㅣbutton" style="color: var(--primary-color)"><small>글쓰기</small></a>
+						</button>
+					</c:if>
+				</div>
+							
+				<div class="d-flex justify-content-center">	
 					<p class="d-flex justify-content-center">
 					<c:choose>
 					 <c:when test="${pageMaker != null}">
 						<c:forEach var="idx" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                        		<li>
-                           			<a href="list?page=${idx}">${idx}</a>
-                        		</li>
+							<a href="list?page=${idx}">${idx}&nbsp;&nbsp;</a>
                      	</c:forEach>
                      </c:when>
                      </c:choose>
 					</p>
-						<c:if test="${userInfo != null }">
-						<a href="<c:url value="/board/write"/>" role="button" style="color: var(--primary-color)">글쓰기</a>
-					</c:if>
 				</div>
+
 			<div>
 		</div>
 				
