@@ -45,3 +45,11 @@ create table Service(
     latitude double not null,
     longitude double not null
 );
+
+
+# 동물보감
+create table TB_DICTIONARY (
+    content_idx int auto_increment primary key, 
+    content_title varchar(20) not null,
+    content_item text not null
+);
