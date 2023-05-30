@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page session="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,7 +109,9 @@
                      </c:when>
                      </c:choose>
 					</p>
-					<a href="<c:url value="/board/write"/>" role="button" style="color: var(--primary-color)">글쓰기</a>
+						<c:if test="${userInfo != null }">
+						<a href="<c:url value="/board/write"/>" role="button" style="color: var(--primary-color)">글쓰기</a>
+					</c:if>
 				</div>
 			<div>
 		</div>

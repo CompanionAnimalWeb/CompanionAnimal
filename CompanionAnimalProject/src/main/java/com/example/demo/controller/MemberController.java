@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -147,6 +150,45 @@ public class MemberController {
 		userService.delete(user);
 		session.invalidate();
 		return "redirect:/main";
+	}
+	
+	/* 아이디, 비밀번호 찾기 */
+	@GetMapping(value = "/findInfo")
+	public String findInfoGet() {
+		return "member/findInfo";
+	}
+	
+	@PostMapping(value = "/findInfo")
+	public ModelAndView findInfoPost(User user, HttpSession session) {
+	
+		ModelAndView mv = new ModelAndView();
+		
+		try {
+			User userInfo = userService.findId(user);
+			//session.setAttribute("userInfo", userInfo);
+			mv.addObject("userInfo", userInfo);
+
+			if(userInfo.getId() == null) { 
+				mv.addObject("check", 0);
+				mv.setViewName("/member/findInfo");
+				System.out.println(user.getId());
+				//mv.setViewName("/member/login");
+				//System.out.println(mv.getAttribute("check"));
+			} else {
+				mv.addObject("check", 1);
+				mv.addObject("id", userInfo.getId());
+				mv.setViewName("/member/login");
+			}
+			
+			//mv.setViewName("/member/login");
+			return mv;
+
+		} catch(Exception e) {
+			mv.addObject("message", "일치하는 정보가 존재하지 않습니다.");
+			mv.setViewName("/member/findInfo");
+			return mv;
+		}
+		
 	}
 	
 }

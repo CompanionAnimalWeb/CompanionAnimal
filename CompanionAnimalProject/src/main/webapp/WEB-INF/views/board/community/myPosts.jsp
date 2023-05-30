@@ -71,7 +71,7 @@
 					  	<c:when test="${boardList != null and fn:length(boardList) > 0}">
 							<tbody>
 								<c:forEach items="${boardList}" var="board">
-									<tr onclick="location.href='../board/detail?bno=${board.boardIdx}'">
+									<tr onclick="location.href='../detail?bno=${board.boardIdx}'">
 								     	<th>${board.boardIdx}</th>
 								      	<td>${board.title}</td>
 								      	<td>${board.id}</td>
@@ -94,7 +94,17 @@
 				
 			
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">	
-					<p class="d-flex justify-content-center">1 2 3 4 페이지 들어갈 자리 (디비 연동 후)</p>
+					<p class="d-flex justify-content-center">
+					<c:choose>
+					 <c:when test="${pageMaker != null}">
+						<c:forEach var="idx" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                        		<li>
+                           			<a href="list?page=${idx}">${idx}</a>
+                        		</li>
+                     	</c:forEach>
+                     </c:when>
+                     </c:choose>
+					</p>
 					<a href="<c:url value="/board/write"/>" role="button" style="color: var(--primary-color)">글쓰기</a>
 				</div>
 			<div>

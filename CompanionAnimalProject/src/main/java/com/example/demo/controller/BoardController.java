@@ -67,19 +67,6 @@ public class BoardController {
     	
         return "/board/community/write";
     }   
-    /*
-	// 게시물 등록
-	@PostMapping(value="/write")
-	public static String boardWritePost(Board board, Model model, HttpSession session) throws Exception {
-		
-		// 현재 시각
-		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		board.setRegDate(nowDate);		
-		
-		User userInfo = (User) session.getAttribute("userInfo");
-		String id = userInfo.getId();
-		board.setId(id);
-	}/*/
 
 	// 게시물 등록
 	@PostMapping(value="/write")
@@ -96,7 +83,7 @@ public class BoardController {
 		BoardImages boardImages = new BoardImages();
 		//파일 업로드
         String saveName = file.getOriginalFilename();
-        
+        //System.out.println(saveName);
         File saveFile = new File("C:\\upload",saveName); 
 
         if (file != null && !file.isEmpty()) {
@@ -199,6 +186,7 @@ public class BoardController {
     
         return "board/community/myPosts";
     }
+
 	
 	
 	// 동물병원 메인 페이지
