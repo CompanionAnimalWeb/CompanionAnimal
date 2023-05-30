@@ -39,10 +39,15 @@
                         <a class="nav-link" href="<c:url value="/dictionary/main"/>">동물보감</a>
                     </li>
 
-
+					<c:if test="${userInfo ==null }">
                     <li class="nav-item ms-3">
-                        <a class="nav-link custom-btn custom-border-btn btn" href="<c:url value="/member/login"/>">Sign In</a>
+                        <a class="nav-link custom-btn custom-border-btn btn" href="<c:url value="/member/login"/>">로그인</a>
                     </li>
+                    </c:if>
+                    <c:if test="${userInfo !=null }">
+                    <a class="nav-link custom-btn custom-border-btn btn" href="<c:url value="/board/community/myPage"/>">마이페이지</a>
+                    <a class="nav-link custom-btn custom-border-btn btn" href="<c:url value="/member/logout"/>">로그아웃</a>                        	
+					</c:if>
                 </ul>
             </div>
         </div>
