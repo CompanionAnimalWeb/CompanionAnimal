@@ -32,13 +32,11 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/board/hospital/main"/>">동물병원</a>
+                        <a class="nav-link" href="<c:url value="/disease/dog"/>">동물병원</a>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link click-scroll dropdown-toggle" href="#section_5"
-                            id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">동물보감</a>
+                        <a class="nav-link" href="<c:url value="/dictionary/main"/>">동물보감</a>
                     </li>
 
 
