@@ -87,4 +87,8 @@ public class BoardServiceImpl implements BoardService{
 	public List<Board> listCriteria(Criteria criteria) throws Exception {
 		return boardRepository.listCriteria(criteria);
 	}
+	
+	public List<Board> selectByUserId(String id) throws Exception {
+		return boardRepository.selectByUserId(id);
+	}
 }

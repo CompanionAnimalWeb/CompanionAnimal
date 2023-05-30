@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page session="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +20,16 @@
 	<%@include file="fragments/common-css.jsp" %>
 	
 </head>
-<body id="section_1">
-
+<body id="section_1"> <br>
+아이디 : ${userInfo.id }<br>
+<c:if test="${userInfo ==null }">
+	<input type="button" value="로그인" onclick="location.href='./member/login'">
+</c:if>
+<c:if test="${userInfo !=null }">
+	<a href="<c:url value="/member/logout"/>"> 로그아웃</a>
+	<a href="<c:url value="/member/modify"/>"> 비밀번호 변경</a>
+	<a href="<c:url value="/board/community/myPage"/>"> 마이페이지</a>                           	
+</c:if>
 	<!-- header -->
 	<%@include file="fragments/header.jsp" %>
 	

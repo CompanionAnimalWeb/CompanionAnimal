@@ -39,4 +39,13 @@ public class UserServiceImpl implements UserService {
 	public User selectByUserId(String id) throws Exception {
 		return userRepository.selectByUserId(id);
 	}
+	
+	public void modify(User user) throws Exception {
+		userRepository.modify(user);
+	}
+	
+	public void delete(User user) throws Exception {
+		 userRepository.delete(user);
+	}
+
 }

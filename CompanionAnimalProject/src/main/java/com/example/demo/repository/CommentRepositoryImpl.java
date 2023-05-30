@@ -6,18 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.controller.BoardController;
-import com.example.demo.model.Board;
 import com.example.demo.model.Comment;
-
-/**
- * 
- * @author Juhyeon Yeo
- * @since 2023. 4. 10. 오후 4:19:24
- *
- */
 
 @Repository
 public class CommentRepositoryImpl implements CommentRepository{

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +19,8 @@
     
 	<!-- css script -->
 	<%@include file="../fragments/common-css.jsp" %>
-	
+
+    
 </head>
 
 <body id="section_1">
@@ -43,12 +49,19 @@
 	                                <div class="id_wrap">
 	                                	<h5 class="mb-1">아이디</h5>
 	                                	<div class="id_input_box id_name">
-	                                		<input type="text" class="form-control id_input" name="id">
+	                                		<input type="text" class="form-control id_input" name="id" value="${user.id}">
+	                                		<b>${message }<br></b>
+	                                		<spring:hasBindErrors name="user">
+	                                		<c:if test="${errors.hasFieldErrors('id') }">                                     
+								            <strong>${errors.getFieldError( 'id' ).defaultMessage }</strong>
+											</c:if>
+											</spring:hasBindErrors>
 	                                	</div>
 	                                	<div>
 	                                		<font id="id_feedback" size="2"></font>
+	                                		
 	                                	</div>
-	                                	<span class="final_id_ck">아이디를 입력해주세요.</span>
+	                                	
                                 	</div>
                                 	<br>
                                 	
@@ -56,32 +69,30 @@
   	                                <div class="pw_wrap">
 	                                	<h5 class="mb-1">비밀번호</h5>
 	                                	<div class="pw_input_box pw_name">
-	                                		<input type="password" class="form-control pw_input" name="password">
+	                                		<input type="password" class="form-control pw_input" name="password" >
+	                                		<spring:hasBindErrors name="user">
+	                                		<c:if test="${errors.hasFieldErrors('password') }">                                     
+								            <strong>${errors.getFieldError( 'password' ).defaultMessage }</strong>
+											</c:if>
+											</spring:hasBindErrors>
 	                                	</div>
-	                                	<span class="final_pw_ck">비밀번호를 입력해주세요.</span>
+	                                	
 	                                </div>
 	                                <br>
-	                                
-	                                <!-- 비밀번호 확인 -->
- 	                                <div class="pwck_wrap">
-	                                	<h5 class="mb-1">비밀번호 확인</h5>
-	                                	<div class="pwck_input_box pwck_name">
-	                                		<input type="password" class="form-control pwck_input" name="password">
-	                                	</div>
-	                                	<span class="final_pwck_ck">비밀번호 확인란을 입력해주세요.</span>
-	                                	<div>
-	                                		<font id="pwck_feedback" size="2"></font>
-	                                	</div>
-	                                </div>
-	                                <br>
+	                               
 	                                
 	                                <!-- 이름 -->
 	                                <div class="user_wrap">
 	                                	<h5 class="mb-1">이름</h5>
 	                                	<div class="user_input_box user_name">
-	                                		<input type="text" class="form-control user_input" name="name">
+	                                		<input type="text" class="form-control user_input" name="name" value="${user.name}">
+	                                		<spring:hasBindErrors name="user">
+	                                		<c:if test="${errors.hasFieldErrors('name') }">                                     
+								            <strong>${errors.getFieldError( 'name' ).defaultMessage }</strong>
+											</c:if>
+											</spring:hasBindErrors>
 	                                	</div>
-	                                	<span class="final_name_ck">이름을 입력해주세요.</span>
+	                                	
 	                                </div>
 	                                <br>
 	                                
@@ -89,39 +100,17 @@
 	                                <div class="user_wrap">
 	                                	<h5 class="mb-1">휴대폰</h5>
 	                                	<div class="user_input_box user_name">
-	                                		<input type="text" class="form-control phone_input" name="phone">
+	                                		<input type="text" class="form-control phone_input" name="phone" value="${user.phone}">
+	                                		<spring:hasBindErrors name="user">
+	                                		<c:if test="${errors.hasFieldErrors('phone') }">                                     
+								            <strong>${errors.getFieldError( 'phone' ).defaultMessage }</strong>
+											</c:if>
+											</spring:hasBindErrors>
 	                                	</div>
-	                                	<span class="final_name_ck">공백없이 입력해주세요.</span>
+	                                	
 	                                </div>
 	                                <br>
 	                                
-	                                <!-- 이메일 인증 -->
-	                                <div class="mail_wrap">
-	                                	<h5 class="mb-1">이메일</h5>
-	                                	<div class="mails_input_box mail_name">
-	                                		<input type="text" class="form-control mail_input" name="email">
-	                                	</div>
-
-										<span class="final_mail_ck">이메일을 입력해주세요.</span>
-										<br><br>
-										<span class="mail_input_box_warn"></span>
-										<div class="mail_check_wrap">
-											<div class="mail_check_input_box" id="mail_check_input_box_false">
-												<input class="form-control mail_check_input" disabled="disabled">
-											</div>
-											<div class="mail_check_button">
-										
-											<div class="mail_check_button">
-												<a role="button" class="btn btn-outline-dark btn-sm me-md-3">인증번호 전송</a>
-											</div>
-											
-											<div class="clearfix"></div>
-											<div>
-												<font id="mail_check_input_box_warn" size="2"></font>
-											</div>
-										</div>
-	                                </div>
-	                                <br>
 	                                
 
 									<div class="join_button_wrap">
