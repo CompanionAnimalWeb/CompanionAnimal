@@ -2,15 +2,7 @@ package com.example.demo.repository;
 
 import java.util.List;
 
-import com.example.demo.model.Board;
 import com.example.demo.model.Comment;
-
-/**
- * 
- * @author Juhyeon Yeo
- * @since 2023. 4. 10. 오후 4:19:12
- *
- */
 
 public interface CommentRepository {
 	

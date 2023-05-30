@@ -45,7 +45,7 @@
 				</div>
 				<br><br>
 					
-				<form action="../board/write" method="post">
+				<form action="../board/write" method="post" enctype="multipart/form-data">
 					<div class="mb-3 row">
 						<label class="col-sm-1 col-form-label">제목</label>
 						<div class="col-sm-5">
@@ -60,13 +60,13 @@
 				    <div class="form-group mb-3 row">
 				    	<label class="col-sm-1 col-form-label"><small>첨부파일1</small></label>
 						<div class="col-sm-5">
-							<input class="form-control" type="file" id="formFile">
+							<input class="form-control" type="file" name="file">
 						</div>
 				    </div>	
 				    <div class="form-group mb-3 row">
 				    	<label class="col-sm-1 col-form-label"><small>첨부파일2</small></label>
 						<div class="col-sm-5">
-							<input class="form-control" type="file" id="formFile">
+							<input class="form-control" type="file" name="file">
 						</div>
 				    </div>	
 				    
