@@ -14,7 +14,7 @@
     <title>신비한 동물사전</title>
     
 	<!-- css script -->
-	<%@include file="../../fragments/common-css.jsp" %>
+	<%@include file="../fragments/common-css.jsp" %>
 	
 </head>
 
@@ -23,10 +23,10 @@
 <body id="section_1">
 
 	<!-- header -->
-	<%@include file="../../fragments/header.jsp" %>
+	<%@include file="../fragments/header.jsp" %>
 	
 	<!-- nav -->
-	<%@include file="../../fragments/nav.jsp" %>
+	<%@include file="../fragments/nav.jsp" %>
 	
 	<main>		
 		<section class="text-left" style="margin: auto; padding: 5% 0;">
@@ -114,10 +114,10 @@
 	</main>
 
 	<!-- footer -->
-	<%@include file="../../fragments/footer.jsp" %>
+	<%@include file="../fragments/footer.jsp" %>
 
 	<!-- js -->
-	<%@include file="../../fragments/common-js.jsp" %>
+	<%@include file="../fragments/common-js.jsp" %>
 	
 </body>
 </html>
