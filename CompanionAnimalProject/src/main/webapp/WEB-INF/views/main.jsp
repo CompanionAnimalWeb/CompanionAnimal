@@ -36,18 +36,18 @@
                         <div id="hero-slide" class="carousel carousel-fade slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="${pageContext.request.contextPath}/resources/images/main/main_image_1.png"
-                                        alt="..." height="700" width="2000">
+                                    <img src="${pageContext.request.contextPath}/resources/images/main/main_image_1.png" 
+                                    	height="700" width="2000" class="img-fluid">
                                 </div>
 
                                 <div class="carousel-item">
                                     <img src="${pageContext.request.contextPath}/resources/images/main/main_image_2.png"
-                                        alt="..." height="700" width="2000">
+                                        alt="..." height="700" width="2000" class="img-fluid">
                                 </div>
 
                                 <div class="carousel-item">
                                     <img src="${pageContext.request.contextPath}/resources/images/main/main_image_3.png"
-                                       alt="..." height="700" width="2000">
+                                       alt="..." height="700" width="2000" class="img-fluid">
                                 </div>
                             </div>
 
@@ -75,7 +75,7 @@
                 <div class="row">
 
                     <div class="col-lg-10 col-12 text-center mx-auto">
-                        <h2 class="mb-5">여기에 뭐 넣지</h2>
+                        <h2 class="mb-5">🐶 🐱 🐭 🐹 🐰 🦊 🐻</h2>
                     </div>
 
                     <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">

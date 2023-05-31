@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link click-scroll" href="<c:url value="/main"/>">Home</a>
+                        <a class="nav-link" href="<c:url value="/main"/>">Home</a>
                     </li>
 
                     <li class="nav-item">
