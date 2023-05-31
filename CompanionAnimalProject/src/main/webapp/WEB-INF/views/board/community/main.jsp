@@ -47,6 +47,8 @@
 			
 				</div>
 				
+				<hr>
+				
 				<form action="../board/listSearch">
 					<div class="d-flex flex-row-reverse">
 			            <div class="d-flex justify-content-lg-end">

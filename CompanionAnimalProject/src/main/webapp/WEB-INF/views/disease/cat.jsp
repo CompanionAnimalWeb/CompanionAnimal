@@ -43,8 +43,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                   <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="dog">강아지 연구소🐶 </a>
-                    <a class="nav-link" onclick="location.href='cat'">고양이 연구소🐱 </a>
+                    <a class="nav-link" aria-current="page" href="dog">강아지 연구소🐶 </a>
+                    <a class="nav-link active" onclick="location.href='cat'">고양이 연구소🐱 </a>
                   </div>
                 </div>
               </div>
