@@ -77,12 +77,12 @@
 					</body>
 			 		
 					<c:choose>
-						<c:when test="${dogList != null}">
-							<c:forEach items="${dogList}" var="dog">
-								<tr>${dog.getDiseaseCategory()}<br><br>
-								<c:forEach items="${dog.getMainSymptom()}" var="symptom">
-					    			<c:set var="encodedSymptom" value="${URLEncoder.encode(symptom, 'UTF-8')}"/>
-					    			<li><a href="dog/detail?select=${encodedSymptom}">${symptom}</a></li>
+						<c:when test="${catList != null}">
+							<c:forEach items="${catList}" var="cat">
+								<tr>${cat.getDiseaseCategory()}<br><br>
+								<c:forEach items="${cat.getMainSymptom()}" var="symptom">
+									<c:set var="encodedSymptom" value="${URLEncoder.encode(symptom, 'UTF-8')}"/>
+									<li><a href="cat/detail?select=${encodedSymptom}">${symptom}</a></li>
 								</c:forEach>
 								<br><br>
 								</tr>

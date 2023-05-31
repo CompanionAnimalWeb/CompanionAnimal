@@ -10,15 +10,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>반려견 세부 증상 선택</h1>
-
-<form action="../dog/detail/name" method="post">
+<h1>반려묘 세부 증상 선택</h1>  <h3>${select}</h3>
+<form action="../cat/detail/name" method="post">
   <c:choose>
-    <c:when test="${dogList != null}">
-      <c:forEach items="${dogList}" var="dog">
-        <tr>${dog.getClassification()} ${dog.getDiseaseIdx()}<br><br>
-        <c:forEach items="${dog.getDetailSymptom()}" var="detailSymptom">
-          <input type="checkbox" name="selectedValues" value="${dog.getDiseaseIdx()}">${detailSymptom}<br>
+    <c:when test="${catList != null}">
+      <c:forEach items="${catList}" var="cat">
+        <tr>${cat.getClassification()} ${cat.getDiseaseIdx()}<br><br>
+        <c:forEach items="${cat.getDetailSymptom()}" var="detailSymptom">
+          <input type="checkbox" name="selectedValues" value="${cat.getDiseaseIdx()}">${detailSymptom}<br>
         </c:forEach>
         <br><br>
         </tr>
