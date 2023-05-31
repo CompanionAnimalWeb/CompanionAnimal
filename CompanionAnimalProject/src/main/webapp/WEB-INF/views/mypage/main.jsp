@@ -41,7 +41,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                   <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="#">내 정보 </a>
-                    <a class="nav-link" onclick="location.href='myPosts'">게시물 관리 </a>
+                    <a class="nav-link" onclick="location.href='myPosts'">내 게시물 관리 </a>
                     <a class="nav-link" href="<c:url value="/member/logout"/>">로그아웃</a>
                   </div>
                 </div>

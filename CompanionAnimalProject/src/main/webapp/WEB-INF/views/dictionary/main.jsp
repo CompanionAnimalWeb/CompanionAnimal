@@ -29,7 +29,7 @@
 		<section class="text-left" style="margin: auto; padding: 5% 0;">
 			<div class="container">
 			
-				<h3 class="." style="color: var(--primary-color)">💡 반려동물 꿀팁 💡</h3>
+				<h3 class="." style="color: var(--primary-color)">반려동물 꿀팁💡</h3>
 				
 				<hr>
 				<br>

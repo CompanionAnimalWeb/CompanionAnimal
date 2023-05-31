@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
@@ -13,35 +12,45 @@
 
     <title>신비한 동물사전</title>
     
-	<!-- css script -->
-	<%@include file="../fragments/common-css.jsp" %>
-	
+    <!-- css script -->
+    <%@include file="../fragments/common-css.jsp" %>
+    
 </head>
-
-
 
 <body id="section_1">
 
-	<!-- header -->
-	<%@include file="../fragments/header.jsp" %>
-	
-	<!-- nav -->
-	<%@include file="../fragments/nav.jsp" %>
-	
-	<main>		
-		<section class="text-left" style="margin: auto; padding: 5% 0;">
-			<div class="container">
-                <div class="row">
-                	<div class="col-8">
-						<h3 class="." style="color: var(--primary-color)">Community
-							<img src="${pageContext.request.contextPath}/resources/images/animal_house3.png" style="width:50px; height:50px;"/>
-						</h3>
-						<span>
-							<small class="small-font text-secondary">펫과 관련하여 다양한 이야기를 나눌 수 있는 커뮤니티 공간</small>
-						</span>
-					</div>
+    <!-- header -->
+    <%@include file="../fragments/header.jsp" %>
+    
+    <!-- nav -->
+    <%@include file="../fragments/nav.jsp" %>
+    
+    <main>        
+        <section class="text-left" style="margin: auto; padding: 5% 0;">
+            <div class="container">
+            
+			<h3 class="." style="color: var(--primary-color)">M Y P A G E 🔒</h3>
 			
-				</div>
+			<hr>
+			
+            <nav class="navbar navbar-expand-lg bg-light">
+              <div class="container-fluid">                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                  <div class="navbar-nav">
+                    <a class="nav-link" aria-current="page" href="main">내 정보 </a>
+                    <a class="nav-link active" onclick="location.href='myPosts'">내 게시물 관리 </a>
+                    <a class="nav-link" href="<c:url value="/member/logout"/>">로그아웃</a>
+                  </div>
+                </div>
+              </div>
+            </nav>	
+	
+			<div class="container">
+			
+				<hr>
 				
 				<form action="../board/listSearch">
 					<div class="d-flex flex-row-reverse">
@@ -53,6 +62,7 @@
 	                	</div>	
 					</div>
 				</form>
+                
                 <div>
                		<p></p>
                 </div>
@@ -106,14 +116,15 @@
 				
 			</div>
 				
-		</section>
-	</main>
+                        
+        </section>
+    </main>
 
-	<!-- footer -->
-	<%@include file="../fragments/footer.jsp" %>
+    <!-- footer -->
+    <%@include file="../fragments/footer.jsp" %>
 
-	<!-- js -->
-	<%@include file="../fragments/common-js.jsp" %>
-	
+    <!-- js -->
+    <%@include file="../fragments/common-js.jsp" %>
+    
 </body>
 </html>
