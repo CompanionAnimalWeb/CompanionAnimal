@@ -32,6 +32,11 @@ public class DiseaseServiceImpl implements DiseaseService{
 		return diseaseRepository.selectDogDisease(select);
 	}
 	
+	@Override
+	public List<DogDetailDisease> dogDiseaseName(String[] values) throws Exception {
+		return diseaseRepository.dogDiseaseName(values);
+	}
+	
 	/*반려묘 관련*/
 	@Override
 	public List<CatDisease> catDiseaseList() throws Exception {

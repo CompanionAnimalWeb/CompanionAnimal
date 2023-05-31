@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.net.URLEncoder" %>
@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Ήέ·Α°ί ΌΌΊΞ Αυ»σ Ό±ΕΓ</h1>
+<h1>λ°λ ¤κ²¬ μ„Έλ¶€ μ¦μƒ μ„ νƒ</h1>
 
 <form action="../dog/detail/name" method="post">
   <c:choose>
@@ -25,7 +25,7 @@
       </c:forEach>
     </c:when>
   </c:choose>
-  <input type="submit" value="Αυ»σ Θ®ΐΞΗΟ±β">
+  <input type="submit" value="μ¦μƒ ν™•μΈν•κΈ°">
 </form>
 </body>
 </html>

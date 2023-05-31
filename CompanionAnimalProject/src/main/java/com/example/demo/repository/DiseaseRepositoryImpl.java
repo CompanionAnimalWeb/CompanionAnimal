@@ -32,6 +32,7 @@ public class DiseaseRepositoryImpl implements DiseaseRepository{
 		return jdbcTemplate.query(sql, DogDiseaseRowMapper());
 	}
 	
+	//세부 증상 선택
 	@Override
 	public List<DogDetailDisease> selectDogDisease(String select) throws Exception {
 		String sql = "select classfication, group_concat(detail_symptom) as detail_symptom , disease_idx from DogDetailDisease "
@@ -41,6 +42,15 @@ public class DiseaseRepositoryImpl implements DiseaseRepository{
 		return jdbcTemplate.query(sql,dogDetailDiseaseRowMapper(),select);
 	}
 	
+	//선택한 증상에 따른 증상명과 설명
+	@Override
+	public List<DogDetailDisease> dogDiseaseName(String[] values) throws Exception {
+	    String sql = "SELECT disease_name, treatment FROM DogDiseaseName WHERE disease_idx IN ("
+	            + String.join(",", Collections.nCopies(values.length, "?"))
+	            + ")";
+
+	    return jdbcTemplate.query(sql, dogDiseaseNameRowMapper(), (Object[]) values);
+	}
 	
 	private RowMapper<DogDisease> DogDiseaseRowMapper() {
 		return (rs, rowNum) -> {
@@ -61,6 +71,15 @@ public class DiseaseRepositoryImpl implements DiseaseRepository{
 		};
 	}
 	
+	private RowMapper<DogDetailDisease> dogDiseaseNameRowMapper() {
+		return (rs, rowNum) -> {
+			DogDetailDisease dogDetailDisease = new DogDetailDisease();
+			dogDetailDisease.setDiseaseName(rs.getString("disease_name"));
+			dogDetailDisease.setTreatment(rs.getString("treatment"));
+			return dogDetailDisease;
+		};
+	}
+	
 	
 	/*반려묘 관련*/
 	
@@ -71,6 +90,7 @@ public class DiseaseRepositoryImpl implements DiseaseRepository{
 		return jdbcTemplate.query(sql, catDiseaseRowMapper());
 	}
 	
+	//세부 증상 선택
 	@Override
 	public List<CatDetailDisease> selectCatDisease(String select) throws Exception {
 		String sql = "select classfication, group_concat(detail_symptom) as detail_symptom , disease_idx from CatDetailDisease "
@@ -80,6 +100,7 @@ public class DiseaseRepositoryImpl implements DiseaseRepository{
 		return jdbcTemplate.query(sql,catDetailDiseaseRowMapper(),select);
 	}
 	
+	//선택한 증상에 따른 증상명과 설명
 	@Override
 	public List<CatDetailDisease> catDiseaseName(String[] values) throws Exception {
 	    String sql = "SELECT disease_name, treatment FROM CatDiseaseName WHERE disease_idx IN ("

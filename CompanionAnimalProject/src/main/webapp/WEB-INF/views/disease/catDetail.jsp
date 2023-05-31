@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.net.URLEncoder" %>
@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>π›∑¡π¶ ºº∫Œ ¡ıªÛ º±≈√</h1>  <h3>${select}</h3>
+<h1>Î∞òÎ†§Î¨ò ÏÑ∏Î∂Ä Ï¶ùÏÉÅ ÏÑ†ÌÉù</h1>  <h3>${select}</h3>
 <form action="../cat/detail/name" method="post">
   <c:choose>
     <c:when test="${catList != null}">
@@ -24,7 +24,7 @@
       </c:forEach>
     </c:when>
   </c:choose>
-  <input type="submit" value="¡ıªÛ »Æ¿Œ«œ±‚">
+  <input type="submit" value="Ï¶ùÏÉÅ ÌôïÏù∏ÌïòÍ∏∞">
 </form>
 </body>
 </html>
