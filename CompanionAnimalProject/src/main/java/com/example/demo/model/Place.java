@@ -1,17 +1,17 @@
 package com.example.demo.model;
 
 public class Place {
-	private int service_idx;
+	private long service_idx;
 	private String category;
 	private String name;
 	private String address;
 	private double latitude;
 	private double longitude;
 	
-	public int getService_idx() {
+	public long getService_idx() {
 		return service_idx;
 	}
-	public void setService_idx(int service_idx) {
+	public void setService_idx(long service_idx) {
 		this.service_idx = service_idx;
 	}
 	public String getCategory() {

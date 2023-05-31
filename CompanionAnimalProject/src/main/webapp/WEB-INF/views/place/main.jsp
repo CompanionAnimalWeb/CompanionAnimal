@@ -119,6 +119,7 @@
 						// 커피숍 마커가 표시될 좌표 배열입니다
 						coffeePositions.push({
 						    latlng : new kakao.maps.LatLng(${coffee.latitude}, ${coffee.longitude}),
+						    service_idx : '${coffee.service_idx}',
 							name : '${coffee.name}',
 							address : '${coffee.address}'              
 						});
@@ -130,6 +131,7 @@
 						//마트 마커가 표시될 좌표 배열입니다
 						storePositions.push({
 						    latlng : new kakao.maps.LatLng(${store.latitude}, ${store.longitude}),
+						    service_idx : '${store.service_idx}',
 							name : '${store.name}',
 							address : '${store.address}'              
 						});
@@ -141,6 +143,7 @@
 						// 공원 마커가 표시될 좌표 배열입니다
 						parkPositions.push({
 						    latlng : new kakao.maps.LatLng(${park.latitude}, ${park.longitude}),
+						    service_idx : '${park.service_idx}',
 							name : '${park.name}',
 							address : '${park.address}'              
 						});
@@ -152,6 +155,7 @@
 						// 식당 마커가 표시될 좌표 배열입니다
 						restaurantPositions.push({
 						    latlng : new kakao.maps.LatLng(${restaurant.latitude}, ${restaurant.longitude}),
+						    service_idx : '${restaurant.service_idx}',
 							name : '${restaurant.name}',
 							address : '${restaurant.address}'             
 						});
@@ -163,6 +167,7 @@
 						// 호텔 마커가 표시될 좌표 배열입니다
 						hotelPositions.push({
 						    latlng : new kakao.maps.LatLng(${hotel.latitude}, ${hotel.longitude}),
+						    service_idx : '${hotel.service_idx}',
 							name : '${hotel.name}',
 							address : '${hotel.address}'              
 						});
@@ -174,6 +179,7 @@
 						// 병원 마커가 표시될 좌표 배열입니다
 						hospitalPositions.push({
 						    latlng : new kakao.maps.LatLng(${hospital.latitude}, ${hospital.longitude}),
+						    service_idx : '${hospital.service_idx}',
 							name : '${hospital.name}',
 							address : '${hospital.address}'            
 						});
@@ -185,6 +191,7 @@
 						// 미용실 마커가 표시될 좌표 배열입니다
 						salonPositions.push({
 						    latlng : new kakao.maps.LatLng(${salon.latitude}, ${salon.longitude}),
+						    service_idx : '${salon.service_idx}',
 							name : '${salon.name}',
 							address : '${salon.address}'              
 						});
@@ -247,7 +254,8 @@
 						//인포윈도우 내용
 						function nameAddress(array){
 							var html = '<div style="padding:5px;">Name : ' + array.name + '<br>';
-							  	html += 'Address : ' + array.address + '</div>';
+							  	html += 'Address : ' + array.address + '<br>';
+							  	html += '<a href="http://localhost:8080/CompanionAnimalProject/place/detailPlace?Idx=' + array.service_idx + '"   style="color:blue" target="_blank">자세히 보기</a>' + '<br>' + '<div>';
 							  	
 							return html;
 						}

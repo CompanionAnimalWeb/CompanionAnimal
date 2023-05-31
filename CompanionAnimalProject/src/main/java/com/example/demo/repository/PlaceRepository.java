@@ -13,4 +13,5 @@ public interface PlaceRepository {
     List<Place> findHotel();
     List<Place> findHospital();
     List<Place> findSalon();
+    Place getMarkerDetail(long serviceIdx);
 }

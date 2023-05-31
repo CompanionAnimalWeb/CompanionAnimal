@@ -59,4 +59,8 @@ public class PlaceServiceImpl implements PlaceService{
     public List<Place> findSalons(){
     	return placeRepository.findSalon();
     }
+    
+    public Place getMarkerDetails(long serviceIdx){
+    	return placeRepository.getMarkerDetail(serviceIdx);
+    }
 }

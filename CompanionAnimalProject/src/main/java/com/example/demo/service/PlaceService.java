@@ -35,4 +35,6 @@ public interface PlaceService {
     
     // 미용실의 category, name, latitude, address, longitude 정보를 리턴
     public List<Place> findSalons();
+    
+    public Place getMarkerDetails(long serviceIdx);
 }
