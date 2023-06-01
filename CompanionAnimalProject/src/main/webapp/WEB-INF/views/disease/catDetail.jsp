@@ -63,6 +63,7 @@
 				
 				<div class="container text-center">
 					<h3>증상 세부사항 선택</h3>
+					<p class="fs-5 fw-bold">아래의 증상에 해당하는 것을 선택하세요 (복수선택 가능)</p>
 					<br><hr>
 					<h5>${select}</h5>
 					<hr>
@@ -81,7 +82,6 @@
 					      </c:forEach>
 					    </c:when>
 					  </c:choose>
-					  <br>
 					  <input type="submit" value="증상 확인하기">
 					</form>				
 					<hr>

@@ -64,15 +64,16 @@
 					<c:choose>
 						<c:when test="${catList != null}">
 							<c:forEach items="${catList}" var="cat">
-								<div class="col" style="height:25rem">
-									<h3>${cat.getDiseaseCategory()}</h3>
+								<div class="col" style="height:20rem">
+									<h5>${cat.getDiseaseCategory()}</h5>
 								
 									<br>
 									
 									<c:forEach items="${cat.getMainSymptom()}" var="symptom">
 										<c:set var="encodedSymptom" value="${URLEncoder.encode(symptom, 'UTF-8')}" />
-										<a href="cat/detail?select=${encodedSymptom}"><h5>${symptom}</h5></a>
-										<br>
+										<a href="cat/detail?select=${encodedSymptom}">
+											<p class="fs-5 fw-bold">${symptom}</p>
+										</a>
 									</c:forEach>
 								</div>
 								<br>

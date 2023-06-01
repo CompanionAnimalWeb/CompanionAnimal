@@ -36,43 +36,46 @@
         <section class="text-left" style="margin: auto; padding: 5% 0;">
             <div class="container text-center">
             
-			<h3 class="." style="color: var(--primary-color)">반려동물 질병 예측🩺</h3>
+				<h3 class="." style="color: var(--primary-color)">반려동물 질병 예측🩺</h3>
+				
+				<hr>
+				
+				<ul class="nav justify-content-center">
+		            <nav class="navbar navbar-expand-lg bg-light">
+		              <div class="container-fluid">                
+		                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		                  <span class="navbar-toggler-icon"></span>
+		                </button>
+		                <div class="collapse navbar-collapse" id="navbarNavAltMarkup" >
+		                  <div class="navbar-nav">
+		                    <a class="nav-link active fw-bold fs-5" aria-current="page" href="dog">강아지 연구소🐶 </a>
+		                    <a class="nav-link fw-bold fs-5" href="cat">고양이 연구소🐱 </a>
+		                  </div>
+		                </div>
+		              </div>
+		            </nav>
+		        </ul>
+		            			
+				<hr>
+			</div>
 			
-			<hr>
-			
-			<ul class="nav justify-content-center">
-	            <nav class="navbar navbar-expand-lg bg-light">
-	              <div class="container-fluid">                
-	                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-	                  <span class="navbar-toggler-icon"></span>
-	                </button>
-	                <div class="collapse navbar-collapse" id="navbarNavAltMarkup" >
-	                  <div class="navbar-nav">
-	                    <a class="nav-link active fw-bold fs-5" aria-current="page" href="dog">강아지 연구소🐶 </a>
-	                    <a class="nav-link fw-bold fs-5" onclick="location.href='cat'">고양이 연구소🐱 </a>
-	                  </div>
-	                </div>
-	              </div>
-	            </nav>
-	        </ul>
-	            			
-			<hr>
 			<br>
 
 			<div class="container text-center">
 				<div class="row row-cols-3">
 					<c:choose>
-						<c:when test="${catList != null}">
-							<c:forEach items="${catList}" var="cat">
-								<div class="col" style="height:25rem">
-									<h3>${cat.getDiseaseCategory()}</h3>
+						<c:when test="${dogList != null}">
+							<c:forEach items="${dogList}" var="dog">
+								<div class="col" style="height:33rem">
+									<h5>${dog.getDiseaseCategory()}</h5>
 								
 									<br>
 									
-									<c:forEach items="${cat.getMainSymptom()}" var="symptom">
+									<c:forEach items="${dog.getMainSymptom()}" var="symptom">
 										<c:set var="encodedSymptom" value="${URLEncoder.encode(symptom, 'UTF-8')}" />
-										<a href="cat/detail?select=${encodedSymptom}"><h5>${symptom}</h5></a>
-										<br>
+										<a href="dog/detail?select=${encodedSymptom}">
+											<p class="fs-5 fw-bold">${symptom}</p>
+										</a>									
 									</c:forEach>
 								</div>
 								<br>
