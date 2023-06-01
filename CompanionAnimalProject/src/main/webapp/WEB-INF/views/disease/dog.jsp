@@ -17,7 +17,11 @@
     
     <!-- css script -->
     <%@include file="../fragments/common-css.jsp" %>
-    
+	
+	<!-- font -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+   
 </head>
 
 <body id="section_1">
@@ -30,65 +34,58 @@
     
     <main>        
         <section class="text-left" style="margin: auto; padding: 5% 0;">
-            <div class="container">
+            <div class="container text-center">
             
 			<h3 class="." style="color: var(--primary-color)">반려동물 질병 예측🩺</h3>
 			
 			<hr>
 			
-            <nav class="navbar navbar-expand-lg bg-light">
-              <div class="container-fluid">                
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                  <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="dog">강아지 연구소🐶 </a>
-                    <a class="nav-link" onclick="location.href='cat'">고양이 연구소🐱 </a>
-                  </div>
-                </div>
-              </div>
-            </nav>	
+			<ul class="nav justify-content-center">
+	            <nav class="navbar navbar-expand-lg bg-light">
+	              <div class="container-fluid">                
+	                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+	                  <span class="navbar-toggler-icon"></span>
+	                </button>
+	                <div class="collapse navbar-collapse" id="navbarNavAltMarkup" >
+	                  <div class="navbar-nav">
+	                    <a class="nav-link active fw-bold fs-5" aria-current="page" href="dog">강아지 연구소🐶 </a>
+	                    <a class="nav-link fw-bold fs-5" onclick="location.href='cat'">고양이 연구소🐱 </a>
+	                  </div>
+	                </div>
+	              </div>
+	            </nav>
+	        </ul>
 	            			
-				<hr>
-				<br>
-					
-					<h5>MY INFO.</h5>
-					<table class="table table-bordered">
-					  <tbody>
-					    <tr>
-					      <td>아이디</td>
-					      <td>${userInfo.id}</td>
-					    </tr>
-					    <tr>
-					      <td>이름</td>
-					      <td>${userInfo.name}</td>
-					    </tr>
-					    <tr>
-					      <td>전화번호</td>
-					      <td>${userInfo.phone}</td>
-					    </tr>
-					  </tbody>
-					</table>
-					
-					<button type="button" class="btn btn-outline-dark" onclick="location.href='../member/modify'">비밀번호 변경</button>
-					<button type="button" class="btn btn-secondary" onclick="location.href='../member/delete'">탈퇴하기😭</button>
-					
-					</body>
-			 		
+			<hr>
+			<br>
+
+			<div class="container text-center">
+				<div class="row row-cols-3">
 					<c:choose>
-						<c:when test="${dogList != null}">
-							<c:forEach items="${dogList}" var="dog">
-								<tr>${dog.getDiseaseCategory()}<br><br>
-								<c:forEach items="${dog.getMainSymptom()}" var="symptom">
-					    			<c:set var="encodedSymptom" value="${URLEncoder.encode(symptom, 'UTF-8')}"/>
-					    			<li><a href="dog/detail?select=${encodedSymptom}">${symptom}</a></li>
-								</c:forEach>
-								<br><br>
-								</tr>
+						<c:when test="${catList != null}">
+							<c:forEach items="${catList}" var="cat">
+								<div class="col" style="height:25rem">
+									<h3>${cat.getDiseaseCategory()}</h3>
+								
+									<br>
+									
+									<c:forEach items="${cat.getMainSymptom()}" var="symptom">
+										<c:set var="encodedSymptom" value="${URLEncoder.encode(symptom, 'UTF-8')}" />
+										<a href="cat/detail?select=${encodedSymptom}"><h5>${symptom}</h5></a>
+										<br>
+									</c:forEach>
+								</div>
+								<br>
+								
 							</c:forEach>
+								
 						</c:when>
-					</c:choose>                         	
+					</c:choose>
+				</div>
+				
+				<hr>
+				
+			</div>                   	
 		                
         </section>
         
