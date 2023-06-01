@@ -37,7 +37,7 @@ public class DiseaseRepositoryImpl implements DiseaseRepository{
 	public List<DogDetailDisease> selectDogDisease(String select) throws Exception {
 		String sql = "select classfication, group_concat(detail_symptom) as detail_symptom , disease_idx from DogDetailDisease "
 					+ "where main_symptom = ? "
-					+ "group by  classfication "
+					+ "group by  disease_idx, classfication "
 					+ "order by classfication";
 		return jdbcTemplate.query(sql,dogDetailDiseaseRowMapper(),select);
 	}
@@ -95,7 +95,7 @@ public class DiseaseRepositoryImpl implements DiseaseRepository{
 	public List<CatDetailDisease> selectCatDisease(String select) throws Exception {
 		String sql = "select classfication, group_concat(detail_symptom) as detail_symptom , disease_idx from CatDetailDisease "
 					+ "where main_symptom = ? "
-					+ "group by  classfication "
+					+ "group by  disease_idx, classfication "
 					+ "order by classfication";
 		return jdbcTemplate.query(sql,catDetailDiseaseRowMapper(),select);
 	}
