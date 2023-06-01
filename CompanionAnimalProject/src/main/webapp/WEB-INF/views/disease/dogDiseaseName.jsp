@@ -12,10 +12,10 @@
 <body>
 <h1>증상명과 설명</h1>
   <c:choose>
-    <c:when test="${catList != null}">
-      <c:forEach items="${catList}" var="cat">
-        <h2>${cat.getDiseaseName()}</h2>
-        <h4>${cat.getTreatment()}</h4>
+    <c:when test="${dogList != null}">
+      <c:forEach items="${dogList}" var="dog">
+        <h2>${dog.getDiseaseName()}</h2>
+        <h4>${dog.getTreatment()}</h4>
       </c:forEach>
     </c:when>
   </c:choose>

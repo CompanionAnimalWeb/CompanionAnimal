@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +64,23 @@ public class DiseaseController {
     	
     	//model.addAttribute();
     	
-    	return "";
+    	return "/disease/dogDetail";
+    }
+    
+    @PostMapping(value = "/dog/detail/name")
+    public String dogDiseaseName(HttpServletRequest request, Model model) throws Exception {
+    	
+    	System.out.println("컨트롤러 동작");
+    	
+        String[] selectedValues = request.getParameterValues("selectedValues");
+        
+        List<DogDetailDisease> list = diseaseService.dogDiseaseName(selectedValues);
+        
+        System.out.println(list.get(0).getDiseaseName());
+        model.addAttribute("dogList", list);
+        
+        
+        return "/disease/dogDiseaseName";
     }
     
     /*반려묘 관련*/
