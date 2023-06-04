@@ -85,6 +85,9 @@ public class PlaceRepositoryImpl implements PlaceRepository{
 	    	place.setCategory(rs.getString("category"));
 	    	place.setName(rs.getString("name"));
 	    	place.setAddress(rs.getString("address"));
+	    	place.setHours(rs.getString("hours"));
+	    	place.setTel(rs.getString("tel"));
+	    	place.setComment(rs.getString("comment"));
 	    	place.setLatitude(rs.getDouble("latitude"));
 	    	place.setLongitude(rs.getDouble("longitude"));
 	    	System.out.println(place.getName());

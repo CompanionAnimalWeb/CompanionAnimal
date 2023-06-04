@@ -5,43 +5,66 @@ public class Place {
 	private String category;
 	private String name;
 	private String address;
+	private String hours;
+	private String tel;
+	private String comment;
 	private double latitude;
 	private double longitude;
 	
 	public long getService_idx() {
 		return service_idx;
 	}
-	public void setService_idx(long service_idx) {
-		this.service_idx = service_idx;
-	}
 	public String getCategory() {
 		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
 	}
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getAddress() {
 		return address;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public String getHours() {
+		return hours;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public String getComment() {
+		return comment;
 	}
 	public double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
 	public double getLongitude() {
 		return longitude;
+	}
+	public void setService_idx(long service_idx) {
+		this.service_idx = service_idx;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public void setHours(String hours) {
+		this.hours = hours;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
+	
+	
 }

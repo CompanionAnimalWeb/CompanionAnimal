@@ -10,6 +10,9 @@
 	<h1>Marker Details</h1>
     <p>Name: <span>${marker.name}</span></p>
 	<p>Address: <span>${marker.address}</span></p>
+	<p>Hours: <span>${marker.hours}</span></p>
+	<p>Tel: <span>${marker.tel}</span></p>
+	<p>Comment: <span>${marker.comment}</span></p>
 
 </body>
 </html>

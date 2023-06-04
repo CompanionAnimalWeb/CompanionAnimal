@@ -121,7 +121,7 @@
 						    latlng : new kakao.maps.LatLng(${coffee.latitude}, ${coffee.longitude}),
 						    service_idx : '${coffee.service_idx}',
 							name : '${coffee.name}',
-							address : '${coffee.address}'              
+							address : '${coffee.address}'      
 						});
 						</script>
 						</c:forEach>
@@ -287,6 +287,7 @@
 						function setMarkers(map, positions) {
 						  for (var i = 0; i < positions.length; i++) {
 						    createMarker(map, positions[i]);
+						    
 						  }
 						}
 
