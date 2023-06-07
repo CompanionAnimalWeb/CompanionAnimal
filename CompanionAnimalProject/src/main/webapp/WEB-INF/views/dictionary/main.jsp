@@ -46,8 +46,8 @@
 											<div class="card h-100" style="width: 18rem"
 												onclick="location.href='../dictionary/detail?no=${dictionary.content_idx}'">
 												<div class="card-body bg-light text-dark"> 
-													<h6 class="card-title">${dictionary.content_title}</h6>
-													<p class="card-text text-danger small">${dictionary.content_idx} 번째 📝</p>
+													<p class="card-title fw-bold fs-5 text-success">${dictionary.content_title}</p>
+													<p class="card-text text-danger small fw-bolder font-monospace">${dictionary.content_idx} 번째 📝</p>
 													<span class="d-inline-block text-truncate" style="max-width: 200px;">${dictionary.content_item}</span>
 													
 												</div>
