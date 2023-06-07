@@ -1,0 +1,37 @@
+create table DogDisease(
+	disease_category varchar(50),
+    main_symptom varchar(50) primary key
+);
+
+create table DogDetailDisease(
+	main_symptom varchar(50) not null,
+    detail_symptom varchar(50) not null,
+    classfication varchar(50) not null,
+    disease_idx int not null,
+    foreign key(main_symptom) references DogDisease(main_symptom) on update cascade
+);
+
+create table DogDiseaseName(
+	disease_idx int not null primary key,
+	disease_name varchar(50) not null,
+    treatment varchar(200)
+);
+
+create table CatDisease(
+	disease_category varchar(50),
+    main_symptom varchar(50) primary key
+);
+
+create table CatDetailDisease(
+	main_symptom varchar(50) not null,
+    detail_symptom varchar(50) not null,
+    classfication varchar(50) not null,
+    disease_idx int not null,
+    foreign key(main_symptom) references CatDisease(main_symptom) on update cascade
+);
+
+create table CatDiseaseName(
+	disease_idx int not null primary key,
+	disease_name varchar(50) not null,
+    treatment varchar(200)
+);

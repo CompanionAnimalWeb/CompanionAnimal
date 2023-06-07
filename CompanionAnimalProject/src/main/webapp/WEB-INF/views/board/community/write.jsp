@@ -58,18 +58,12 @@
 					<br>
 					
 				    <div class="form-group mb-3 row">
-				    	<label class="col-sm-1 col-form-label"><small>첨부파일1</small></label>
+				    	<label class="col-sm-1 col-form-label"><small>첨부파일</small></label>
 						<div class="col-sm-5">
 							<input class="form-control" type="file" name="file">
 						</div>
 				    </div>	
-				    <div class="form-group mb-3 row">
-				    	<label class="col-sm-1 col-form-label"><small>첨부파일2</small></label>
-						<div class="col-sm-5">
-							<input class="form-control" type="file" name="file">
-						</div>
-				    </div>	
-				    
+
 	    			<br>
 	    			
 	    			<div class="d-grid gap-2 d-md-flex justify-content-md-end">	

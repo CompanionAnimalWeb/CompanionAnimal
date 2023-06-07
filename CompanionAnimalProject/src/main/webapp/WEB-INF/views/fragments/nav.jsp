@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link click-scroll" href="<c:url value="/main"/>">Home</a>
+                        <a class="nav-link" href="<c:url value="/main"/>">Home</a>
                     </li>
 
                     <li class="nav-item">
@@ -39,10 +39,17 @@
                         <a class="nav-link" href="<c:url value="/dictionary/main"/>">동물보감</a>
                     </li>
 
-
+					<c:if test="${userInfo == null }">
                     <li class="nav-item ms-3">
-                        <a class="nav-link custom-btn custom-border-btn btn" href="<c:url value="/member/login"/>">Sign In</a>
+                        <a class="nav-link custom-btn custom-border-btn btn" href="<c:url value="/member/login"/>">Login</a>
                     </li>
+                    </c:if>
+                    <c:if test="${userInfo != null }">
+                 	<li class="nav-item dropdown">
+                        <a class="nav-link" href="<c:url value="/mypage/main"/>"><b>MY PAGE</b></a>
+                    </li>
+                   	<a class="nav-link custom-btn custom-border-btn btn" href="<c:url value="/member/logout"/>">Logout</a>                        	
+					</c:if>
                 </ul>
             </div>
         </div>

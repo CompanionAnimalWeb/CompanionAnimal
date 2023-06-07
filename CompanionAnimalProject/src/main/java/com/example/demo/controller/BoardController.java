@@ -67,19 +67,6 @@ public class BoardController {
     	
         return "/board/community/write";
     }   
-    /*
-	// 게시물 등록
-	@PostMapping(value="/write")
-	public static String boardWritePost(Board board, Model model, HttpSession session) throws Exception {
-		
-		// 현재 시각
-		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		board.setRegDate(nowDate);		
-		
-		User userInfo = (User) session.getAttribute("userInfo");
-		String id = userInfo.getId();
-		board.setId(id);
-	}/*/
 
 	// 게시물 등록
 	@PostMapping(value="/write")
@@ -96,7 +83,7 @@ public class BoardController {
 		BoardImages boardImages = new BoardImages();
 		//파일 업로드
         String saveName = file.getOriginalFilename();
-        
+        //System.out.println(saveName);
         File saveFile = new File("C:\\upload",saveName); 
 
         if (file != null && !file.isEmpty()) {
@@ -187,33 +174,34 @@ public class BoardController {
 	public String myPage() {
 		return "board/community/myPage";
 	}
-	
-	/* 내가 쓴 글 확인 */
-	@GetMapping(value = "/community/myPosts")
-    public String myPosts(HttpSession session, Model model) throws Exception {
-		
-		User userInfo = (User) session.getAttribute("userInfo");
-		String id = userInfo.getId();
+//	
+//	/* 내가 쓴 글 확인 */
+//	@GetMapping(value = "/mypage/myPosts")
+//    public String myPosts(HttpSession session, Model model) throws Exception {
+//		
+//		User userInfo = (User) session.getAttribute("userInfo");
+//		String id = userInfo.getId();
+//
+//		List<Board> userPosts = boardService.selectByUserId(id);
+//		
+//        model.addAttribute("boardList", userPosts);
+//    
+//        return "mypage/myPosts";
+//    }
 
-		List<Board> userPosts = boardService.selectByUserId(id);
-		
-        model.addAttribute("boardList", userPosts);
-    
-        return "board/community/myPosts";
-    }
 	
 	
-	// 동물병원 메인 페이지
-	@GetMapping(value = "/hospital/main")
-	public static String hospitalMain(Model model) {
-		model.addAttribute("test", "게시글 작성 페이지");
-        return "board/hospital/main";
-	}
-
-	// 동물 서비스 메인 페이지
-	@GetMapping(value = "/service/main")
-	public static String serviceMain() {
-        return "board/service/main";
-	}
+//	// 동물병원 메인 페이지
+//	@GetMapping(value = "/hospital/main")
+//	public static String hospitalMain(Model model) {
+//		model.addAttribute("test", "게시글 작성 페이지");
+//        return "board/hospital/main";
+//	}
+//
+//	// 동물 서비스 메인 페이지
+//	@GetMapping(value = "/service/main")
+//	public static String serviceMain() {
+//        return "board/service/main";
+//	}
 	
 }

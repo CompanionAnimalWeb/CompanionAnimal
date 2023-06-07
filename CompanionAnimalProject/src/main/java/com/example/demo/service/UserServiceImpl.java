@@ -48,4 +48,8 @@ public class UserServiceImpl implements UserService {
 		 userRepository.delete(user);
 	}
 
+	public User findId(User user) throws Exception {
+		return userRepository.findId(user);
+	}
+	
 }

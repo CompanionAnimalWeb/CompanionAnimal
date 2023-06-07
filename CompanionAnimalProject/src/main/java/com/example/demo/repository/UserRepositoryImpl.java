@@ -39,7 +39,7 @@ public class UserRepositoryImpl implements UserRepository {
 	// id, pw에 맞는 사용자가 있는지 
    	@Override
     public User selectUser(User user) throws Exception {
-   		System.out.println("selectUser");
+   		//System.out.println("selectUser");
 		String sql = "select * from User where id=? and password=?";
 		User result = jdbcTemplate.queryForObject(sql, userRowMapperAll(), user.getId(), user.getPassword());
 		return result;
@@ -59,7 +59,7 @@ public class UserRepositoryImpl implements UserRepository {
 	
 	// User 정보를 매핑하는 RowMapper
 	private RowMapper<User> userRowMapperPart() {
-		System.out.println("userRowMapper 메서드 실행");
+		System.out.println("userRowMapperPart 메서드 실행");
 		return (rs, rowNum) -> {
 			User user = new User();
 			user.setId(rs.getString("id"));
@@ -71,7 +71,7 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 	   
 	private RowMapper<User> userRowMapperAll() {
-		System.out.println("userRowMapper 메서드 실행");
+		System.out.println("userRowMapperAll 메서드 실행");
 		return (rs, rowNum) -> {
 			User user = new User();
 			user.setId(rs.getString("id"));
@@ -92,6 +92,7 @@ public class UserRepositoryImpl implements UserRepository {
 		};
 	}
 	
+	
 	public void modify(User user) {
 		String sql = "update User set password = ? where id = ?";
 		jdbcTemplate.update(sql, user.getPassword(), user.getId());
@@ -103,4 +104,10 @@ public class UserRepositoryImpl implements UserRepository {
 		System.out.println("delete 메소드 실행");
 	}
 
+    public User findId(User user) throws Exception {
+		String sql = "select id from User where name = ? and phone = ?";
+		User result = jdbcTemplate.queryForObject(sql, selectByUserIdMapper(), user.getName(), user.getPhone());
+		return result;
+	}
+    
 }

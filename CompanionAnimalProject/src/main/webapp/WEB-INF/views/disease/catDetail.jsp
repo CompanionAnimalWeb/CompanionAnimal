@@ -49,8 +49,8 @@
 		                
 		                <div class="collapse navbar-collapse" id="navbarNavAltMarkup" >
 		                  <div class="navbar-nav">
-		                    <a class="nav-link active fw-bold fs-5" href="<c:url value="/disease/dog"/>">강아지 연구소🐶 </a>
-		                    <a class="nav-link fw-bold fs-5" href="<c:url value="/disease/cat"/>">고양이 연구소🐱 </a>
+		                    <a class="nav-link fw-bold fs-5" href="<c:url value="/disease/dog"/>">강아지 연구소🐶 </a>
+		                    <a class="nav-link active fw-bold fs-5" href="<c:url value="/disease/cat"/>">고양이 연구소🐱 </a>
 		                  </div>
 		                </div>
 		                
@@ -67,14 +67,14 @@
 					<br><hr>
 					<h5>${select}</h5>
 					<hr>
-					<form action="../dog/detail/name" method="post">
+					<form action="../cat/detail/name" method="post">
 					  <c:choose>
-					    <c:when test="${dogList != null}">
-					      <c:forEach items="${dogList}" var="dog">
-					        <tr><p class="fw-bold">${dog.getClassification()} ${dog.getDiseaseIdx()}</p>
-					        <c:forEach items="${dog.getDetailSymptom()}" var="detailSymptom">
+					    <c:when test="${catList != null}">
+					      <c:forEach items="${catList}" var="cat">
+					        <tr><p class="fw-bold">${cat.getClassification()} ${cat.getDiseaseIdx()}</p>
+					        <c:forEach items="${cat.getDetailSymptom()}" var="detailSymptom">
 					        	<p class="fw-semibold">
-					        		<input type="checkbox" name="selectedValues" value="${dog.getDiseaseIdx()}">${detailSymptom}<br>
+					        		<input type="checkbox" name="selectedValues" value="${cat.getDiseaseIdx()}">${detailSymptom}<br>
 					        	</p>
 					        </c:forEach>
 					        </tr>
