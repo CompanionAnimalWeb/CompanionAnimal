@@ -1,15 +1,21 @@
 package com.example.demo.model;
 
-import java.util.Date;
 
 public class Reply {
 	
 	private int replyIdx;
 	private int commentIdx;
+	private int boardIdx;
 	private String id;
 	private String content;
-	private Date regDate;
+	private String regDate;
 	
+	public int getBoardIdx() {
+		return boardIdx;
+	}
+	public void setBoardIdx(int boardIdx) {
+		this.boardIdx = boardIdx;
+	}
 	public int getReplyIdx() {
 		return replyIdx;
 	}
@@ -34,10 +40,10 @@ public class Reply {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 	

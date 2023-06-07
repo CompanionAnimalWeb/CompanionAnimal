@@ -12,15 +12,10 @@
                     <h5 class="site-footer-title mb-3">Quick Links</h5>
 
                     <ul class="footer-menu">
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Our Story</a></li>
-
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Newsroom</a></li>
-
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Causes</a></li>
-
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Become a volunteer</a></li>
-
-                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Partner with us</a></li>
+                        <li class="footer-menu-item"><a href="<c:url value="/board/list?page=1"/>">견사무소</a></li>
+                        <li class="footer-menu-item"><a href="<c:url value="/place/main"/>" class="footer-menu-link">우리동네</a></li>
+                        <li class="footer-menu-item"><a href="<c:url value="/disease/dog"/>" class="footer-menu-link">동물병원</a></li>
+                        <li class="footer-menu-item"><a href="<c:url value="/dictionary/main"/>" class="footer-menu-link">동물보감</a></li>
                     </ul>
                 </div>
 
@@ -30,8 +25,8 @@
                     <p class="text-white d-flex mb-2">
                         <i class="bi-telephone me-2"></i>
 
-                        <a href="tel: 010-4137-4605" class="site-footer-link">
-                            010-4137-4605
+                        <a href="tel: 055-751-2190" class="site-footer-link">
+                            055-751-2190, 2199
                         </a>
                     </p>
 
@@ -39,13 +34,13 @@
                         <i class="bi-envelope me-2"></i>
 
                         <a href="ju_h518@naver.com" class="site-footer-link">
-                            ju_h518@naver.com
+                            petdocter@naver.com
                         </a>
                     </p>
 
                     <p class="text-white d-flex mt-3">
                         <i class="bi-geo-alt me-2"></i>
-                        진주시 어쩌고
+                        경상남도 진주시 진주대로629번길 35
                     </p>
 
                     <a href="#" class="custom-btn btn mt-3">Get Direction</a>

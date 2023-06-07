@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.controller.MemberJoinController;
 import com.example.demo.model.Place;
 import com.example.demo.repository.PlaceRepository;
 

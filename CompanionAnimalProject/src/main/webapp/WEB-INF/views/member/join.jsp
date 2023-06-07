@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +19,8 @@
     
 	<!-- css script -->
 	<%@include file="../fragments/common-css.jsp" %>
-	
+
+    
 </head>
 
 <body id="section_1">
@@ -33,113 +39,82 @@
                 <div class="row">
 
                     <div class="col-lg-6 col-12 mx-auto">
-                        <form class="custom-form donate-form" action="#" method="get" role="form">
+                        <form class="custom-form donate-form" action="successMemberJoin" method="post">
                             <h3 class="mb-4">JOIN US</h3>
 
                             <div class="row">
                                 <div class="col-lg-12 col-12">
+	                                
+	                                <!-- 아이디 -->
 	                                <div class="id_wrap">
 	                                	<h5 class="mb-1">아이디</h5>
 	                                	<div class="id_input_box id_name">
-	                                		<input type="name" class="form-control id_input" name="memberId">
+	                                		<input type="text" class="form-control id_input" name="id" value="${user.id}">
+	                                		<b>${message }<br></b>
+	                                		<spring:hasBindErrors name="user">
+	                                		<c:if test="${errors.hasFieldErrors('id') }">                                     
+								            <strong>${errors.getFieldError( 'id' ).defaultMessage }</strong>
+											</c:if>
+											</spring:hasBindErrors>
 	                                	</div>
 	                                	<div>
 	                                		<font id="id_feedback" size="2"></font>
+	                                		
 	                                	</div>
-	                                	<span class="final_id_ck">아이디를 입력해주세요.</span>
+	                                	
                                 	</div>
-                                	
                                 	<br>
                                 	
+                                	<!-- 비밀번호 -->
   	                                <div class="pw_wrap">
 	                                	<h5 class="mb-1">비밀번호</h5>
 	                                	<div class="pw_input_box pw_name">
-	                                		<input type="password" class="form-control pw_input" name="memberPw">
+	                                		<input type="password" class="form-control pw_input" name="password" >
+	                                		<spring:hasBindErrors name="user">
+	                                		<c:if test="${errors.hasFieldErrors('password') }">                                     
+								            <strong>${errors.getFieldError( 'password' ).defaultMessage }</strong>
+											</c:if>
+											</spring:hasBindErrors>
 	                                	</div>
-	                                	<span class="final_pw_ck">비밀번호를 입력해주세요.</span>
+	                                	
 	                                </div>
-	                                
 	                                <br>
+	                               
 	                                
- 	                                <div class="pwck_wrap">
-	                                	<h5 class="mb-1">비밀번호 확인</h5>
-	                                	<div class="pwck_input_box pwck_name">
-	                                		<input type="password" class="form-control pwck_input" name="memberPw">
-	                                	</div>
-	                                	<span class="final_pwck_ck">비밀번호 확인란을 입력해주세요.</span>
-	                                	<div>
-	                                		<font id="pwck_feedback" size="2"></font>
-	                                	</div>
-	                                </div>
-	                                
-	                                <br>
-	                                
+	                                <!-- 이름 -->
 	                                <div class="user_wrap">
 	                                	<h5 class="mb-1">이름</h5>
 	                                	<div class="user_input_box user_name">
-	                                		<input type="name" class="form-control user_input" name="memberName">
+	                                		<input type="text" class="form-control user_input" name="name" value="${user.name}">
+	                                		<spring:hasBindErrors name="user">
+	                                		<c:if test="${errors.hasFieldErrors('name') }">                                     
+								            <strong>${errors.getFieldError( 'name' ).defaultMessage }</strong>
+											</c:if>
+											</spring:hasBindErrors>
 	                                	</div>
-	                                	<span class="final_name_ck">이름을 입력해주세요.</span>
-	                                </div>
-	                                
-	                                <br>
-	                                
-	                                <div class="mail_wrap">
-	                                	<h5 class="mb-1">이메일</h5>
-	                                	<div class="mails_input_box mail_name">
-	                                		<input type="name" class="form-control mail_input" name="memberMail">
-	                                	</div>
-
-										<span class="final_mail_ck">이메일을 입력해주세요.</span>
-										<br><br>
-										<span class="mail_input_box_warn"></span>
-										<div class="mail_check_wrap">
-											<div class="mail_check_input_box" id="mail_check_input_box_false">
-												<input class="form-control mail_check_input" disabled="disabled">
-											</div>
-											<div class="mail_check_button">
-										
-											<div class="mail_check_button">
-												<a role="button" class="btn btn-outline-dark btn-sm me-md-3">인증번호 전송</a>
-											</div>
-											
-											<div class="clearfix"></div>
-											<div>
-												<font id="mail_check_input_box_warn" size="2"></font>
-											</div>
-										</div>
 	                                	
 	                                </div>
+	                                <br>
 	                                
+	                                <!-- 휴대폰 -->
+	                                <div class="user_wrap">
+	                                	<h5 class="mb-1">휴대폰</h5>
+	                                	<div class="user_input_box user_name">
+	                                		<input type="text" class="form-control phone_input" name="phone" value="${user.phone}">
+	                                		<spring:hasBindErrors name="user">
+	                                		<c:if test="${errors.hasFieldErrors('phone') }">                                     
+								            <strong>${errors.getFieldError( 'phone' ).defaultMessage }</strong>
+											</c:if>
+											</spring:hasBindErrors>
+	                                	</div>
+	                                	
+	                                </div>
 	                                <br>
 	                                
 	                                
-	                                <div class="address_wrap">
-	                                	<h5 class="mb-1">주소</h5>
-	                                	<div class="address_input_1_wrap">
-	                                		<div class="address_input_1_box address_name">
-	                                		<input class="form-control address_input_1" name="memberAddr1" readonly="readonly" placeholder="하단의 주소 찾기를 이용해주세요.">
-	                                	</div>
-										<div class="address_button" onclick="execution_daum_address()">
-											<a role="button" class="btn btn-outline-dark btn-sm me-md-3">주소 찾기</a>
-										</div>
-										<br>
-										<div class="clearfix"></div>
-										<div class ="address_input_2_wrap">
-											<div class="address_input_2_box">
-												<input class="form-control address_input_2" name="memberAddr2" readonly="readonly">
-											</div>
-										</div>
-										<br>
-										<div class ="address_input_3_wrap">
-											<div class="address_input_3_box">
-												<input class="form-control address_input_3" name="memberAddr3" readonly="readonly" placeholder="상세 주소를 입력해주세요.">
-											</div>
-										</div>
-	                                </div>
 
 									<div class="join_button_wrap">
-										<button type="submit" class="form-control mt-4">가입하기</button>
+										<input type="submit" class="mt-4 custom-btn custom-border-btn" value="가입하기"/>
 									</div>	  
                                 </div>
                             </div>
@@ -153,6 +128,13 @@
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+
+function memberJoin_click(){
+	alert("회원가입이 완료되었습니다! 다시 로그인해주세요.")
+}
+
+
 
 var code = "";
 
@@ -362,63 +344,6 @@ $(".mail_check_input").blur(function(){
     }  
 })
 
-
-// 다음 주소 연동
-function execution_daum_address(){
- 
-    new daum.Postcode({
-        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-    	oncomplete: function(data) {
-        	 
-        	// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var addr = ''; // 주소 변수
-            var extraAddr = ''; // 참고항목 변수
-
-            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                addr = data.roadAddress;
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                addr = data.jibunAddress;
-            }
-
-            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-            if(data.userSelectedType === 'R'){
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraAddr !== ''){
-                    extraAddr = ' (' + extraAddr + ')';
-                }
-          		// 주소변수 문자열과 참고항목 문자열 합치기
-                addr += extraAddr;
-            
-            } else {
-            	addr += ' ';
-            }
-
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            $(".address_input_1").val(data.zonecode);
-            //$("[name=memberAddr1]").val(data.zonecode);    // 대체가능
-            $(".address_input_2").val(addr);
-            //$("[name=memberAddr2]").val(addr);            // 대체가능
-            
-            // 커서를 상세주소 필드로 이동한다.
-            // 상세주소 입력란 disabled 속성 변경 및 커서를 상세주소 필드로 이동한다.
-            $(".address_input_3").attr("readonly", false);
-            $(".address_input_3").focus();
- 
-        }
-    }).open();    
- 
-}
  
 </script>
     

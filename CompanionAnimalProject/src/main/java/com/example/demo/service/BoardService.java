@@ -1,36 +1,27 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.example.demo.controller.BoardController;
 import com.example.demo.model.Board;
-import com.example.demo.repository.BoardRepository;
+import com.example.demo.model.BoardImages;
+import com.example.demo.model.Criteria;
 
-@Service
-public class BoardService {
+public interface BoardService {
+
+	public List<Board> findAllBoard() throws Exception;	// 게시물 목록	
+	public Board findPost(int no) throws Exception;		// 특정 게시글 가져오기
+	public Optional<String> findImages(int no) throws Exception;			// 특정 게시물에 대한 이미지 가져오기
+	public List<Board> findPost(String id, String title);	// 게시물 검색
+	public void insert(Board board) throws Exception;	// 게시글 삽입
+	public void insertImages(BoardImages boardImages) throws Exception;	// 게시물 이미지 삽입
+	public Board lastBoard() throws Exception; // 가장 최근에 추가된 게시물
+	public void modify(Board board) throws Exception;	// 게시글 수정
+	public void delete(int bno) throws Exception;		// 게시글 삭제	
+	public int count() throws Exception;				// 게시글 총 갯수
+	public List<Board> selectByUserId(String id) throws Exception;
 	
-	private final BoardRepository boardRepository;
+	//public List<Board> listPaging(int page) throws Exception;
+	public List<Board> listCriteria(Criteria criteria) throws Exception;
 
-    @Autowired
-    public BoardService(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
-    }
-
-    // 전체 회원의 id, name, phone 정보를 리턴
-    public List<Board> findAllBoard(){
-        return boardRepository.findAll();
-    }
-    
-    // 특정 게시물 정보를 가져오는 메서드
-    public List<Board> findPost(int no){
-        return boardRepository.findPost(no);
-    }
-    
-    //회원 데이터 입력을 위한 메서드
-    public void inset(BoardController BC) {
-    	boardRepository.insert(BC);
-    }
 }

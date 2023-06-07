@@ -45,42 +45,32 @@
 				</div>
 				<br><br>
 					
-				<form action="community/main/test" method="post">
+				<form action="../board/write" method="post" enctype="multipart/form-data">
 					<div class="mb-3 row">
 						<label class="col-sm-1 col-form-label">제목</label>
 						<div class="col-sm-5">
-							<input type="text" name="inputTitle" class="form-control">
+							<input type="text" name="title" class="form-control" placeholder="제목을 입력해주세요">
 						</div>
 					</div>
 					
-				    <textarea class="form-control" name="inputContent" id="exampleTextarea" rows="15"></textarea>
-			   </form>
+				    <textarea class="form-control" name="content" id="exampleTextarea" rows="15"></textarea>
 					
 					<br>
 					
+				    <div class="form-group mb-3 row">
+				    	<label class="col-sm-1 col-form-label"><small>첨부파일</small></label>
+						<div class="col-sm-5">
+							<input class="form-control" type="file" name="file">
+						</div>
+				    </div>	
 
-				
-				    <div class="form-group mb-3 row">
-				    	<label class="col-sm-1 col-form-label"><small>첨부파일1</small></label>
-						<div class="col-sm-5">
-							<input class="form-control" type="file" id="formFile">
-						</div>
-				    </div>	
-				    <div class="form-group mb-3 row">
-				    	<label class="col-sm-1 col-form-label"><small>첨부파일2</small></label>
-						<div class="col-sm-5">
-							<input class="form-control" type="file" id="formFile">
-						</div>
-				    </div>	
-				    
-    			<br>
-    			
-    			<div class="d-grid gap-2 d-md-flex justify-content-md-end">	
-	    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
-	    			<a href="<c:url value="/board/community/main/test"/>" type="submit" class="btn btn-outline-dark btn-sm">등록</a>
-	    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm">취소</a>
-		    	</div>
-    		</div>         
+	    			<br>
+	    			
+	    			<div class="d-grid gap-2 d-md-flex justify-content-md-end">	
+		    			<input class="btn btn-dark btn-sm" type="submit" value="등록">
+		    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm">취소</a>		    			
+			    	</div>
+				</form>
 		</section>
 	</main>
 	

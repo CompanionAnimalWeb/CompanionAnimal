@@ -1,14 +1,15 @@
 package com.example.demo.model;
 
-import java.util.Date;
 
+// 댓글 DAO
 public class Comment {
 	
 	private int commentIdx;
 	private int boardIdx;
 	private String id;
 	private String content;
-	private Date regDate;
+	private String regDate;
+	
 	
 	public int getCommentIdx() {
 		return commentIdx;
@@ -34,13 +35,20 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegDate(String nowDate) {
+ 		this.regDate = nowDate;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Comment [commentIdx=" + commentIdx + ", boardIdx=" + boardIdx + ", id=" + id + ", content="
+				+ content + ", regDate=" + regDate + "]";
+	}
+	
+	
 	
 	
 }

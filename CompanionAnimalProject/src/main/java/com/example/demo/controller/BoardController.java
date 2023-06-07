@@ -1,150 +1,207 @@
 package com.example.demo.controller;
 
+import java.io.File;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
+import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Board;
+import com.example.demo.model.BoardImages;
+import com.example.demo.model.Comment;
+import com.example.demo.model.User;
+import com.example.demo.model.Criteria;
+import com.example.demo.model.PageMaker;
 import com.example.demo.service.BoardService;
+import com.example.demo.service.CommentService;
+import com.example.demo.service.ReplyService;
 import com.example.demo.service.UserService;
 
 @Controller
 @RequestMapping(value = "/board")
 public class BoardController {
 
-	
-	private String inputTitle;
-	private String inputContent;  
-	private LocalDateTime legDate;
-	private String id;
-
-	public String getInputTitle() {
-		return inputTitle;
-	}
-
-	public void setInputTitle(String inputTitle) {
-		this.inputTitle = inputTitle;
-	}
-
-	public String getInputContent() {
-		return inputContent;
-	}
-
-	public void setInputContent(String inputContent) {
-		this.inputContent = inputContent;
-	}
-	
-	public LocalDateTime getLegDate() {
-		return legDate;
-	}
-
-	public void setLegDate(LocalDateTime legDate) {
-		this.legDate = legDate;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	private static UserService userService;
 	private static BoardService boardService;
-
+	private static CommentService commentService;
+	private static ReplyService replyService;
+	private static UserService userService;
+		
 
     @Autowired
-    public BoardController(UserService userService, BoardService boardService) {
-        this.userService = userService;
+    public BoardController(CommentService commentService, BoardService boardService, ReplyService replyService, UserService userService) {
+        this.commentService = commentService;
         this.boardService = boardService;
+        this.replyService = replyService;
+        this.userService = userService;
     }
-
-	public BoardController() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@RequestMapping
-	public static String mainBoard(Model model) {
+	
+	// 게시물 목록 
+	@GetMapping(value = "/list")
+	public String boardList(@RequestParam("page") int page,Model model,Criteria criteria) throws Exception  {
 		
-//		List<User> users = userService.findUsers();
-//		model.addAttribute("id",users.get(0).getId().toString());
-//		model.addAttribute("name",users.get(0).getName().toString());
-//		model.addAttribute("phone",users.get(0).getPhone().toString());
-//		model.addAttribute("test", "게시판 메인 페이지");
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		pageMaker.setTotalCount(boardService.count());
+		//List<Board> board = boardService.findAllBoard();
+		
+		model.addAttribute("boardList", boardService.listCriteria(criteria));
+		model.addAttribute("pageMaker", pageMaker);
         return "board/community/main";
 	}
 	
-	// 커뮤니티 메인 페이지
-	@RequestMapping(value = "/community/main")
-	public String communityMain(Model model) {
-		
-		List<Board> board = boardService.findAllBoard();
-		System.out.println(board.get(0).getTitle());
-		model.addAttribute("boardList",board);
-        return "board/community/main";
-	}
-	
-	//게시물 상세 페이지
-	@RequestMapping(value = "/community/main/post/{no}")
-	public String communityPost(@PathVariable int no,Model model) {
-		
-		List<Board> board = boardService.findPost(no);
-		System.out.println(board.get(0).getTitle());
-		model.addAttribute("post",board);
-		
-		return "board/community/post";
-	}
-	
-	// 커뮤니티 글 작성 
-    @RequestMapping(value="/community/write")
-    public String communityWrite() throws Exception {
+	// 게시물 작성
+    @GetMapping(value="/write")
+    public String boardWriteGet() throws Exception {
+    	
         return "/board/community/write";
-    }
+    }   
 
-    
-	// 동물병원 메인 페이지
-	@RequestMapping(value = "/hospital/main")
-	public static String hospitalMain(Model model) {
-		model.addAttribute("test", "게시글 작성 페이지");
-        return "board/hospital/main";
+	// 게시물 등록
+	@PostMapping(value="/write")
+	public static String boardWritePost(Board board, @RequestParam("file") MultipartFile file, Model model, HttpSession session) throws Exception {
+	 
+		// 현재 시각
+		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		
+		board.setRegDate(nowDate);
+		User userInfo = (User) session.getAttribute("userInfo");
+		String id = userInfo.getId();
+		board.setId(id);
+		
+		BoardImages boardImages = new BoardImages();
+		//파일 업로드
+        String saveName = file.getOriginalFilename();
+        //System.out.println(saveName);
+        File saveFile = new File("C:\\upload",saveName); 
+
+        if (file != null && !file.isEmpty()) {
+            try {
+            	file.transferTo(saveFile);  
+            } catch (Exception e) {
+                throw new RuntimeException("이미지 업로드가 실패하였습니다", e);
+            }
+        }
+		
+		boardService.insert(board);
+		
+		boardImages.setUrl(saveName);
+		boardImages.setBoardIdx(boardService.lastBoard().getBoardIdx());
+		boardService.insertImages(boardImages);
+		
+		return "redirect:/board/list?page=1";
+		
 	}
 	
-	// 동물 서비스 메인 페이지
-	@RequestMapping(value = "/service/main")
-	public static String serviceMain() {
-        return "board/service/main";
-	}
+	// 특정 게시물 조회
+	@GetMapping(value = "/detail")
+	public String boardDetail(@RequestParam("bno") int bno, Model model) throws Exception {
+		
+    	Board board = boardService.findPost(bno);
+		List<Comment> commentList = commentService.findComment(bno);
+		Optional<String> imageUrlOptional  = boardService.findImages(bno);
+		String saveName = imageUrlOptional.orElse(null);
+		
+		if(saveName != null) {
+			board.setImageUrl(saveName);
+		}
 
-	//게신물 작성 코드
-	@RequestMapping(value="/community/main/test")
-	public static String communityWrite(HttpServletRequest httpServletRequest, Model model) {
+		model.addAttribute("board", board);
+		model.addAttribute("commentList", commentList);
 		
-		System.out.println("글쓰기 컨트롤러 실행");
-		System.out.println(httpServletRequest.getParameter("inputTitle"));
-		System.out.println(httpServletRequest.getParameter("inputContent"));
-		//현재 날짜
-		LocalDateTime now = LocalDateTime.now();
+		System.out.println(board.getImageUrl());
 		
-		 // 전 페이지에서 받은 값 해당 클래스에 주입
-		 BoardController boardController = new BoardController();
-		 boardController.setInputTitle(httpServletRequest.getParameter("inputTitle"));
-		 boardController.setInputContent(httpServletRequest.getParameter("inputContent"));
-		 boardController.setLegDate(now);
-	     //System.out.println(memberJoinController.getInputId());
-		boardService.inset(boardController);
-		model.addAttribute("chek","성공");
+		return "board/community/detail";
+	}
+	
+	
+	// 게시물 수정
+	@GetMapping(value = "/modify")
+	public String boardModifyGet(@RequestParam("bno") int bno, Model model) throws Exception {
 		
-		return "redirect:/board/community/main";
+		Board board = boardService.findPost(bno);
+		model.addAttribute("board", board);
+		
+		return "board/community/modify";
+	}
+	
+	// 게시물 수정
+	@PostMapping(value="/modify")
+	public static String boardModifyPost(Board board) throws Exception {
+
+		boardService.modify(board);
+		return "redirect:/board/detail?bno=" + board.getBoardIdx();
 		
 	}
+	
+	// 게시물 삭제
+	@GetMapping(value="/delete")
+	public static String boardDeletePost(@RequestParam("bno") int bno) throws Exception {
 
+		boardService.delete(bno);
+		return "redirect:/board/list?page=1";
+		
+	}
+	
+  
+    // 게시물 검색 
+	@GetMapping(value = "/listSearch")
+	public String boardListSearch(@RequestParam("keyword") String keyword, Model model,Criteria criteria) throws Exception  {
+		
+		if(keyword.equals("")) {
+			return "redirect:/board/list?page=1"; 
+		}
+		else {
+		List<Board> board = boardService.findPost(keyword, keyword);
+		model.addAttribute("boardList", board);
+		
+		return "board/community/main";
+		}
+	}
+	
+	@GetMapping(value = "/community/myPage")
+	public String myPage() {
+		return "board/community/myPage";
+	}
+//	
+//	/* 내가 쓴 글 확인 */
+//	@GetMapping(value = "/mypage/myPosts")
+//    public String myPosts(HttpSession session, Model model) throws Exception {
+//		
+//		User userInfo = (User) session.getAttribute("userInfo");
+//		String id = userInfo.getId();
+//
+//		List<Board> userPosts = boardService.selectByUserId(id);
+//		
+//        model.addAttribute("boardList", userPosts);
+//    
+//        return "mypage/myPosts";
+//    }
+
+	
+	
+//	// 동물병원 메인 페이지
+//	@GetMapping(value = "/hospital/main")
+//	public static String hospitalMain(Model model) {
+//		model.addAttribute("test", "게시글 작성 페이지");
+//        return "board/hospital/main";
+//	}
+//
+//	// 동물 서비스 메인 페이지
+//	@GetMapping(value = "/service/main")
+//	public static String serviceMain() {
+//        return "board/service/main";
+//	}
+	
 }
