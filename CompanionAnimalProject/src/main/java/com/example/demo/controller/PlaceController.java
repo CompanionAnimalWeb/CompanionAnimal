@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Place;
 import com.example.demo.service.PlaceService;
@@ -28,10 +29,25 @@ public class PlaceController {
 		List<Place> coffees = placeService.findCoffees();
 		List<Place> stores = placeService.findStores();
 		List<Place> parks = placeService.findParks();
+		List<Place> restaurants = placeService.findRestaurants();
+		List<Place> hotels = placeService.findHotels();
+		List<Place> hospitals = placeService.findHospitals();
+		List<Place> salons = placeService.findSalons();
 		//model.addAttribute("placeList", places);
 		model.addAttribute("coffeeList", coffees);
 		model.addAttribute("storeList", stores);
 		model.addAttribute("parkList", parks);
+		model.addAttribute("restaurantList", restaurants);
+		model.addAttribute("hotelList", hotels);
+		model.addAttribute("hospitalList", hospitals);
+		model.addAttribute("salonList", salons);
         return "place/main";
+	}
+	// 장소 상세 페이지
+	@RequestMapping(value = "/place/detailPlace")
+	public static String detailPlace(Model model, @RequestParam("Idx") long serviceIdx) {
+		Place marker = placeService.getMarkerDetails(serviceIdx);
+		model.addAttribute("marker", marker);
+		return "place/detailPlace";
 	}
 }

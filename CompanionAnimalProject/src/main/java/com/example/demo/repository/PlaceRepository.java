@@ -8,4 +8,9 @@ public interface PlaceRepository {
     List<Place> findCoffee();
     List<Place> findStore();
     List<Place> findPark();
+    List<Place> findRestaurant();
+    List<Place> findHotel();
+    List<Place> findHospital();
+    List<Place> findSalon();
+    Place getMarkerDetail(long serviceIdx);
 }

@@ -16,13 +16,11 @@
     <style>
 	#mapwrap{position:relative;overflow:hidden;}
 	.category, .category *{margin:0;padding:0;color:#000;}   
-	.category {position:absolute;overflow:hidden;top:10px;left:10px;width:150px;height:60px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
+	.category {overflow:hidden;top:10px;left:10px;width:350px;height:60px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
 	.category .menu_selected {background:#FF5F4A;color:#fff;border-left:1px solid #915B2F;border-right:1px solid #915B2F;margin:0 -1px;} 
 	.category li{list-style:none;float:left;width:50px;height:45px;padding-top:5px;cursor:pointer;} 
-	.category .ico_comm {display:block;margin:0 auto 2px;width:22px;height:26px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png') no-repeat;} 
-	.category .ico_coffee {background-position:-10px 0;}  
-	.category .ico_store {background-position:-10px -36px;}   
-	.category .ico_park {background-position:-10px -72px;} 
+	.category .ico_comm {display:block;margin:0 auto 2px;width:22px;height:26px;} 
+	.currentLocation {position:absolute;overflow:hidden;bottom:10px;right:20px;width:30px;height:30px;z-index:10;border:1px solid black;background-color:#fff;}
 	</style>
     
 	<!-- css script -->
@@ -50,24 +48,59 @@
 						<span>
 							<small class="small-font text-secondary">애견파크, 미용, 호텔, 펜션, 카페, 식당 등 우리 동물과 함께할 수 있는 장소를 알아봅니다.</small>
 						</span>
-					</div>
-					<div id="mapwrap">
-	                    <div id="map" style="width:100%;height:450px;"></div>
-	                    <div class="category">
+						<div class="category">
 					        <ul>
 					            <li id="coffeeMenu" onclick="changeMarker('coffee')">
-					                <span class="ico_comm ico_coffee"></span>
+					            <img src="${pageContext.request.contextPath}/resources/images/map/cafe.png" style="width:50px; height:50px;">
+					            <span class="ico_comm"></span>
 					                커피숍
 					            </li>
+					            
 					            <li id="storeMenu" onclick="changeMarker('store')">
-					                <span class="ico_comm ico_store"></span>
+					            <img src="${pageContext.request.contextPath}/resources/images/map/shop.png" style="width:50px; height:50px;">
+					                <span class="ico_comm"></span>
 					                마트
 					            </li>
+					            
 					            <li id="parkMenu" onclick="changeMarker('park')">
-					                <span class="ico_comm ico_park"></span>
+					            <img src="${pageContext.request.contextPath}/resources/images/map/park.png" style="width:50px; height:50px;">
+					                <span class="ico_comm"></span>
 					                공원
 					            </li>
+					            
+					            <li id="restaurantMenu" onclick="changeMarker('restaurant')">
+					            <img src="${pageContext.request.contextPath}/resources/images/map/restaurant.png" style="width:50px; height:50px;">
+					                <span class="ico_comm"></span>
+					                식당
+					            </li>
+					            
+					            <li id="hotelMenu" onclick="changeMarker('hotel')">
+					            <img src="${pageContext.request.contextPath}/resources/images/map/hotel.png" style="width:50px; height:50px;">
+					                <span class="ico_comm"></span>
+					                호텔
+					            </li>
+					            
+					            <li id="hospitalMenu" onclick="changeMarker('hospital')">
+					            <img src="${pageContext.request.contextPath}/resources/images/map/hospital.png" style="width:50px; height:50px;">
+					                <span class="ico_comm"></span>
+					                병원
+					            </li>
+					            
+					            <li id="salonMenu" onclick="changeMarker('salon')">
+					            <img src="${pageContext.request.contextPath}/resources/images/map/salon.png" style="width:50px; height:50px;">
+					                <span class="ico_comm"></span>
+					                미용실
+					            </li>
 					        </ul>
+					    </div>
+					</div>
+					
+					<div id="mapwrap">
+						 
+	                    <div id="map" style="width:100%;height:450px;"></div>
+	                   
+					    <div class="currentLocation" onclick="setCurrentLocation()">
+					    	<img src="${pageContext.request.contextPath}/resources/images/map/currentLocation.png" style="width:30px; height:30px;">
 					    </div>
 					</div>
 						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cfa528c2d7f45ee55449b267e67ffb19"></script>
@@ -75,37 +108,97 @@
 						coffeePositions = [];
 						storePositions = [];
 						parkPositions = [];
+						restaurantPositions = [];
+						hotelPositions = [];
+						hospitalPositions = [];
+						salonPositions = [];
 						</script>
 						
 						<c:forEach items="${coffeeList}" var="coffee">
 						<script>
 						// 커피숍 마커가 표시될 좌표 배열입니다
-						coffeePositions.push(
-						    new kakao.maps.LatLng(${coffee.latitude}, ${coffee.longitude})              
-						);
+						coffeePositions.push({
+						    latlng : new kakao.maps.LatLng(${coffee.latitude}, ${coffee.longitude}),
+						    service_idx : '${coffee.service_idx}',
+							name : '${coffee.name}',
+							address : '${coffee.address}'      
+						});
 						</script>
 						</c:forEach>
 
 						<c:forEach items="${storeList}" var="store">
 						<script>
 						//마트 마커가 표시될 좌표 배열입니다
-						storePositions.push(
-						    new kakao.maps.LatLng(${store.latitude}, ${store.longitude})              
-						);
+						storePositions.push({
+						    latlng : new kakao.maps.LatLng(${store.latitude}, ${store.longitude}),
+						    service_idx : '${store.service_idx}',
+							name : '${store.name}',
+							address : '${store.address}'              
+						});
 						</script>
 						</c:forEach>
 						
 						<c:forEach items="${parkList}" var="park">
 						<script>
 						// 공원 마커가 표시될 좌표 배열입니다
-						parkPositions.push(
-						    new kakao.maps.LatLng(${park.latitude}, ${park.longitude})              
-						);
+						parkPositions.push({
+						    latlng : new kakao.maps.LatLng(${park.latitude}, ${park.longitude}),
+						    service_idx : '${park.service_idx}',
+							name : '${park.name}',
+							address : '${park.address}'              
+						});
+						</script>
+						</c:forEach>
+						
+						<c:forEach items="${restaurantList}" var="restaurant">
+						<script>
+						// 식당 마커가 표시될 좌표 배열입니다
+						restaurantPositions.push({
+						    latlng : new kakao.maps.LatLng(${restaurant.latitude}, ${restaurant.longitude}),
+						    service_idx : '${restaurant.service_idx}',
+							name : '${restaurant.name}',
+							address : '${restaurant.address}'             
+						});
+						</script>
+						</c:forEach>
+						
+						<c:forEach items="${hotelList}" var="hotel">
+						<script>
+						// 호텔 마커가 표시될 좌표 배열입니다
+						hotelPositions.push({
+						    latlng : new kakao.maps.LatLng(${hotel.latitude}, ${hotel.longitude}),
+						    service_idx : '${hotel.service_idx}',
+							name : '${hotel.name}',
+							address : '${hotel.address}'              
+						});
+						</script>
+						</c:forEach>
+						
+						<c:forEach items="${hospitalList}" var="hospital">
+						<script>
+						// 병원 마커가 표시될 좌표 배열입니다
+						hospitalPositions.push({
+						    latlng : new kakao.maps.LatLng(${hospital.latitude}, ${hospital.longitude}),
+						    service_idx : '${hospital.service_idx}',
+							name : '${hospital.name}',
+							address : '${hospital.address}'            
+						});
+						</script>
+						</c:forEach>
+						
+						<c:forEach items="${salonList}" var="salon">
+						<script>
+						// 미용실 마커가 표시될 좌표 배열입니다
+						salonPositions.push({
+						    latlng : new kakao.maps.LatLng(${salon.latitude}, ${salon.longitude}),
+						    service_idx : '${salon.service_idx}',
+							name : '${salon.name}',
+							address : '${salon.address}'              
+						});
 						</script>
 						</c:forEach>
 						
 						<script>
-						 
 						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 						    mapOption = { 
 						        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -114,41 +207,35 @@
 						
 						var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 						
-						
-
-						var markerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
-						    coffeeMarkers = [], // 커피숍 마커 객체를 가지고 있을 배열입니다
-						    storeMarkers = [], // 편의점 마커 객체를 가지고 있을 배열입니다
-						    parkMarkers = []; // 애견파크 마커 객체를 가지고 있을 배열입니다
-
-						createCoffeeMarkers(); // 커피숍 마커를 생성하고 커피숍 마커 배열에 추가합니다
-						createStoreMarkers(); // 편의점 마커를 생성하고 편의점 마커 배열에 추가합니다
-						createParkMarkers(); // 애견파크 마커를 생성하고 애견파크 마커 배열에 추가합니다
-						
 						changeMarker('coffee'); // 지도에 커피숍 마커가 보이도록 설정합니다    
 						
-						// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-						if (navigator.geolocation) {
-						    
-						    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-						    navigator.geolocation.getCurrentPosition(function(position) {
-						        
-						        var lat = position.coords.latitude, // 위도
-						            lon = position.coords.longitude; // 경도
-						        
-						        var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-						            
-						        // 마커와 인포윈도우를 표시합니다
-						        displayMarker(locPosition);
-						            
-						      });
-						    
-						} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-						    
-						    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667);   
-						        alert('geolocation을 사용할수 없어요..');
-						        
-						    displayMarker(locPosition);
+						start();			//현재 위치에서 시작
+						
+
+						function start(){
+							// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+							if (navigator.geolocation) {
+							    
+							    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+							    navigator.geolocation.getCurrentPosition(function(position) {
+							        
+							        var lat = position.coords.latitude, // 위도
+							            lon = position.coords.longitude; // 경도
+							        
+							        var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+							            
+							        // 마커와 인포윈도우를 표시합니다
+							        displayMarker(locPosition);
+							        
+							      });
+							    
+							} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+							    
+							    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667);   
+							        alert('geolocation을 사용할수 없어요..');
+							        
+							    displayMarker(locPosition);
+							}
 						}
 						
 						// 지도에 마커와 인포윈도우를 표시하는 함수입니다
@@ -164,147 +251,240 @@
 						    map.setCenter(locPosition);      
 						}    
 						
-						// 마커이미지의 주소와, 크기, 옵션으로 마커 이미지를 생성하여 리턴하는 함수입니다
-						function createMarkerImage(src, size, options) {
-						    var markerImage = new kakao.maps.MarkerImage(src, size, options);
-						    return markerImage;            
+						//인포윈도우 내용
+						function nameAddress(array){
+							var html = '<div style="padding:5px;">Name : ' + array.name + '<br>';
+							  	html += 'Address : ' + array.address + '<br>';
+							  	html += '<a href="http://localhost:8080/CompanionAnimalProject/place/detailPlace?Idx=' + array.service_idx + '"   style="color:blue" target="_blank">자세히 보기</a>' + '<br>' + '<div>';
+							  	
+							return html;
 						}
-
-						// 좌표와 마커이미지를 받아 마커를 생성하여 리턴하는 함수입니다
-						function createMarker(position, image) {
-						    var marker = new kakao.maps.Marker({
-						        position: position,
-						        image: image
-						    });
+						
+						
+						//마커에 인포윈도우 생성
+						function createMarker(map, positionData) {
+						  	var marker = new kakao.maps.Marker({
+						    	position: positionData.latlng,
+						    	clickable: true
+							});
+						
+							marker.setMap(map);
+						
+						  	var infowindow = new kakao.maps.InfoWindow({
+						    	content: nameAddress(positionData),
+						    	removable: true
+						  	});
+						
+						  	kakao.maps.event.addListener(marker, 'click', function () {
+						    	infowindow.open(map, marker);
+						  	});
+						  	
+						  	positionData.marker = marker; // positionData 객체에 marker 속성으로 저장합니다.
+						}
+						
+						
+						// 마커들을 표시하는 함수
+						function setMarkers(map, positions) {
+						  for (var i = 0; i < positions.length; i++) {
+						    createMarker(map, positions[i]);
 						    
-						    return marker;  
-						}   
-						   
-						// 커피숍 마커를 생성하고 커피숍 마커 배열에 추가하는 함수입니다
-						function createCoffeeMarkers() {
-						    for (var i = 0; i < coffeePositions.length; i++) {  
-
-						        var imageSize = new kakao.maps.Size(22, 26),
-						            imageOptions = {  
-						                spriteOrigin: new kakao.maps.Point(10, 0),    
-						                spriteSize: new kakao.maps.Size(36, 98)  
-						            };     
-
-						        // 마커이미지와 마커를 생성합니다
-						        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						            marker = createMarker(coffeePositions[i], markerImage);  
-						        
-						        // 생성된 마커를 커피숍 마커 배열에 추가합니다
-						        coffeeMarkers.push(marker);
-						    }     
+						  }
 						}
 
-						// 커피숍 마커들의 지도 표시 여부를 설정하는 함수입니다
-						function setCoffeeMarkers(map) {        
-						    for (var i = 0; i < coffeeMarkers.length; i++) {  
-						        coffeeMarkers[i].setMap(map);
-						    }        
+						// 마커 유형에 따라 해당하는 함수 호출
+						function setMarkersByType(map, markerType) {
+							switch (markerType) {
+								case 'coffee':
+						      		setMarkers(map, coffeePositions);
+						      		break;
+						    	
+								case 'store':
+						      		setMarkers(map, storePositions);
+						      		break;
+						    	
+						    	case 'park':
+						      		setMarkers(map, parkPositions);
+						      		break;
+						    	
+						    	case 'restaurant':
+						      		setMarkers(map, restaurantPositions);
+						      		break;
+						    	
+						    	case 'hotel':
+						      		setMarkers(map, hotelPositions);
+						      		break;
+						    	
+						    	case 'hospital':
+						      		setMarkers(map, hospitalPositions);
+						      		break;
+						    	
+						    	case 'salon':
+						      		setMarkers(map, salonPositions);
+						      		break;
+						    	
+						    	default:
+						      		break;
+							}
+						}
+						
+						//해당 카테고리를 제외한 나머지 카테고리의 마커들을 지도에서 제거
+						function removeMarkersByType(selectedType) {
+							var allPositions = [coffeePositions, storePositions, parkPositions, restaurantPositions, hotelPositions, hospitalPositions, salonPositions];
+
+							for (var i = 0; i < allPositions.length; i++) {
+								var positions = allPositions[i];
+
+								if (selectedType !== positions) {
+									for (var j = 0; j < positions.length; j++) {
+										if (positions[j].marker) {
+											positions[j].marker.setMap(null); // 각 마커를 지도에서 제거합니다.
+										}
+							      	}
+								}
+							}
 						}
 
-						// 편의점 마커를 생성하고 편의점 마커 배열에 추가하는 함수입니다
-						function createStoreMarkers() {
-						    for (var i = 0; i < storePositions.length; i++) {
-						        
-						        var imageSize = new kakao.maps.Size(22, 26),
-						            imageOptions = {   
-						                spriteOrigin: new kakao.maps.Point(10, 36),    
-						                spriteSize: new kakao.maps.Size(36, 98)  
-						            };       
-						     
-						        // 마커이미지와 마커를 생성합니다
-						        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						            marker = createMarker(storePositions[i], markerImage);  
-
-						        // 생성된 마커를 편의점 마커 배열에 추가합니다
-						        storeMarkers.push(marker);    
-						    }        
-						}
-
-						// 편의점 마커들의 지도 표시 여부를 설정하는 함수입니다
-						function setStoreMarkers(map) {        
-						    for (var i = 0; i < storeMarkers.length; i++) {  
-						        storeMarkers[i].setMap(map);
-						    }        
-						}
-
-						// 애견파크 마커를 생성하고 애견파크 마커 배열에 추가하는 함수입니다
-						function createParkMarkers() {
-						    for (var i = 0; i < parkPositions.length; i++) {
-						        
-						        var imageSize = new kakao.maps.Size(22, 26),
-						            imageOptions = {   
-						                spriteOrigin: new kakao.maps.Point(10, 72),    
-						                spriteSize: new kakao.maps.Size(36, 98)  
-						            };       
-						     
-						        // 마커이미지와 마커를 생성합니다
-						        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-						            marker = createMarker(parkPositions[i], markerImage);  
-
-						        // 생성된 마커를 애견파크 마커 배열에 추가합니다
-						        parkMarkers.push(marker);        
-						    }                
-						}
-
-						// 애견파크 마커들의 지도 표시 여부를 설정하는 함수입니다
-						function setParkMarkers(map) {        
-						    for (var i = 0; i < parkMarkers.length; i++) {  
-						        parkMarkers[i].setMap(map);
-						    }        
-						}
-
+						
 						// 카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경합니다
 						function changeMarker(type){
 						    
 						    var coffeeMenu = document.getElementById('coffeeMenu');
 						    var storeMenu = document.getElementById('storeMenu');
 						    var parkMenu = document.getElementById('parkMenu');
+						    var restaurantMenu = document.getElementById('restaurantMenu');
+						    var hotelMenu = document.getElementById('hotelMenu');
+						    var hospitalMenu = document.getElementById('hospitalMenu');
+						    var salonMenu = document.getElementById('salonMenu');
+						   
 						    
 						    // 커피숍 카테고리가 클릭됐을 때
 						    if (type === 'coffee') {
 						    
-						        // 커피숍 카테고리를 선택된 스타일로 변경하고
+						        // 커피숍 카테고리를 선택된 스타일로 변경
 						        coffeeMenu.className = 'menu_selected';
-						        
-						        // 편의점과 애견파크 카테고리는 선택되지 않은 스타일로 바꿉니다
 						        storeMenu.className = '';
 						        parkMenu.className = '';
+						        restaurantMenu.className = '';
+						        hotelMenu.className = '';
+						        hospitalMenu.className = '';
+						        salonMenu.className = '';
 						        
 						        // 커피숍 마커들만 지도에 표시하도록 설정합니다
-						        setCoffeeMarkers(map);
-						        setStoreMarkers(null);
-						        setParkMarkers(null);
+						        setMarkersByType(map, 'coffee');
+						        removeMarkersByType(coffeePositions);
 						        
 						    } else if (type === 'store') { // 편의점 카테고리가 클릭됐을 때
 						    
-						        // 편의점 카테고리를 선택된 스타일로 변경하고
+						        // 편의점 카테고리를 선택된 스타일로 변경
 						        coffeeMenu.className = '';
 						        storeMenu.className = 'menu_selected';
 						        parkMenu.className = '';
+						        restaurantMenu.className = '';
+						        hotelMenu.className = '';
+						        hospitalMenu.className = '';
+						        salonMenu.className = '';
 						        
 						        // 편의점 마커들만 지도에 표시하도록 설정합니다
-						        setCoffeeMarkers(null);
-						        setStoreMarkers(map);
-						        setParkMarkers(null);
+						        setMarkersByType(map, 'store');
+						        removeMarkersByType(storePositions);
 						        
 						    } else if (type === 'park') { // 애견파크 카테고리가 클릭됐을 때
 						     
-						        // 애견파크 카테고리를 선택된 스타일로 변경하고
+						        // 애견파크 카테고리를 선택된 스타일로 변경
 						        coffeeMenu.className = '';
 						        storeMenu.className = '';
 						        parkMenu.className = 'menu_selected';
+						        restaurantMenu.className = '';
+						        hotelMenu.className = '';
+						        hospitalMenu.className = '';
+						        salonMenu.className = '';
 						        
 						        // 애견파크 마커들만 지도에 표시하도록 설정합니다
-						        setCoffeeMarkers(null);
-						        setStoreMarkers(null);
-						        setParkMarkers(map);  
-						    }    
-						} 
+						        setMarkersByType(map, 'park');
+						        removeMarkersByType(parkPositions);
+						        
+						    } else if (type === 'restaurant') { // 식당 카테고리가 클릭됐을 때
+							     
+						        // 식당 카테고리를 선택된 스타일로 변경
+						        coffeeMenu.className = '';
+						        storeMenu.className = '';
+						        parkMenu.className = '';
+						        restaurantMenu.className = 'menu_selected';
+						        hotelMenu.className = '';
+						        hospitalMenu.className = '';
+						        salonMenu.className = '';
+						        
+						        // 식당 마커들만 지도에 표시하도록 설정합니다
+						        setMarkersByType(map, 'restaurant');
+						        removeMarkersByType(restaurantPositions);
+						        
+						    } else if (type === 'hotel') { // 호텔 카테고리가 클릭됐을 때
+							     
+						        // 식당 카테고리를 선택된 스타일로 변경
+						        coffeeMenu.className = '';
+						        storeMenu.className = '';
+						        parkMenu.className = '';
+						        restaurantMenu.className = '';
+						        hotelMenu.className = 'menu_selected';
+						        hospitalMenu.className = '';
+						        salonMenu.className = '';
+						        
+						        // 호텔 마커들만 지도에 표시하도록 설정합니다
+						        setMarkersByType(map, 'hotel');
+						        removeMarkersByType(hotelPositions);
+						       
+						    } else if (type === 'hospital') { // 병원 카테고리가 클릭됐을 때
+							     
+						        // 병원 카테고리를 선택된 스타일로 변경
+						        coffeeMenu.className = '';
+						        storeMenu.className = '';
+						        parkMenu.className = '';
+						        restaurantMenu.className = '';
+						        hotelMenu.className = '';
+						        hospitalMenu.className = 'menu_selected';
+						        salonMenu.className = '';
+						        
+						        // 병원 마커들만 지도에 표시하도록 설정합니다
+						        setMarkersByType(map, 'hospital');
+						        removeMarkersByType(hospitalPositions);
+						        
+							} else if (type === 'salon') { // 미용실 카테고리가 클릭됐을 때
+							     
+						        // 미용실 카테고리를 선택된 스타일로 변경
+						        coffeeMenu.className = '';
+						        storeMenu.className = '';
+						        parkMenu.className = '';
+						        restaurantMenu.className = '';
+						        hotelMenu.className = '';
+						        hospitalMenu.className = '';
+						        salonMenu.className = 'menu_selected';
+						        
+						        // 미용실 마커들만 지도에 표시하도록 설정합니다
+						        setMarkersByType(map, 'salon');
+						        removeMarkersByType(salonPositions);
+							} 
+						}
+						
+						
+						function setCurrentLocation() {   	//현위치로 이동
+							start();
+						}
+						
+						
+						// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+						function makeOverListener(map, marker, infowindow) {
+						    return function() {
+						        infowindow.open(map, marker);
+						    };
+						}
+
+						// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+						function makeOutListener(infowindow) {
+						    return function() {
+						        infowindow.close();
+						    };
+						}
+						
 						</script>
 					</div>
 				
@@ -319,8 +499,6 @@
                		<p></p>
                 </div>
 
-			<div>
-				
 		</section>
 	</main>
 
