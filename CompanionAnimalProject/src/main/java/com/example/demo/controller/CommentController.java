@@ -17,23 +17,16 @@ import com.example.demo.model.Board;
 import com.example.demo.model.Comment;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.CommentService;
+import com.example.demo.service.NotificationService;
 
 
 @Controller
 @RequestMapping(value = "/board")
 public class CommentController {
-
-	/*
-	 * private int commentIdx; 
-	 * private int boardIdx; 
-	 * private String id; 
-	 * private String content; 
-	 * private String regDate;
-	 */
 	
 	@Autowired private CommentService commentService;
 	@Autowired private BoardService boardService;
-	
+	@Autowired private NotificationService notificationService;
 
 	/* 댓글 등록 */
 	@PostMapping(value = "/comment/write")
@@ -44,6 +37,8 @@ public class CommentController {
 
 		comment.setRegDate(nowDate);				
 		commentService.insert(comment);
+		Comment createdComment = commentService.lastComment();
+		notificationService.handleCommentCreated(createdComment);
 		
 		return "redirect:/board/detail?bno=" + comment.getBoardIdx();
 	}
