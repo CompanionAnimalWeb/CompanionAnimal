@@ -1,8 +1,10 @@
 package com.example.demo.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -23,79 +25,81 @@ public class PlaceRepositoryImpl implements PlaceRepository{
    //RowMapper를 사용해서 매핑
    @Override
    public List<Place> findAll() {
-	   System.out.println("findAll 메서드 실행");
-       return jdbcTemplate.query("SELECT * FROM Service", placeRowMapper());
+       return findPlacesByCategory(null);
    }
-   
+
    @Override
    public List<Place> findCoffee() {
-	   System.out.println("findCoffee 메서드 실행");
-       return jdbcTemplate.query("SELECT * FROM Service WHERE category='카페'", placeRowMapper());
+       return findPlacesByCategory("카페");
    }
-   
+
    @Override
    public List<Place> findStore() {
-	   System.out.println("findStore 메서드 실행");
-       return jdbcTemplate.query("SELECT * FROM Service WHERE category='마트'", placeRowMapper());
+       return findPlacesByCategory("마트");
    }
-   
+
    @Override
    public List<Place> findPark() {
-	   System.out.println("findPark 메서드 실행");
-       return jdbcTemplate.query("SELECT * FROM Service WHERE category='공원'", placeRowMapper());
+       return findPlacesByCategory("공원");
    }
-   
+
    @Override
    public List<Place> findRestaurant() {
-	   System.out.println("findRestaurant 메서드 실행");
-       return jdbcTemplate.query("SELECT * FROM Service WHERE category='식당'", placeRowMapper());
+       return findPlacesByCategory("식당");
    }
 
    @Override
    public List<Place> findHotel() {
-	   System.out.println("findHotel 메서드 실행");
-       return jdbcTemplate.query("SELECT * FROM Service WHERE category='호텔'", placeRowMapper());
+       return findPlacesByCategory("호텔");
    }
 
    @Override
    public List<Place> findHospital() {
-	   System.out.println("findHospital 메서드 실행");
-	   return jdbcTemplate.query("SELECT * FROM Service WHERE category='병원'", placeRowMapper());
+       return findPlacesByCategory("병원");
    }
-   
+
    @Override
    public List<Place> findSalon() {
-	   System.out.println("findSalon 메서드 실행");
-	   return jdbcTemplate.query("SELECT * FROM Service WHERE category='미용실'", placeRowMapper());
+       return findPlacesByCategory("미용실");
    }
-   
 
    @Override
-   public Place getMarkerDetail(long serviceIdx) {
-       return jdbcTemplate.queryForObject("SELECT * FROM Service WHERE service_idx = ?", placeRowMapper(), serviceIdx);
+   public Optional<Place> getMarkerDetail(long serviceIdx) {
+       String query = "SELECT * FROM Service WHERE service_idx = ?";
+       try {
+           Place place = jdbcTemplate.queryForObject(query, placeRowMapper(), serviceIdx);
+           return Optional.ofNullable(place);
+       } catch (EmptyResultDataAccessException e) {
+           return Optional.empty();
+       }
    }
 
-   
+
+   //쿼리문 동적으로 생성하기
+   private List<Place> findPlacesByCategory(String category) {
+       String query = "SELECT * FROM Service" + (category != null ? " WHERE category = ?" : "");
+       Object[] params = category != null ? new Object[]{category} : new Object[]{};
+       return jdbcTemplate.query(query, params, placeRowMapper());
+   }
+
    //Place 정보를 매핑하는 RowMapper
    private RowMapper<Place> placeRowMapper() {
-	   System.out.println("RowMapper 실행");
-	    return (rs, rowNum) -> {
-	    	Place place = new Place();
-	    	place.setService_idx(rs.getLong("service_idx"));
-	    	place.setCategory(rs.getString("category"));
-	    	place.setName(rs.getString("name"));
-	    	place.setAddress(rs.getString("address"));
-	    	place.setHours(rs.getString("hours"));
-	    	place.setTel(rs.getString("tel"));
-	    	place.setComment(rs.getString("comment"));
-	    	place.setLatitude(rs.getDouble("latitude"));
-	    	place.setLongitude(rs.getDouble("longitude"));
-	    	System.out.println(place.getName());
-	    	System.out.println(place.getCategory());
-	    	System.out.println(place.getAddress());
-	        return place;
-	    };
-	}
-
+       return (rs, rowNum) -> {
+           Place place = new Place();
+           place.setService_idx(rs.getLong("service_idx"));
+           place.setCategory(rs.getString("category"));
+           place.setName(rs.getString("name"));
+           place.setAddress(rs.getString("address"));
+           place.setHours(rs.getString("hours"));
+           place.setTel(rs.getString("tel"));
+           place.setComment(rs.getString("comment"));
+           place.setLatitude(rs.getDouble("latitude"));
+           place.setLongitude(rs.getDouble("longitude"));
+           place.setImagePath(rs.getString("image_path"));
+           return place;
+       };
+   }
 
 }
+
+
