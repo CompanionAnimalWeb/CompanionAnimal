@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.model.Board;
-import com.example.demo.model.User;
 
 import com.example.demo.model.BoardImages;
 import com.example.demo.model.Criteria;

@@ -5,54 +5,46 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.CatDetailDisease;
-import com.example.demo.model.CatDisease;
-import com.example.demo.model.DogDetailDisease;
-import com.example.demo.model.DogDisease;
-import com.example.demo.repository.DiseaseRepository;
+import com.example.demo.repository.CatDiseaseRepository;
+import com.example.demo.repository.DogDiseaseRepository;
 
 @Service
 public class DiseaseServiceImpl implements DiseaseService{
 	
-	private final DiseaseRepository diseaseRepository;
+	private final DogDiseaseRepository dogDiseaseRepository;
+	private final CatDiseaseRepository catDiseaseRepository;
 
     @Autowired
-    public DiseaseServiceImpl(DiseaseRepository diseaseRepository) {
-        this.diseaseRepository = diseaseRepository;
+    public DiseaseServiceImpl(DogDiseaseRepository dogDiseaseRepository, CatDiseaseRepository catDiseaseRepository) {
+        this.dogDiseaseRepository = dogDiseaseRepository;
+        this.catDiseaseRepository = catDiseaseRepository;
     }
     
     /*반려견 관련*/
-	@Override
-	public List<DogDisease> dogDiseaseList() throws Exception {
-		return diseaseRepository.dogDiseaseList();
+    @Override
+	public List<?> dogDiseaseList() throws Exception {
+		return dogDiseaseRepository.diseaseList();
 	}
 	
-	@Override
-	public List<DogDetailDisease> selectDogDisease(String select) throws Exception {
-		return diseaseRepository.selectDogDisease(select);
+	public List<?> selectDogDisease(String select) throws Exception {
+		return dogDiseaseRepository.selectDisease(select);
 	}
 	
-	@Override
-	public List<DogDetailDisease> dogDiseaseName(String[] values) throws Exception {
-		return diseaseRepository.dogDiseaseName(values);
+	public List<?> dogDiseaseName(String[] values) throws Exception {
+		return dogDiseaseRepository.diseaseName(values);
 	}
 	
 	/*반려묘 관련*/
-	@Override
-	public List<CatDisease> catDiseaseList() throws Exception {
-		return diseaseRepository.catDiseaseList();
+	public List<?> catDiseaseList() throws Exception {
+		return catDiseaseRepository.diseaseList();
 	}
 	
-	@Override
-	public List<CatDetailDisease> selectCatDisease(String select) throws Exception {
-		return diseaseRepository.selectCatDisease(select);
+	public List<?> selectCatDisease(String select) throws Exception {
+		return catDiseaseRepository.selectDisease(select);
 	}
 	
-	@Override
-	public List<CatDetailDisease> catDiseaseName(String[] values) throws Exception {
-		return diseaseRepository.catDiseaseName(values);
+	public List<?> catDiseaseName(String[] values) throws Exception {
+		return catDiseaseRepository.diseaseName(values);
 	}
-
-	
 	
 }
