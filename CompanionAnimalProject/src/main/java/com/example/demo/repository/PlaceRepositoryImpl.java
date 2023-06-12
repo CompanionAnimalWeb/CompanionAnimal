@@ -95,6 +95,7 @@ public class PlaceRepositoryImpl implements PlaceRepository{
            place.setComment(rs.getString("comment"));
            place.setLatitude(rs.getDouble("latitude"));
            place.setLongitude(rs.getDouble("longitude"));
+           place.setImagePath(rs.getString("image_path"));
            return place;
        };
    }
