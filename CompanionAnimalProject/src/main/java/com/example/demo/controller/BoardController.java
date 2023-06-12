@@ -95,8 +95,9 @@ public class BoardController {
         }
 		
 		boardService.insert(board);
-		
+
 		boardImages.setUrl(saveName);
+		
 		boardImages.setBoardIdx(boardService.lastBoard().getBoardIdx());
 		boardService.insertImages(boardImages);
 		
@@ -115,6 +116,9 @@ public class BoardController {
 		
 		if(saveName != null) {
 			board.setImageUrl(saveName);
+		}
+		else {
+			board.setImageUrl(null);
 		}
 
 		model.addAttribute("board", board);

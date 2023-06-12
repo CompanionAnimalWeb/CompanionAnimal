@@ -70,7 +70,7 @@
 					<a href="../board/modify?bno=${board.boardIdx}" role="button" class="btn btn-outline-dark btn-sm me-md-3">수정</a>
 					<a href="../board/delete?bno=${board.boardIdx}" role="button" class="btn btn-outline-dark btn-sm me-md-3">삭제</a>
 				</c:if>
-					<a href="<c:url value="/board/list"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
+					<a href="<c:url value="/board/list?page=1"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
 				</div>
 				
 				<br>
