@@ -65,6 +65,4 @@ public class Place {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	
-	
 }
