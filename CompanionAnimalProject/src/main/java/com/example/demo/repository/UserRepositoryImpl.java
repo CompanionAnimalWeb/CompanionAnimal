@@ -87,7 +87,7 @@ public class UserRepositoryImpl implements UserRepository {
 		return (rs, rowNum) -> {
 			User user = new User();
 			user.setId(rs.getString("id"));
-			//System.out.println(user.getId());
+			System.out.println(user.getId());
 			return user;
 		};
 	}
@@ -105,8 +105,13 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
     public User findId(User user) throws Exception {
-		String sql = "select id from User where name = ? and phone = ?";
-		User result = jdbcTemplate.queryForObject(sql, selectByUserIdMapper(), user.getName(), user.getPhone());
+		String sql = "select * from User where name = ? and phone = ?";
+		User result;
+		try {
+			result = jdbcTemplate.queryForObject(sql, userRowMapperAll(), user.getName(), user.getPhone());
+		} catch (Exception e) {
+			return null;
+		}
 		return result;
 	}
     
