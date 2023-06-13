@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Board;
 import com.example.demo.model.Comment;
-import com.example.demo.model.User;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.CommentService;
 
@@ -40,17 +37,12 @@ public class CommentController {
 
 	/* 댓글 등록 */
 	@PostMapping(value = "/comment/write")
-	public String insertPost(Comment comment, HttpSession session) throws Exception {
+	public String insertPost(Comment comment) throws Exception {
 		
 		// 현재 시각
 		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-		comment.setRegDate(nowDate);	
-		
-		User userInfo = (User) session.getAttribute("userInfo");
-		String id = userInfo.getId();
-		comment.setId(id);
-		
+		comment.setRegDate(nowDate);				
 		commentService.insert(comment);
 		
 		return "redirect:/board/detail?bno=" + comment.getBoardIdx();

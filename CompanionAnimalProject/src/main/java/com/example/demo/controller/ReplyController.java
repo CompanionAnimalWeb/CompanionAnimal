@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.model.Board;
 import com.example.demo.model.Comment;
 import com.example.demo.model.Reply;
-import com.example.demo.model.User;
 import com.example.demo.repository.ReplyRepositoryImpl;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.CommentService;
@@ -72,15 +69,12 @@ public class ReplyController {
     
 	//답글 입력
 	@PostMapping(value = "/comment/reply/write")
-	public String insertReply(Reply reply, HttpSession session) throws Exception {
+	public String insertReply(Reply reply) throws Exception {
 		
 		// 현재 시각
 		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
 		reply.setRegDate(nowDate);
-		User userInfo = (User) session.getAttribute("userInfo");
-		String id = userInfo.getId();
-		reply.setId(id);
 		replyService.insert(reply);
 		
 		return "redirect:/board/detail?bno=" + reply.getBoardIdx();	

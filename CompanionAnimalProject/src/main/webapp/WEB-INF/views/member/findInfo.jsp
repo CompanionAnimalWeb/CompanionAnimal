@@ -17,8 +17,12 @@
 	이름 : <input type="text" name="name" required /> <br />
 	전화번호 : <input type="text" name="phone" required /> <br />
 	<input type="submit" value="check">
-	${message }
-
+	<c:if test="${check == 0}">
+	<label>일치하는 정보가 존재하지 않습니다.</label>
+	</c:if>
+	<c:if test="${check == 1}">
+	<label>찾으시는 아이디는 '${id}' 입니다.</label>
+	</c:if>
 	<br />
 	비밀번호 찾기 : </br>
     <button type="button" onclick="location.href='../main'">홈으로</button>

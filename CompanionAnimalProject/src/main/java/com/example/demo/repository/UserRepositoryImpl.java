@@ -87,7 +87,7 @@ public class UserRepositoryImpl implements UserRepository {
 		return (rs, rowNum) -> {
 			User user = new User();
 			user.setId(rs.getString("id"));
-			System.out.println(user.getId());
+			//System.out.println(user.getId());
 			return user;
 		};
 	}
@@ -109,10 +109,10 @@ public class UserRepositoryImpl implements UserRepository {
 		User result;
 		try {
 			result = jdbcTemplate.queryForObject(sql, userRowMapperAll(), user.getName(), user.getPhone());
-		} catch (Exception e) {
+			return result;
+		} catch(Exception e) {
 			return null;
 		}
-		return result;
 	}
     
 }

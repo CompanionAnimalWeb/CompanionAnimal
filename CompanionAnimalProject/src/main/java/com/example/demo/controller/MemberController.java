@@ -158,23 +158,22 @@ public class MemberController {
 		return "member/findInfo";
 	}
 	
+	/*
 	@PostMapping(value = "/findInfo")
-	public ModelAndView findInfoPost(User user) throws Exception {
-
-		ModelAndView mv = new ModelAndView();
-		
+	public String findInfoPost(User user, Model model) throws Exception {
+	
 		User userInfo = userService.findId(user);
-		mv.addObject("userInfo", userInfo);
+		System.out.println(user.getId());
 		
-		if(userInfo != null) {
-			mv.addObject("message", "찾으시는 아이디는 ''");
-			mv.setViewName("/member/login");
-			return mv;
-		} else {
-			mv.addObject("message", "일치하는 정보가 없습니다.");
-			mv.setViewName("/member/findInfo");
-			return mv;
+		if(userInfo != null) { 
+			model.addAttribute("check", 1);
+			//System.out.println(model.getAttribute("check"));
+		} else { 
+			model.addAttribute("check", 0);
+			model.addAttribute("id", user.getId());
 		}
+		return "member/findInfo";
 	}
+*/
 	
 }
