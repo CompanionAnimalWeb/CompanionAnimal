@@ -19,6 +19,20 @@ public class User {
 	@Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$", message = "공백 없이 숫자만 입력하세요.")
 	private String phone;
 	
+	/* 싱글톤 패턴 적용 */
+	private static User instance;
+	
+	private User() {
+		User.instance = instance;
+	}
+	
+	public static User getInstance() {
+        if (instance == null) {
+        	instance = new User();
+        }
+        return instance;
+    }
+	
 	public String getId() {
 		return id;
 	}

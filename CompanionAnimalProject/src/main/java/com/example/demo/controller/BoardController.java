@@ -37,7 +37,8 @@ public class BoardController {
 	private static CommentService commentService;
 	private static ReplyService replyService;
 	private static UserService userService;
-		
+	
+	static User userInfo = User.getInstance();
 
     @Autowired
     public BoardController(CommentService commentService, BoardService boardService, ReplyService replyService, UserService userService) {
@@ -49,7 +50,7 @@ public class BoardController {
 	
 	// 게시물 목록 
 	@GetMapping(value = "/list")
-	public String boardList(@RequestParam("page") int page,Model model,Criteria criteria) throws Exception  {
+	public String boardList(@RequestParam("page") int page, Model model, Criteria criteria) throws Exception  {
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCriteria(criteria);
@@ -76,7 +77,7 @@ public class BoardController {
 		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		
 		board.setRegDate(nowDate);
-		User userInfo = (User) session.getAttribute("userInfo");
+		userInfo = (User) session.getAttribute("userInfo");
 		String id = userInfo.getId();
 		board.setId(id);
 		

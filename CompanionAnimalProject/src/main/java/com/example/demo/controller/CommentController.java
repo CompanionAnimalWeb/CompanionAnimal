@@ -37,6 +37,7 @@ public class CommentController {
 	@Autowired private CommentService commentService;
 	@Autowired private BoardService boardService;
 	
+	static User userInfo = User.getInstance();
 
 	/* 댓글 등록 */
 	@PostMapping(value = "/comment/write")
@@ -47,7 +48,7 @@ public class CommentController {
 
 		comment.setRegDate(nowDate);	
 
-		User userInfo = (User) session.getAttribute("userInfo");
+		userInfo = (User) session.getAttribute("userInfo");
 		String id = userInfo.getId();
 		comment.setId(id);				
 		commentService.insert(comment);

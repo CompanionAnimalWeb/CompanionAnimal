@@ -33,6 +33,7 @@ public class MemberController {
 		MemberController.userService = userService;
 	}
     
+	static User userInfo = User.getInstance();
 	 
 	/* 회원가입 페이지 이동 */
 	@RequestMapping(value = "/join", method = RequestMethod.GET)

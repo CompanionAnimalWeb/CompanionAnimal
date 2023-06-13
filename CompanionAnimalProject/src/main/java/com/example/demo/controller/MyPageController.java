@@ -39,7 +39,7 @@ public class MyPageController {
 		this.boardService = boardService;
 	}
  
-    
+	static User userInfo = User.getInstance();
 	 
 	/* 마이페이지 이동 */
 	@RequestMapping(value = "/main", method = RequestMethod.GET)

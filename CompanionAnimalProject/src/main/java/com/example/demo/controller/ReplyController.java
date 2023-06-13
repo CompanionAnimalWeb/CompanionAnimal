@@ -41,6 +41,8 @@ public class ReplyController {
         this.replyService = replyService;
         this.boardService = boardService;
     }
+    
+    static User userInfo = User.getInstance();
 	
 //	//게시물 상세 페이지
 //	@RequestMapping(value = "board/community/main/post/comment/{no}")
