@@ -1,8 +1,5 @@
 package com.example.demo.controller;
 
-import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -118,7 +115,7 @@ public class MemberController {
 	public String modifyGet(@Valid HttpSession session, Model model) throws Exception {
 		User userInfo = (User) session.getAttribute("userInfo");
 		String id = userInfo.getId();
-		System.out.println(id);
+		//System.out.println(id);
 		userService.selectByUserId(id);
 		return "member/modify";
 	}
@@ -153,32 +150,29 @@ public class MemberController {
 		return "redirect:/main";
 	}
 	
+	
 	/* 아이디 찾기 */
 	@GetMapping(value = "/findInfo")
 	public String findInfoGet() {
 		return "member/findInfo";
 	}
 	
-	/*
 	@PostMapping(value = "/findInfo")
-	public ModelAndView findInfoPost(User user) throws Exception {
+	public String findInfoPost(User user, Model model) throws Exception {
 
-		ModelAndView mv = new ModelAndView();
-		
 		User userInfo = userService.findId(user);
-
-		mv.addObject("userInfo", userInfo);
-	
+		
 		if(userInfo != null) {
-			mv.addObject("message", "찾으시는 아이디는 ''");
-			mv.setViewName("/member/login");
-			return mv;
+			String message = "찾으시는 아이디는 ' " + userInfo.getId() + " ' 입니다.";
+			model.addAttribute("check", 1);
+			model.addAttribute("id", userInfo.getId());
+			model.addAttribute("message", message);
+			return "/member/login";
 		} else {
-			mv.addObject("message", "일치하는 정보가 없습니다.");
-			mv.setViewName("/member/findInfo");
-			return mv;
+			model.addAttribute("check", 0);	
+			return "/member/findInfo";
 		}
-	}*/
+	}
 
 	
 }

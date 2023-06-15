@@ -73,7 +73,7 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 	   
 	private RowMapper<User> userRowMapperAll() {
-		System.out.println("userRowMapperAll 메서드 실행");
+		//System.out.println("userRowMapperAll 메서드 실행");
 		return (rs, rowNum) -> {
 			//User user = new User();
 			user.setId(rs.getString("id"));
@@ -112,7 +112,7 @@ public class UserRepositoryImpl implements UserRepository {
 		try {
 			result = jdbcTemplate.queryForObject(sql, userRowMapperAll(), user.getName(), user.getPhone());
 			return result;
-		} catch(Exception e) {
+		} catch(EmptyResultDataAccessException e) {
 			return null;
 		}
 	}

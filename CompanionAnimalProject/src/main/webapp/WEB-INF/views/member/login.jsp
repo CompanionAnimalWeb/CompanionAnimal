@@ -51,7 +51,7 @@
 								</div>
 								
 								<button type="submit" class="form-control mt-4">로그인</button>
-							 	<a class="mt-4 custom-btn custom-border-btn btn" href="<c:url value="findInfo"/>">아이디/비밀번호 찾기</a>
+							 	<a class="mt-4 custom-btn custom-border-btn btn" href="<c:url value="findInfo"/>">아이디 찾기</a>
                                	<br>
                                	<a class="mt-4 custom-btn custom-border-btn btn" href="<c:url value="../member/join"/>">회원가입</a>
                             </div>
