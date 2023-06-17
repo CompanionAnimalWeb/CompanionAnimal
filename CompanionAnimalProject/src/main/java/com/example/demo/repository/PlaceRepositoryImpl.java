@@ -24,11 +24,6 @@ public class PlaceRepositoryImpl implements PlaceRepository{
    //Place의 id, name, phone 정보를 가져오기 위한 메서드
    //RowMapper를 사용해서 매핑
    @Override
-   public List<Place> findAll() {
-       return findPlacesByCategory(null);
-   }
-
-   @Override
    public List<Place> findCoffee() {
        return findPlacesByCategory("카페");
    }
