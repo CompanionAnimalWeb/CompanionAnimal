@@ -1,13 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title> È¸¿øÅ»Åğ </title>
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ì‹ ë¹„í•œ ë™ë¬¼ì‚¬ì „</title>
+    
+    <!-- css script -->
+    <%@include file="../fragments/common-css.jsp" %>
+    
+</head>
+
+<body id="section_1">
+
+    <!-- header -->
+    <%@include file="../fragments/header.jsp" %>
+    
+    <!-- nav -->
+    <%@include file="../fragments/nav.jsp" %>
+    
+    <main>        
+        <section class="text-left" style="margin: auto; padding: 5% 0;">
+            <div class="container">
+            
+			<h3 class="." style="color: var(--primary-color)">M Y P A G E ğŸ”’</h3>
+			
+			<hr>
+			
+            <nav class="navbar navbar-expand-lg bg-light">
+              <div class="container-fluid">                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".cencle").on("click", function() {
@@ -15,39 +48,57 @@ $(document).ready(function(){
 		})
 	$("#submit").on("click", function() {
 		if($("#userPass").val()=="") {
-			alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			$("#userPass").focus();
 			return false;
 			}	
 		});
 	})
+	
+function success(){
+    alert('íƒˆí‡´ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.');
+}
 </script>
-<body>
+
 <section id="container">
 <form method="post">
 <div class="form-group has-feedback">
-	<label class="control-label" for="id">¾ÆÀÌµğ</label>
-	<input class="form-control" type="text" id="id" name="id" value="${userInfo.id}" readonly="readonly"/>
+	<label class="control-label" for="id">ì•„ì´ë””</label>
+	<input class="form-control" type="text" id="id" name="id" value="${userInfo.id}" readonly="readonly"/><p></p>
 </div>
 <div class="form-group has-feedback">
-	<label class="control-label" for="password">ÆĞ½º¿öµå</label>
+	<label class="control-label" for="password">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</label>
 	<input class="form-control" type="password" id="password" name="password" />
+	<c:if test="${msg == false}">
+	<b>ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.</b>
+	</c:if>
+	<p></p>
 </div>
 <div class="form-group has-feedback">
-	<label class="control-label" for="userName">¼º¸í</label>
-	<input class="form-control" type="text" id="name" name="name" value="${userInfo.name}" readonly="readonly"/>
+	<label class="control-label" for="userName">ì„±ëª…</label>
+	<input class="form-control" type="text" id="name" name="name" value="${userInfo.name}" readonly="readonly"/><p></p>
 </div>
 <div class="form-group has-feedback">
-	<button class="btn btn-success" type="submit" id="submit" onclick="location.href='../main'">È¸¿øÅ»Åğ</button>
-	<button class="cencle btn btn-danger" type="button" onclick="location.href='../main'">Ãë¼Ò</button>
+	<button class="btn btn-success" type="submit" id="submit" onclick="location.href='../main'">íšŒì›íƒˆí‡´</button>
+	<button class="cencle btn btn-danger" type="button" onclick="location.href='../main'">ì·¨ì†Œ</button>
 </div>
 </form>
 <div>
-<c:if test="${msg == false}">
-	ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.
-</c:if>
+
 </div>
 </section>
 </body>
-</head>
+                          	
+				
+                        
+        </section>
+    </main>
+
+    <!-- footer -->
+    <%@include file="../fragments/footer.jsp" %>
+
+    <!-- js -->
+    <%@include file="../fragments/common-js.jsp" %>
+    
+</body>
 </html>

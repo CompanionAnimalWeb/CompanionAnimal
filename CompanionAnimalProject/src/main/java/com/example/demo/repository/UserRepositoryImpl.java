@@ -20,6 +20,8 @@ public class UserRepositoryImpl implements UserRepository {
     	this.jdbcTemplate = jdbcTemplate;
     }
 
+    static User user = User.getInstance();
+    
     // User의 id, name, phone 정보를 가져오기 위한 메서드
     // RowMapper를 사용해서 매핑
     @Override
@@ -61,7 +63,7 @@ public class UserRepositoryImpl implements UserRepository {
 	private RowMapper<User> userRowMapperPart() {
 		System.out.println("userRowMapperPart 메서드 실행");
 		return (rs, rowNum) -> {
-			User user = new User();
+			//User user = new User();
 			user.setId(rs.getString("id"));
 			user.setName(rs.getString("name"));
 			user.setPhone(rs.getString("phone"));
@@ -71,9 +73,9 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 	   
 	private RowMapper<User> userRowMapperAll() {
-		System.out.println("userRowMapperAll 메서드 실행");
+		//System.out.println("userRowMapperAll 메서드 실행");
 		return (rs, rowNum) -> {
-			User user = new User();
+			//User user = new User();
 			user.setId(rs.getString("id"));
 			user.setPassword(rs.getString("password"));
 			user.setName(rs.getString("name"));
@@ -85,7 +87,7 @@ public class UserRepositoryImpl implements UserRepository {
 	private RowMapper<User> selectByUserIdMapper() {
 		System.out.println("selectByUserIdMapper 메소드 실행");
 		return (rs, rowNum) -> {
-			User user = new User();
+			//User user = new User();
 			user.setId(rs.getString("id"));
 			//System.out.println(user.getId());
 			return user;
@@ -110,7 +112,7 @@ public class UserRepositoryImpl implements UserRepository {
 		try {
 			result = jdbcTemplate.queryForObject(sql, userRowMapperAll(), user.getName(), user.getPhone());
 			return result;
-		} catch(Exception e) {
+		} catch(EmptyResultDataAccessException e) {
 			return null;
 		}
 	}

@@ -18,9 +18,25 @@ public class User {
 	@NotBlank(message = "핸드폰번호는 필수 입력값입니다.")
 	@Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$", message = "공백 없이 숫자만 입력하세요.")
 	private String phone;
+
+	
+	/* 싱글톤 패턴 적용 */
+	private static User instance;
+	
+	private User() {
+		User.instance = instance;
+	}
+		
+	public static User getInstance() {
+		if (instance == null) {
+	       	instance = new User();
+	    }
+	    return instance;
+	}
+	
 	
 	public String getId() {
-		return id;
+			return id;
 	}
 	public void setId(String id) {
 		this.id = id;
@@ -43,4 +59,58 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+ 
+	
+	/* 빌더 패턴 적용 */
+	private User(UserBuilder userBuilder) {
+		this.id = userBuilder.id;
+	    this.password = userBuilder.password;
+	    this.name = userBuilder.name;
+	    this.phone = userBuilder.phone;
+	}
+		
+	public static class UserBuilder {
+		
+		private String id;
+		private String password;
+		private String name;
+		private String phone;
+		
+		public UserBuilder(String id, String password) {
+			this.id = id;
+			this.password = password;
+		}
+		
+		public UserBuilder name (String name) {
+			this.name = name;
+			return this;
+		}
+		
+		public UserBuilder phone(String phone) {
+			this.phone = phone;
+			return this;
+		}
+	
+		public User build() {
+			return new User(this);
+        }
+	  
+	}
+	
+	
+	public static class Main {
+		public static void main(String[] args) {
+			User user = new User.UserBuilder("loveanimal", "1234")
+					.name("Jung Su Bin")
+	                .phone("010-1234-5678")
+	                .build();
+
+	        System.out.println("id : " + user.getId());
+	        System.out.println("password : " + user.getPassword());
+	        System.out.println("name : " +user.getName());
+	        System.out.println("phone : " + user.getPhone());
+	        
+	    }
+	}
+
 }
