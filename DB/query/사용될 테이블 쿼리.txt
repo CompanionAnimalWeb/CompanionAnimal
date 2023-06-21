@@ -61,7 +61,8 @@ create table Service(
     comment varchar(3000) not null,
     hours varchar(200) not null,
     latitude double not null,
-    longitude double not null
+    longitude double not null,
+    image_path VARCHAR (255) NOT NULL
 );
 
 #증상별 질병 검색

@@ -111,8 +111,7 @@ public class PlaceServiceProxy implements PlaceService {
 
 	@Override
 	public Optional<Place> getMarkerDetails(long serviceIdx) {
-		Logger logger = LoggerFactory.getLogger(PlaceServiceProxy.class);
-		logger.info("getMarkerDetails 메서드 호출");
+		System.out.println("getMarkerDetails 메서드 호출");
 		
 		Optional<Place> place = placeCache.getPlace(serviceIdx);
 		if (place.isEmpty()) {
