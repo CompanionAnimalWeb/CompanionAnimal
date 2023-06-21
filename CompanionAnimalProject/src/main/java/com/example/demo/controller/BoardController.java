@@ -96,8 +96,9 @@ public class BoardController {
         }
 		
 		boardService.insert(board);
-		
+
 		boardImages.setUrl(saveName);
+		
 		boardImages.setBoardIdx(boardService.lastBoard().getBoardIdx());
 		boardService.insertImages(boardImages);
 		
@@ -117,11 +118,12 @@ public class BoardController {
 		if(saveName != null) {
 			board.setImageUrl(saveName);
 		}
+		else {
+			board.setImageUrl(null);
+		}
 
 		model.addAttribute("board", board);
 		model.addAttribute("commentList", commentList);
-		
-		System.out.println(board.getImageUrl());
 		
 		return "board/community/detail";
 	}
@@ -175,34 +177,4 @@ public class BoardController {
 	public String myPage() {
 		return "board/community/myPage";
 	}
-//	
-//	/* 내가 쓴 글 확인 */
-//	@GetMapping(value = "/mypage/myPosts")
-//    public String myPosts(HttpSession session, Model model) throws Exception {
-//		
-//		User userInfo = (User) session.getAttribute("userInfo");
-//		String id = userInfo.getId();
-//
-//		List<Board> userPosts = boardService.selectByUserId(id);
-//		
-//        model.addAttribute("boardList", userPosts);
-//    
-//        return "mypage/myPosts";
-//    }
-
-	
-	
-//	// 동물병원 메인 페이지
-//	@GetMapping(value = "/hospital/main")
-//	public static String hospitalMain(Model model) {
-//		model.addAttribute("test", "게시글 작성 페이지");
-//        return "board/hospital/main";
-//	}
-//
-//	// 동물 서비스 메인 페이지
-//	@GetMapping(value = "/service/main")
-//	public static String serviceMain() {
-//        return "board/service/main";
-//	}
-	
 }

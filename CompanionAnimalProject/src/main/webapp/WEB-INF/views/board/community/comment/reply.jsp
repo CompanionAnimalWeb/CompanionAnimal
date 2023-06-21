@@ -116,7 +116,19 @@
 												<c:choose>
 													<c:when test="${replyList != null and fn:length(replyList) > 0}">
 														<c:forEach items="${replyList}" var="reply">
-															<div>
+														  <c:choose>
+																<c:when test="${reply.replyIdx == rno}">
+																  <form action="../comment/reply" method="post">
+																		<p>${reply.id}</p>
+																		<textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px">${reply.content}</textarea>
+																		<input type="hidden" name="boardIdx" value="${board.boardIdx}"/>
+																		<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/><br>
+																		<input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="완료"/>
+																	  	<hr>
+																  </form>
+															</c:when>
+															<c:otherwise>
+																<div>
 																<p><b>${reply.id}</b> <small>${reply.regDate}</small></p>
 																<p></p>
 																<p>${reply.content}</p>
@@ -130,6 +142,10 @@
 																	<input type="hidden" name="replyIdx" value="${replyIdx.replyIdx}"/>
 																</div>
 															</div>
+																<hr>
+															</c:otherwise>
+														</c:choose>
+															
 														</c:forEach>
 													</c:when>
 												</c:choose>

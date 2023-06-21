@@ -57,9 +57,27 @@ public class CommentRepositoryImpl implements CommentRepository{
 	   public void modify(Comment comment) throws Exception {
 		   jdbcTemplate.update("update comment set content = ? where comment_idx = ? and board_idx = ?", comment.getContent(), comment.getCommentIdx(), comment.getBoardIdx());
 	   }
-
-
-
 	   
+	   /*가장 최근에 추가된 댓글*/
+	   @Override
+	   public Comment lastComment() {
+		   return jdbcTemplate.queryForObject("SELECT comment_idx FROM Comment ORDER BY comment_idx DESC LIMIT 1",lastCommentRowMapper());
+	   }
 	   
+	   /*댓글이 작성된 게시물의 작성자*/
+	   @SuppressWarnings("deprecation")
+	   @Override
+	   public String findUserName(int commentIdx) throws Exception {
+	       String sql = "SELECT Board.id FROM Board, Comment WHERE Board.board_idx = Comment.board_idx AND comment_idx = ?";
+	       return jdbcTemplate.queryForObject(sql, new Object[]{commentIdx}, String.class);
+	   }
+	   
+	   //가장 최근에 추가된 Comment 정보를 매핑하는 RowMapper
+	   private RowMapper<Comment> lastCommentRowMapper() {
+		   return (rs, rowNum) -> {
+			   Comment comment = new Comment();
+			   comment.setCommentIdx(rs.getInt("comment_Idx"));
+		       return comment;
+		    };
+		}
 }

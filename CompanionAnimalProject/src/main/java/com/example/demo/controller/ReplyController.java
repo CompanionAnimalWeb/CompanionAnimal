@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,16 +42,6 @@ public class ReplyController {
     }
     
     static User userInfo = User.getInstance();
-	
-//	//게시물 상세 페이지
-//	@RequestMapping(value = "board/community/main/post/comment/{no}")
-//	public String communityPost(@PathVariable int no,Model model) {
-//		
-//		List<Reply> reply = replyRepository.findReply(no);
-//		System.out.println(reply.get(0).getContent());
-//		
-//		return "board/community/comment";
-//	}
 
     /* 답글 조회 */
     @GetMapping(value = "/comment/reply")
@@ -92,7 +81,6 @@ public class ReplyController {
 	@GetMapping(value = "/comment/reply/delete")
 	public String deleteReply(@RequestParam("bno") int bno,@RequestParam("cno") int cno, @RequestParam("rno") int rno) throws Exception {
 		
-		System.out.println(cno);
 		replyService.delete(cno, rno);
 		
 		return "redirect:/board/detail?bno=" + bno;
@@ -102,25 +90,25 @@ public class ReplyController {
 	@GetMapping(value = "/comment/reply/modify")
 	public String modifyGet(@RequestParam("bno") int bno, @RequestParam("cno") int cno,@RequestParam("rno") int rno, Model model) throws Exception {
 		
-		//Board board = boardService.findPost(bno);
+		Board board = boardService.findPost(bno);
 		List<Comment> commentLst = commentService.findComment(bno);
-		List<Reply> replyList = replyService.findReply(rno);
-		//model.addAttribute("board", board);
+		List<Reply> replyList = replyService.findReply(cno);
+		
+		model.addAttribute("board", board);
 		model.addAttribute("commentList", commentLst);
 		model.addAttribute("cno", cno);
 		model.addAttribute("replyList",replyList);
 		model.addAttribute(rno);
 		
-		return "board/community/comment/modify";
+		return "board/community/comment/replyModify";
 	}	
 	
 	
 	//답글 수정
 	@PostMapping(value = "/comment/reply/modify")
 	public String modifyPost(Reply reply) throws Exception {
-		
 		replyService.modify(reply);
 		
-		return "redirect:/board/detail?bno=" + reply.getBoardIdx();
+		return "redirect:/board/comment/reply?bno=" + reply.getBoardIdx() + "&cno=" + reply.getCommentIdx();
 	}
 }

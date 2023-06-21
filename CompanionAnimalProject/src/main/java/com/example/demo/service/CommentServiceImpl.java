@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.Board;
 import com.example.demo.model.Comment;
 import com.example.demo.repository.CommentRepository;
 
@@ -43,4 +44,10 @@ public class CommentServiceImpl implements CommentService{
 	public void modify(Comment comment) throws Exception {
 		commentRepository.modify(comment);
 	}
+	
+    /* 가장 최근에 추가된 게시물*/
+    @Override
+    public Comment lastComment() throws Exception {
+    	return commentRepository.lastComment();
+    }
 }
