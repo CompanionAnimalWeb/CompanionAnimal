@@ -25,6 +25,11 @@ public class CommentServiceImpl implements CommentService{
     public List<Comment> findComment(int no) throws Exception {
         return commentRepository.findComment(no);
     }
+    
+    @Override
+    public Comment findSingleComment(int no) throws Exception {
+    	return commentRepository.findSingleComment(no);
+    }
 
    /* 댓글 등록 */
    @Override

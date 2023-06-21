@@ -47,11 +47,11 @@ public class ReplyController {
     public String replyList(@RequestParam("bno") int bno, @RequestParam("cno") int cno, Model model) throws Exception {
     	
     	Board board = boardService.findPost(bno);
-		List<Comment> commentList = commentService.findComment(bno);
+		Comment comment = commentService.findSingleComment(cno);
 		List<Reply> replyList = replyService.findReply(cno);
 		
 		model.addAttribute("board", board);
-		model.addAttribute("commentList", commentList);
+		model.addAttribute("comment", comment);
 		model.addAttribute("replyList", replyList);
 		
 		model.addAttribute("cno", cno);
@@ -90,13 +90,13 @@ public class ReplyController {
 	public String modifyGet(@RequestParam("bno") int bno, @RequestParam("cno") int cno,@RequestParam("rno") int rno, Model model) throws Exception {
 		
 		Board board = boardService.findPost(bno);
-		List<Comment> commentLst = commentService.findComment(bno);
-		List<Reply> replyList = replyService.findReply(cno);
+		Comment comment = commentService.findSingleComment(cno);
+		Reply reply = replyService.findSingleReply(rno);
 		
 		model.addAttribute("board", board);
-		model.addAttribute("commentList", commentLst);
+		model.addAttribute("comment", comment);
 		model.addAttribute("cno", cno);
-		model.addAttribute("replyList",replyList);
+		model.addAttribute("reply",reply);
 		model.addAttribute(rno);
 		
 		return "board/community/comment/replyModify";

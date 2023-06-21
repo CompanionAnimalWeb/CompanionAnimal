@@ -23,6 +23,11 @@ public class ReplyServiceImpl implements ReplyService{
     public List<Reply> findReply(int no) throws Exception {
         return replyRepository.findReply(no);
     }
+    
+    @Override
+    public Reply findSingleReply(int no) throws Exception {
+    	return replyRepository.findSingleReply(no);
+    }
 
 	@Override
 	public void insert(Reply reply) throws Exception {
