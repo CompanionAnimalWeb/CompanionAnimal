@@ -32,7 +32,7 @@ function validate() {
     }
     
     if(pw.value != pw2.value) { 
-        alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
+        alert("비밀번호가 일치하지 않습니다. 다시 확인해 주세요.");
         modify.pw2.value = "";
         modify.pw2.focus();
         return false;
@@ -81,11 +81,11 @@ function check(valid, what, message) {
 					      <td><input type="text" name="id" value="${userInfo.id}" style="border:0 solid black" readonly /></td>
 						</tr>
 					    <tr>
-					      <td>비밀번호*</td>
+					      <td>새 비밀번호*</td>
 					      <td><input type="password" name="password" id="password" required/></td>
 					    </tr>
 					    <tr>
-					      <td>비밀번호 확인*</td>
+					      <td>새 비밀번호 확인*</td>
 					      <td><input type="password" name="password2" id="password2" required/></td>
 					    </tr>
 					    <tr>
