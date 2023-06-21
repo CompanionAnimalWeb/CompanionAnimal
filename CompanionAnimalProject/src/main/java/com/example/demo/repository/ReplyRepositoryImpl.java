@@ -27,6 +27,11 @@ public class ReplyRepositoryImpl implements ReplyRepository {
 		int commentIdx = cno;
 		return jdbcTemplate.query("select * from Reply where comment_idx = ?", replyRowMapper(), commentIdx);
 	}
+	
+	@Override
+	public Reply findSingleReply(int no) throws Exception {
+		return jdbcTemplate.queryForObject("select * from Reply where reply_idx = ?", replyRowMapper(), no);
+	}
 
 	// Reply 정보를 매핑하는 RowMapper
 	private RowMapper<Reply> replyRowMapper() {

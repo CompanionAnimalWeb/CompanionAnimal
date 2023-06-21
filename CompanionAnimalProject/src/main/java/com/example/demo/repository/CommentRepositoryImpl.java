@@ -26,6 +26,10 @@ public class CommentRepositoryImpl implements CommentRepository{
 		   int boardIdx = bno;
 		   return jdbcTemplate.query("select * from Comment where board_idx = ?",commentRowMapper(), boardIdx);
 	   }
+	   @Override
+	   public Comment findSingleComment(int no) throws Exception {
+		   return jdbcTemplate.queryForObject("select * from Comment where comment_idx = ?",commentRowMapper(), no);
+	   }
 	   
 	   //Comment 정보를 매핑하는 RowMapper
 	   private RowMapper<Comment> commentRowMapper() {

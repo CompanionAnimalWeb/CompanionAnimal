@@ -63,19 +63,12 @@
 							<input class="form-control" type="file" id="formFile">
 						</div>
 				    </div>	
-				    <div class="form-group mb-3 row">
-				    	<label class="col-sm-1 col-form-label"><small>첨부파일2</small></label>
-						<div class="col-sm-5">
-							<input class="form-control" type="file" id="formFile">
-						</div>
-				    </div>	
-				    
 	    			<br>
 	    			
 	    			<div class="d-grid gap-2 d-md-flex justify-content-md-end">	
 		    			<input type="hidden" name="boardIdx" value="${board.boardIdx}"/>
 		    			<input class="btn btn-dark btn-sm" type="submit" value="등록">
-		    			<a href="<c:url value="/board/community/main"/>" role="button" class="btn btn-outline-dark btn-sm">취소</a>		    			
+		    			<a href="/CompanionAnimalProject/board/detail?bno=${board.boardIdx}" class="btn btn-dark btn-sm" >취소</a>	    			
 			    	</div>
 				</form>
 		</section>
@@ -90,6 +83,7 @@
 	             focus: true                  // set focus to editable area after initializing summernote
 	     });
 	});
+	
 	</script>
 	
 

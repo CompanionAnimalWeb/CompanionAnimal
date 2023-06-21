@@ -80,42 +80,28 @@
 							</button>
 						</h2>
 						
-						<c:choose>
-									<c:when test="${commentList != null and fn:length(commentList) > 0}">
-										<c:forEach items="${commentList}" var="comment">
-													<div>
-														<p><b>${comment.id}</b> <small>${comment.regDate}</small></p>
-														<p>${comment.content}</p>
-													</div>
-													<hr>
-										
-									
+
+							<div>
+							<p><b>${comment.id}</b> <small>${comment.regDate}</small></p>
+								<p>${comment.content}</p>
+							</div>
+							<hr>
+													
 						<div id="flush-collapseOne" class="accordion-collapse collapse show"
 							aria-labelledby="flush-headingOne">
 							<div class="accordion-body">
 								<!--  comment list form -->
-								<c:choose>
-									<c:when test="${replyList != null and fn:length(replyList) > 0}">
-										<c:forEach items="${replyList}" var="reply">
-													  <form action="../reply/modify" method="post">
-															<p>${reply.id}</p>
-															<textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px">${reply.content}</textarea>
-															<input type="hidden" name="boardIdx" value="${board.boardIdx}"/>
-															<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/>
-															<input type="hidden" name="replyIdx" value="${reply.replyIdx}"/><br>
-															<input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="완료"/>
-														  	<hr>
-													  </form>
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-									</c:otherwise>
-								</c:choose>	
+								  <form action="../reply/modify" method="post">
+										<p>${reply.id}</p>
+										<textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px">${reply.content}</textarea>
+										<input type="hidden" name="boardIdx" value="${board.boardIdx}"/>
+										<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/>
+										<input type="hidden" name="replyIdx" value="${reply.replyIdx}"/><br>
+										<input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="완료"/>
+									  	<hr>
+								  </form>
 							</div>
 						</div>
-						</c:forEach>
-						</c:when>
-					</c:choose>	
 					</div>
 				</div>
 

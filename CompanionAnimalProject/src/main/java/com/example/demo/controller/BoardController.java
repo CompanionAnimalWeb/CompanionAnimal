@@ -121,6 +121,7 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("commentList", commentList);
 		
+		
 		return "board/community/detail";
 	}
 	
