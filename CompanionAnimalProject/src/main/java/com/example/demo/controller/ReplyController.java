@@ -18,7 +18,6 @@ import com.example.demo.model.Board;
 import com.example.demo.model.Comment;
 import com.example.demo.model.Reply;
 import com.example.demo.model.User;
-import com.example.demo.repository.ReplyRepositoryImpl;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.CommentServiceImpl;
