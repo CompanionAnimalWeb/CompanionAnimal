@@ -65,14 +65,15 @@
 				</div>
 				
 				<br>
-				<c:if test="${userInfo.id == board.id }">
+				
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+				<c:if test="${userInfo.id == board.id }">
 					<a href="../board/modify?bno=${board.boardIdx}" role="button" class="btn btn-outline-dark btn-sm me-md-3">수정</a>
 					<a href="../board/delete?bno=${board.boardIdx}" role="button" class="btn btn-outline-dark btn-sm me-md-3">삭제</a>
 				</c:if>
 					<a href="<c:url value="/board/list?page=1"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
 				</div>
-				
+							
 				<br>
 				<br>
 				<hr>
@@ -129,22 +130,21 @@
 								</c:choose>
 								<!-- 댓글 작성 폼 -->	
 								<form action="../board/comment/write" method="post">
-								<c:if test="${userInfo != null}">
-									<div class="form-floating">
-									  <p><input type="text" name="writer" placeholder="작성자 : ${userInfo.id }"/></p>
-									  <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px" placeholder="답글을 입력해주세요"></textarea>
-									  <input type="hidden" name="boardIdx" value="${board.boardIdx}"/><br>
-									  <input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="등록"/>
-									</div>
+									<c:if test="${userInfo != null}">
+										<div class="form-floating">
+										  <p><input type="text" name="writer" placeholder="작성자 : ${userInfo.id }"/></p>
+										  <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px" placeholder="답글을 입력해주세요"></textarea>
+										  <input type="hidden" name="boardIdx" value="${board.boardIdx}"/><br>
+										  <input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="등록"/>
+										</div>
 									</c:if>	
-								</form>
-								<form>
+									
 									<c:if test="${userInfo == null}">
-									<div class="form-floating">
-									  <p><input type="text" name="writer" placeholder="작성자 :"/></p>
-									  <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px" placeholder="로그인이 필요한 서비스입니다."></textarea>
-									  <input type="hidden" name="boardIdx" value="${board.boardIdx}"/><br>
-									</div>
+										<div class="form-floating">
+										<br>
+											<h6>로그인 후 이용해주세요.</h6>
+										<br>
+										</div>
 									</c:if>
 								</form>
 								<hr>					
