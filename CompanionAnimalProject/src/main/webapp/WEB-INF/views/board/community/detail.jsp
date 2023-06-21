@@ -56,23 +56,24 @@
 				<div>
 					<p>${board.content}</p>
                     <c:choose>
-                      <c:when test="${board.getImageUrl()==null}">
+                      <c:when test="${board.getImageUrl()!= null}">
+                       		<img src="<c:url value="/upload/${board.getImageUrl()}"/>" style="width:30%" />
                       </c:when>
                       <c:otherwise>
-                        <img src="<c:url value="/upload/${board.getImageUrl()}"/>" style="width:30%" />
                       </c:otherwise>
                   	</c:choose>
 				</div>
 				
 				<br>
-				<c:if test="${userInfo.id == board.id }">
+				
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+				<c:if test="${userInfo.id == board.id }">
 					<a href="../board/modify?bno=${board.boardIdx}" role="button" class="btn btn-outline-dark btn-sm me-md-3">수정</a>
 					<a href="../board/delete?bno=${board.boardIdx}" role="button" class="btn btn-outline-dark btn-sm me-md-3">삭제</a>
 				</c:if>
-					<a href="<c:url value="/board/list"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
+					<a href="<c:url value="/board/list?page=1"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
 				</div>
-				
+							
 				<br>
 				<br>
 				<hr>
@@ -100,18 +101,24 @@
 											<c:forEach items="${commentList}" var="comment">
 												<div>
 													<p><b>${comment.id}</b> <small>${comment.regDate}</small></p>
+													<p></p>
 													<p>${comment.content}</p>
 												</div>
 												<div>
+												<c:if test="${userInfo.id == comment.id }">
 													<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/modify?bno=${board.boardIdx}&cno=${comment.commentIdx}'" type="submit" value="수정" />
 													<input type="hidden" name="boardIdx" value="${comment.boardIdx}"/>
 													<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/>
 													<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/delete?bno=${board.boardIdx}&cno=${comment.commentIdx}'" type="submit" value="삭제" />
+												</c:if>
+												<c:if test="${userInfo != null }">
 													<input class="btn btn-outline-dark btn-sm" onclick="location.href='../board/comment/reply?bno=${board.boardIdx}&cno=${comment.commentIdx}'" type="submit" value="답글" />
+												</c:if>
 												</div>
 												<hr>
 											</c:forEach>
 									</c:when>
+									
 									
 									<c:otherwise>
 									<!-- 등록된 댓글이 없을 경우 -->
@@ -119,16 +126,26 @@
 											<p><h5>첫 댓글을 작성해주세요!</h5></p>
 										</div>
 									</c:otherwise>	
+
 								</c:choose>
-								
 								<!-- 댓글 작성 폼 -->	
 								<form action="../board/comment/write" method="post">
-									<div class="form-floating">
-									  <p><input type="text" name="writer" placeholder="작성자"/></p>
-									  <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px" placeholder="답글을 입력해주세요"></textarea>
-									  <input type="hidden" name="boardIdx" value="${board.boardIdx}"/><br>
-									  <input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="등록"/>
-									</div>	
+									<c:if test="${userInfo != null}">
+										<div class="form-floating">
+										  <p><input type="text" name="writer" placeholder="작성자 : ${userInfo.id }"/></p>
+										  <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px" placeholder="답글을 입력해주세요"></textarea>
+										  <input type="hidden" name="boardIdx" value="${board.boardIdx}"/><br>
+										  <input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="등록"/>
+										</div>
+									</c:if>	
+									
+									<c:if test="${userInfo == null}">
+										<div class="form-floating">
+										<br>
+											<h6>로그인 후 이용해주세요.</h6>
+										<br>
+										</div>
+									</c:if>
 								</form>
 								<hr>					
 							</div>

@@ -13,12 +13,6 @@ import com.example.demo.model.Reply;
 @Repository
 public class ReplyRepositoryImpl implements ReplyRepository {
 
-//		private int replyIdx;
-//		private int commentIdx;
-//		private String id;
-//		private String content;
-//		private String regDate;
-
 	private final JdbcTemplate jdbcTemplate;
 
 	@Autowired
@@ -32,6 +26,11 @@ public class ReplyRepositoryImpl implements ReplyRepository {
 	public List<Reply> findReply(int cno) {
 		int commentIdx = cno;
 		return jdbcTemplate.query("select * from Reply where comment_idx = ?", replyRowMapper(), commentIdx);
+	}
+	
+	@Override
+	public Reply findSingleReply(int no) throws Exception {
+		return jdbcTemplate.queryForObject("select * from Reply where reply_idx = ?", replyRowMapper(), no);
 	}
 
 	// Reply 정보를 매핑하는 RowMapper
@@ -61,8 +60,7 @@ public class ReplyRepositoryImpl implements ReplyRepository {
 
 	/* 답글 수정 */
 	public void modify(Reply reply) throws Exception {
-		jdbcTemplate.update("update reply set content = ? where comment_idx = ? and reply_idx = ?",
-				reply.getContent(), reply.getCommentIdx(), reply.getReplyIdx());
+		jdbcTemplate.update("update reply set content = ? where comment_idx = ? and reply_idx = ?", reply.getContent(), reply.getCommentIdx(), reply.getReplyIdx());
 	}
 
 }

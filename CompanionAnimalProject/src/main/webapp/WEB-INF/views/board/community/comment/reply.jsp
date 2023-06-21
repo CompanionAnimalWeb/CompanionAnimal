@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
@@ -37,8 +36,7 @@
 				</div>
 				<br>
 				<!-- 게시글 내용 영역 -->
-				<table class="table"
-					style="font-size: small; text-align: left">
+				<table class="table" style="font-size: small; text-align: left">
 					<tr>
 						<td colspan="2"><h5>${board.title}</h5></td>
 					</tr>
@@ -60,8 +58,10 @@
 				<br>
 
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+				<c:if test="${userInfo.id == board.id }">
 					<a href="../board/modify?bno=${board.boardIdx}" role="button" class="btn btn-outline-dark btn-sm me-md-3">수정</a>
 					<a href="../board/delete?bno=${board.boardIdx}" role="button" class="btn btn-outline-dark btn-sm me-md-3">삭제</a>
+				</c:if>
 					<a href="<c:url value="/board/list"/>" role="button" class="btn btn-outline-dark btn-sm me-md-3">목록</a>
 				</div>
 				
@@ -86,69 +86,42 @@
 							<div class="accordion-body">
 							
 								<!--  댓글 목록 -->
+								          <div>
+								            <p><b>${comment.id}</b> <small>${comment.regDate}</small></p>
+								            <p>${comment.content}</p>
+								          </div>
+								          <hr>
+								          <form action="../comment/reply/write" method="post">
+								            <p>${reply.id}</p>
+								            <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px">${reply.content}</textarea>
+								            <input type="hidden" name="boardIdx" value="${board.boardIdx}"/>
+								            <input type="hidden" name="commentIdx" value="${comment.commentIdx}"/><br>
+								            <input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="완료"/>
+								            <hr>
+								          </form>
+													
 								<c:choose>
-									<c:when test="${commentList != null and fn:length(commentList) > 0}">
-											<c:forEach items="${commentList}" var="comment">
-												<div>
-													<p><b>${comment.id}</b> <small>${comment.regDate}</small></p>
-													<p>${comment.content}</p>
-												</div>
-												<hr>
-																								
-												<!-- 댓글 작성 폼 -->	
-												<form action="../comment/reply/write" method="post">
-													<c:choose>
-														<c:when test="${comment.commentIdx == cno}">
-															<div class="form-floating">
-															  <p><input type="text" name="writer" placeholder="작성자"/></p>
-															  <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px" placeholder="답글을 입력해주세요"></textarea>
-															  <input type="hidden" name="boardIdx" value="${board.boardIdx}"/><br>
-															  <input type="hidden" name="commentIdx" value="${comment.commentIdx}"/>
-															  <input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="등록"/>
-															</div>	
-														</c:when>
-													</c:choose>
-												</form>
-												<hr>	
-												
-												<c:choose>
-													<c:when test="${replyList != null and fn:length(replyList) > 0}">
-														<c:forEach items="${replyList}" var="reply">
-															<div>
-																<p><b>${reply.id}</b> <small>${reply.regDate}</small></p>
-																<p>${reply.content}</p>
-																<div>
-																	<input class="btn btn-outline-dark btn-sm" onclick="location.href='../comment/reply/modify?bno=${board.boardIdx}&cno=${comment.commentIdx}&rno=${reply.replyIdx}'" type="submit" value="수정" />
-																	<input class="btn btn-outline-dark btn-sm" onclick="location.href='../comment/reply/delete?bno=${board.boardIdx}&cno=${comment.commentIdx}&rno=${reply.replyIdx}'" type="submit" value="삭제" />
-																	<input type="hidden" name="boardIdx" value="${comment.boardIdx}"/>
-																	<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/>
-																	<input type="hidden" name="replyIdx" value="${replyIdx.replyIdx}"/>
-																</div>
-															</div>
-														</c:forEach>
-													</c:when>
-												</c:choose>
-											</c:forEach>
-									</c:when>
-									<c:otherwise>
-									<!-- 등록된 댓글이 없을 경우 -->
-										<div>
-											<p><h5>첫 댓글을 작성해주세요!</h5></p>
-										</div>
-									</c:otherwise>	
-								</c:choose>
-
+									<c:when test="${replyList != null and fn:length(replyList) > 0}">
+										<c:forEach items="${replyList}" var="reply">
+											<div>
+												<p><b>${reply.id}</b> <small>${reply.regDate}</small></p>
+												<p></p>
+												<p>${reply.content}</p>
+													<div>
+														<c:if test="${userInfo.id == reply.id }">
+															<input class="btn btn-outline-dark btn-sm" onclick="location.href='../comment/reply/modify?bno=${board.boardIdx}&cno=${comment.commentIdx}&rno=${reply.replyIdx}'" type="submit" value="수정" />
+															<input class="btn btn-outline-dark btn-sm" onclick="location.href='../comment/reply/delete?bno=${board.boardIdx}&cno=${comment.commentIdx}&rno=${reply.replyIdx}'" type="submit" value="삭제" />
+														</c:if>
+														<input type="hidden" name="boardIdx" value="${comment.boardIdx}"/>
+														<input type="hidden" name="commentIdx" value="${comment.commentIdx}"/>
+														<input type="hidden" name="replyIdx" value="${reply.replyIdx}"/>
+													</div>
+											</div>
+											<hr>
+										</c:forEach>
+										</c:when>
+										</c:choose>
 								<br>
-														
-								<!-- comment insert form -->
-								<form action="../board/comment/write" method="post">
-									<div class="form-floating">
-									  <p><input type="text" name="writer" placeholder="작성자"/></p>
-									  <textarea class="form-control" name="content" id="floatingTextarea2" style="height: 100px" placeholder="댓글을 입력해주세요"></textarea>
-									  <input type="hidden" name="boardIdx" value="${board.boardIdx}"/><br>
-									  <input class="btn btn-outline-secondary btn-sm" data-mdb-ripple-color="dark" type="submit" value="등록"/>
-									</div>	
-								</form>						
 							</div>
 						</div>
 

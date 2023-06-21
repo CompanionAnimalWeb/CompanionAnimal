@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.model.CatDetailDisease;
-import com.example.demo.model.CatDisease;
-import com.example.demo.model.DogDetailDisease;
-import com.example.demo.model.DogDisease;
 import com.example.demo.service.DiseaseService;
 
 @Controller
@@ -35,7 +31,7 @@ public class DiseaseController {
     @GetMapping(value="/dog")
     public String dogDiseaseGet(Model model) throws Exception {
     	
-    	List<DogDisease> list = diseaseService.dogDiseaseList();
+    	List<?> list = diseaseService.dogDiseaseList();
     	model.addAttribute("dogList", list);
 
         return "/disease/dog";
@@ -46,7 +42,7 @@ public class DiseaseController {
     public String selectDogDisease(@RequestParam("select") String select, Model model) throws Exception {
     	
     	
-    	List<DogDetailDisease> list = diseaseService.selectDogDisease(select);
+    	List<?> list = diseaseService.selectDogDisease(select);
     	
     	model.addAttribute("select",select);
     	model.addAttribute("dogList", list);
@@ -54,29 +50,14 @@ public class DiseaseController {
     	return "/disease/dogDetail";
     }
     
-    // 모든 증상 선택 => 증상명과 설명 정보 제공
-    @GetMapping(value="/dog/detail/symptomName")
-    public String symptomName(@RequestParam("select") String select, Model model) throws Exception {
-    	DogDetailDisease detailDisease = new DogDetailDisease();
-    	//detailDisease = diseaseService.symptomName(select);
-    	System.out.println(detailDisease.getDiseaseName());
-    	System.out.println(detailDisease.getTreatment());
-    	
-    	//model.addAttribute();
-    	
-    	return "/disease/dogDetail";
-    }
-    
     @PostMapping(value = "/dog/detail/name")
     public String dogDiseaseName(HttpServletRequest request, Model model) throws Exception {
     	
-    	System.out.println("컨트롤러 동작");
     	
         String[] selectedValues = request.getParameterValues("selectedValues");
         
-        List<DogDetailDisease> list = diseaseService.dogDiseaseName(selectedValues);
+        List<?> list = diseaseService.dogDiseaseName(selectedValues);
         
-        System.out.println(list.get(0).getDiseaseName());
         model.addAttribute("dogList", list);
         
         
@@ -90,7 +71,7 @@ public class DiseaseController {
     @GetMapping(value="/cat")
     public String catDiseaseGet(Model model) throws Exception {
     	
-    	List<CatDisease> list = diseaseService.catDiseaseList();
+    	List<?> list = diseaseService.catDiseaseList();
     	model.addAttribute("catList", list);
 
         return "/disease/cat";
@@ -101,7 +82,7 @@ public class DiseaseController {
     public String selectCatDisease(@RequestParam("select") String select, Model model) throws Exception {
     	
     	
-    	List<CatDetailDisease> list = diseaseService.selectCatDisease(select);
+    	List<?> list = diseaseService.selectCatDisease(select);
     	
     	model.addAttribute("select",select);
     	model.addAttribute("catList", list);
@@ -114,7 +95,7 @@ public class DiseaseController {
     	
         String[] selectedValues = request.getParameterValues("selectedValues");
         
-        List<CatDetailDisease> list = diseaseService.catDiseaseName(selectedValues);
+        List<?> list = diseaseService.catDiseaseName(selectedValues);
         
         model.addAttribute("catList", list);
         

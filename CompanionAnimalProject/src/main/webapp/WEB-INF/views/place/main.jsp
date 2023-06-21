@@ -48,6 +48,9 @@
 						<span>
 							<small class="small-font text-secondary">애견파크, 미용, 호텔, 펜션, 카페, 식당 등 우리 동물과 함께할 수 있는 장소를 알아봅니다.</small>
 						</span>
+						<hr>
+						
+						
 						<div class="category">
 					        <ul>
 					            <li id="coffeeMenu" onclick="changeMarker('coffee')">
@@ -253,9 +256,9 @@
 						
 						//인포윈도우 내용
 						function nameAddress(array){
-							var html = '<div style="padding:5px;">Name : ' + array.name + '<br>';
-							  	html += 'Address : ' + array.address + '<br>';
-							  	html += '<a href="http://localhost:8080/CompanionAnimalProject/place/detailPlace?Idx=' + array.service_idx + '"   style="color:blue" target="_blank">자세히 보기</a>' + '<br>' + '<div>';
+							var html = '<div class="mb-4" style="padding:5px;border-bottom-right-radius:2em;"><p class="text-primary"><b>'+array.name+'</b></p>';
+							  	html += '<p><small>' + array.address + '</small></p>';
+							  	html += '<a href="http://localhost:8080/CompanionAnimalProject/place/detailPlace?Idx=' + array.service_idx + '" style="color:blue" target="_blank"><b>자세히 보기</b></a>' + '</div>';
 							  	
 							return html;
 						}
@@ -487,13 +490,7 @@
 						
 						</script>
 					</div>
-				
-				<div class="d-flex flex-row-reverse">
-		            <div class="d-flex justify-content-lg-end">
-					    <input class="form-control border-gray border-1 rounded-pill" type="search" placeholder="찾으시는 글이 있으신가요?" aria-label="Search" aria-describedby="search-heart" style="font-size:small" size=40/>
-                		<button class="btn my-2 my-sm-0" type="submit"><i class="bi-search"></i></button>
-                	</div>	
-				</div>
+			
 				
                 <div>
                		<p></p>

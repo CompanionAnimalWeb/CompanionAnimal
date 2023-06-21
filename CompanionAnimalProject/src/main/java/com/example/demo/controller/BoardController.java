@@ -37,7 +37,8 @@ public class BoardController {
 	private static CommentService commentService;
 	private static ReplyService replyService;
 	private static UserService userService;
-		
+	
+	static User userInfo = User.getInstance();
 
     @Autowired
     public BoardController(CommentService commentService, BoardService boardService, ReplyService replyService, UserService userService) {
@@ -49,7 +50,7 @@ public class BoardController {
 	
 	// 게시물 목록 
 	@GetMapping(value = "/list")
-	public String boardList(@RequestParam("page") int page,Model model,Criteria criteria) throws Exception  {
+	public String boardList(@RequestParam("page") int page, Model model, Criteria criteria) throws Exception  {
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCriteria(criteria);
@@ -76,7 +77,7 @@ public class BoardController {
 		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		
 		board.setRegDate(nowDate);
-		User userInfo = (User) session.getAttribute("userInfo");
+		userInfo = (User) session.getAttribute("userInfo");
 		String id = userInfo.getId();
 		board.setId(id);
 		
@@ -86,20 +87,20 @@ public class BoardController {
         //System.out.println(saveName);
         File saveFile = new File("C:\\upload",saveName); 
 
+        boardService.insert(board);
+		
         if (file != null && !file.isEmpty()) {
             try {
             	file.transferTo(saveFile);  
             } catch (Exception e) {
                 throw new RuntimeException("이미지 업로드가 실패하였습니다", e);
             }
+    		boardImages.setUrl(saveName);	
+    		
+    		boardImages.setBoardIdx(boardService.lastBoard().getBoardIdx());
+    		boardService.insertImages(boardImages);
         }
-		
-		boardService.insert(board);
-		
-		boardImages.setUrl(saveName);
-		boardImages.setBoardIdx(boardService.lastBoard().getBoardIdx());
-		boardService.insertImages(boardImages);
-		
+    
 		return "redirect:/board/list?page=1";
 		
 	}
@@ -116,11 +117,10 @@ public class BoardController {
 		if(saveName != null) {
 			board.setImageUrl(saveName);
 		}
-
+		
 		model.addAttribute("board", board);
 		model.addAttribute("commentList", commentList);
 		
-		System.out.println(board.getImageUrl());
 		
 		return "board/community/detail";
 	}
@@ -174,34 +174,4 @@ public class BoardController {
 	public String myPage() {
 		return "board/community/myPage";
 	}
-//	
-//	/* 내가 쓴 글 확인 */
-//	@GetMapping(value = "/mypage/myPosts")
-//    public String myPosts(HttpSession session, Model model) throws Exception {
-//		
-//		User userInfo = (User) session.getAttribute("userInfo");
-//		String id = userInfo.getId();
-//
-//		List<Board> userPosts = boardService.selectByUserId(id);
-//		
-//        model.addAttribute("boardList", userPosts);
-//    
-//        return "mypage/myPosts";
-//    }
-
-	
-	
-//	// 동물병원 메인 페이지
-//	@GetMapping(value = "/hospital/main")
-//	public static String hospitalMain(Model model) {
-//		model.addAttribute("test", "게시글 작성 페이지");
-//        return "board/hospital/main";
-//	}
-//
-//	// 동물 서비스 메인 페이지
-//	@GetMapping(value = "/service/main")
-//	public static String serviceMain() {
-//        return "board/service/main";
-//	}
-	
 }

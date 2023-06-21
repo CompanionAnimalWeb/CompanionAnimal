@@ -1,8 +1,5 @@
 package com.example.demo.controller;
 
-import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -33,6 +30,7 @@ public class MemberController {
 		MemberController.userService = userService;
 	}
     
+	static User userInfo = User.getInstance();
 	 
 	/* 회원가입 페이지 이동 */
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
@@ -117,7 +115,7 @@ public class MemberController {
 	public String modifyGet(@Valid HttpSession session, Model model) throws Exception {
 		User userInfo = (User) session.getAttribute("userInfo");
 		String id = userInfo.getId();
-		System.out.println(id);
+		//System.out.println(id);
 		userService.selectByUserId(id);
 		return "member/modify";
 	}
@@ -152,43 +150,29 @@ public class MemberController {
 		return "redirect:/main";
 	}
 	
-	/* 아이디, 비밀번호 찾기 */
+	
+	/* 아이디 찾기 */
 	@GetMapping(value = "/findInfo")
 	public String findInfoGet() {
 		return "member/findInfo";
 	}
 	
 	@PostMapping(value = "/findInfo")
-	public ModelAndView findInfoPost(User user, HttpSession session) {
-	
-		ModelAndView mv = new ModelAndView();
+	public String findInfoPost(User user, Model model) throws Exception {
+
+		User userInfo = userService.findId(user);
 		
-		try {
-			User userInfo = userService.findId(user);
-			//session.setAttribute("userInfo", userInfo);
-			mv.addObject("userInfo", userInfo);
-
-			if(userInfo.getId() == null) { 
-				mv.addObject("check", 0);
-				mv.setViewName("/member/findInfo");
-				System.out.println(user.getId());
-				//mv.setViewName("/member/login");
-				//System.out.println(mv.getAttribute("check"));
-			} else {
-				mv.addObject("check", 1);
-				mv.addObject("id", userInfo.getId());
-				mv.setViewName("/member/login");
-			}
-			
-			//mv.setViewName("/member/login");
-			return mv;
-
-		} catch(Exception e) {
-			mv.addObject("message", "일치하는 정보가 존재하지 않습니다.");
-			mv.setViewName("/member/findInfo");
-			return mv;
+		if(userInfo != null) {
+			String message = "찾으시는 아이디는 ' " + userInfo.getId() + " ' 입니다.";
+			model.addAttribute("check", 1);
+			model.addAttribute("id", userInfo.getId());
+			model.addAttribute("message", message);
+			return "/member/login";
+		} else {
+			model.addAttribute("check", 0);	
+			return "/member/findInfo";
 		}
-		
 	}
+
 	
 }
