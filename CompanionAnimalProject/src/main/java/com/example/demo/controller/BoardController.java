@@ -87,21 +87,20 @@ public class BoardController {
         //System.out.println(saveName);
         File saveFile = new File("C:\\upload",saveName); 
 
+        boardService.insert(board);
+		
         if (file != null && !file.isEmpty()) {
             try {
             	file.transferTo(saveFile);  
             } catch (Exception e) {
                 throw new RuntimeException("이미지 업로드가 실패하였습니다", e);
             }
+    		boardImages.setUrl(saveName);	
+    		
+    		boardImages.setBoardIdx(boardService.lastBoard().getBoardIdx());
+    		boardService.insertImages(boardImages);
         }
-		
-		boardService.insert(board);
-
-		boardImages.setUrl(saveName);
-		
-		boardImages.setBoardIdx(boardService.lastBoard().getBoardIdx());
-		boardService.insertImages(boardImages);
-		
+    
 		return "redirect:/board/list?page=1";
 		
 	}
@@ -118,10 +117,7 @@ public class BoardController {
 		if(saveName != null) {
 			board.setImageUrl(saveName);
 		}
-		else {
-			board.setImageUrl(null);
-		}
-
+		
 		model.addAttribute("board", board);
 		model.addAttribute("commentList", commentList);
 		

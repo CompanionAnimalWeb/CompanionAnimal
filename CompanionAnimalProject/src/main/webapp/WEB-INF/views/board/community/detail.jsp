@@ -56,10 +56,10 @@
 				<div>
 					<p>${board.content}</p>
                     <c:choose>
-                      <c:when test="${board.getImageUrl()==null}">
+                      <c:when test="${board.getImageUrl()!= null}">
+                       		<img src="<c:url value="/upload/${board.getImageUrl()}"/>" style="width:30%" />
                       </c:when>
                       <c:otherwise>
-                        <img src="<c:url value="/upload/${board.getImageUrl()}"/>" style="width:30%" />
                       </c:otherwise>
                   	</c:choose>
 				</div>
