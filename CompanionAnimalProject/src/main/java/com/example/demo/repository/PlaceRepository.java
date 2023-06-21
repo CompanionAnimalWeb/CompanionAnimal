@@ -1,6 +1,8 @@
 package com.example.demo.repository;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.example.demo.model.Place;
 
 public interface PlaceRepository {
@@ -12,5 +14,5 @@ public interface PlaceRepository {
     List<Place> findHotel();
     List<Place> findHospital();
     List<Place> findSalon();
-    Place getMarkerDetail(long serviceIdx);
+    Optional<Place> getMarkerDetail(long serviceIdx);
 }

@@ -47,7 +47,6 @@
 												onclick="location.href='../dictionary/detail?no=${dictionary.content_idx}'">
 												<div class="card-body bg-light text-dark"> 
 													<p class="card-title fw-bold fs-5 text-success">${dictionary.content_title}</p>
-													<p class="card-text text-danger small fw-bolder font-monospace">${dictionary.content_idx} 번째 📝</p>
 													<span class="d-inline-block text-truncate" style="max-width: 200px;">${dictionary.content_item}</span>
 													
 												</div>

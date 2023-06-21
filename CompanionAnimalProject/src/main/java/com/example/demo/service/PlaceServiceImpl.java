@@ -59,7 +59,7 @@ public class PlaceServiceImpl implements PlaceService{
     	return placeRepository.findSalon();
     }
     
-    public Place getMarkerDetails(long serviceIdx){
+    public Optional<Place> getMarkerDetails(long serviceIdx){
     	return placeRepository.getMarkerDetail(serviceIdx);
     }
 }
