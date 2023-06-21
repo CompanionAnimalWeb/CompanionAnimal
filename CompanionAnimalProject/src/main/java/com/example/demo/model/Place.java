@@ -10,6 +10,7 @@ public class Place {
 	private String comment;
 	private double latitude;
 	private double longitude;
+	private String imagePath;
 	
 	public long getService_idx() {
 		return service_idx;
@@ -38,6 +39,9 @@ public class Place {
 	public double getLongitude() {
 		return longitude;
 	}
+	public String getImagePath() {
+		return imagePath;
+	}
 	public void setService_idx(long service_idx) {
 		this.service_idx = service_idx;
 	}
@@ -65,6 +69,7 @@ public class Place {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	
-	
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 }

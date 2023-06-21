@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,16 +16,16 @@ import com.example.demo.service.PlaceService;
 public class PlaceController {
 	
 	//의존 주입
-	private static PlaceService placeService;
+	private final PlaceService placeService;
 
-	@Autowired
+	
 	public PlaceController(PlaceService placeService) {
 		this.placeService = placeService;
 	}
 	
 	// 동물 서비스 메인 페이지
 	@RequestMapping(value = "/place/main")
-	public static String placeMain(Model model) {
+	public String placeMain(Model model) {
 		//List<Place> places = placeService.findPlaces();
 		List<Place> coffees = placeService.findCoffees();
 		List<Place> stores = placeService.findStores();
@@ -45,9 +46,10 @@ public class PlaceController {
 	}
 	// 장소 상세 페이지
 	@RequestMapping(value = "/place/detailPlace")
-	public static String detailPlace(Model model, @RequestParam("Idx") long serviceIdx) {
-		Place marker = placeService.getMarkerDetails(serviceIdx);
-		model.addAttribute("marker", marker);
-		return "place/detailPlace";
+	public String detailPlace(Model model, @RequestParam("Idx") long serviceIdx) {
+	    Optional<Place> marker = placeService.getMarkerDetails(serviceIdx);
+	    marker.ifPresent(m -> model.addAttribute("marker", m));
+	    return "place/detailPlace";
 	}
+
 }

@@ -80,34 +80,25 @@
 
                     <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
                         <div class="featured-block d-flex justify-content-center align-items-center">
-                            <a href="donate.html" class="d-block">
-                                <img src="${pageContext.request.contextPath}/resources/images/main/dog2.png" class="featured-block-image img-fluid" alt="">
-                            </a>
+                            <img src="${pageContext.request.contextPath}/resources/images/main/dog2.png" class="featured-block-image img-fluid" alt="">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">
                         <div class="featured-block d-flex justify-content-center align-items-center">
-                            <a href="donate.html" class="d-block">
-                                <img src="${pageContext.request.contextPath}/resources/images/main/dog1.png" class="featured-block-image img-fluid" alt="">
-                            </a>
+                            <img src="${pageContext.request.contextPath}/resources/images/main/dog1.png" class="featured-block-image img-fluid" alt="">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">
                         <div class="featured-block d-flex justify-content-center align-items-center">
-                            <a href="donate.html" class="d-block">
-                                <img src="${pageContext.request.contextPath}/resources/images/main/cat1.png" class="featured-block-image img-fluid" alt="">
-                            </a>
+                            <img src="${pageContext.request.contextPath}/resources/images/main/cat1.png" class="featured-block-image img-fluid" alt="">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
                         <div class="featured-block d-flex justify-content-center align-items-center">
-                            <a href="donate.html" class="d-block">
-                                <img src="${pageContext.request.contextPath}/resources/images/main/cat2.png" class="featured-block-image img-fluid" alt="">
-
-                            </a>
+                            <img src="${pageContext.request.contextPath}/resources/images/main/cat2.png" class="featured-block-image img-fluid" alt="">
                         </div>
                     </div>
 
@@ -131,15 +122,14 @@
                         </div>
                         
                        	<div class="custom-text-box">
-	                       <h5 class="mb-3">동물보감📒</h5>
+	                       <h5 class="mb-3"><a href="<c:url value="/dictionary/main"/>">동물보감📒</a></h5>
 	                       <p>우리 아이에게 도움이 될만한 여러가지 꿀팁을 확인해볼 수 있어요</p>
                         </div>
                         
                        	<div class="custom-text-box">
-	                       <h5 class="mb-3">동물병원🚑</h5>
+	                       <h5 class="mb-3"><a href="<c:url value="/disease/dog"/>">동물병원🚑</a></h5>
 	                       <p>우리 아이에게 이상 증상이 보인다면? 증상별 병명을 예측해볼 수 있어요</p>
                         </div>                        
-                        
                     </div>
 
                 </div>
@@ -158,7 +148,7 @@
 
                     <div class="col-lg-5 col-md-7 col-12">
                         <div class="custom-text-block">
-                            <h2 class="mb-0">우리 동네</h2>
+                            <h2 class="mb-0"><a href="<c:url value="/place/main"/>">우리 동네</a></h2>
                             <br><br>
                             <h5 class="mb-3">애견 동반 가능한 카페, 음식점 및 여러가지</h5>
                             <h5 class="mb-3">펫 서비스 시설을 빠르게 찾아보세요💙 </h5>
