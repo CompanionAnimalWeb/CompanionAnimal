@@ -11,9 +11,6 @@ import com.example.demo.repository.PlaceRepository;
 
 @Service
 public interface PlaceService {
-    // 전체 장소의 category, name, address, latitude, longitude 정보를 리턴
-    public List<Place> findPlaces();
-
     // 카페의 category, name, latitude, address, longitude 정보를 리턴
     public List<Place> findCoffees();
 
@@ -35,5 +32,6 @@ public interface PlaceService {
     // 미용실의 category, name, latitude, address, longitude 정보를 리턴
     public List<Place> findSalons();
     
+    //자세히보기 클릭시 해당 장소의 상세 정보 리턴
     public Optional<Place> getMarkerDetails(long serviceIdx);
 }

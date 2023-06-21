@@ -26,7 +26,6 @@ public class PlaceController {
 	// 동물 서비스 메인 페이지
 	@RequestMapping(value = "/place/main")
 	public String placeMain(Model model) {
-		//List<Place> places = placeService.findPlaces();
 		List<Place> coffees = placeService.findCoffees();
 		List<Place> stores = placeService.findStores();
 		List<Place> parks = placeService.findParks();
@@ -34,7 +33,7 @@ public class PlaceController {
 		List<Place> hotels = placeService.findHotels();
 		List<Place> hospitals = placeService.findHospitals();
 		List<Place> salons = placeService.findSalons();
-		//model.addAttribute("placeList", places);
+		
 		model.addAttribute("coffeeList", coffees);
 		model.addAttribute("storeList", stores);
 		model.addAttribute("parkList", parks);
