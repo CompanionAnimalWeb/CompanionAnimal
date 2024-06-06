@@ -40,7 +40,7 @@
 		<section class="text-left" style="margin: auto; padding: 5% 0;">
 			<div class="container">
                 <div class="row">
-                	<div class="col-8">
+                	<div>
 						<h3 class="." style="color: var(--primary-color)">우리동네
 							<img src="${pageContext.request.contextPath}/resources/images/downtown1.png" style="width:50px; height:50px;">
 						</h3>
@@ -61,7 +61,9 @@
 						<p><span>${marker.comment}</span></p>
 	
 						<hr>
-
+					</div>
+				</div>	
+			</div>
 		</section>
 	</main>
 
